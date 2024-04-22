@@ -1,10 +1,11 @@
 require('dotenv').config();
 const express = require('express');
+const adminRouter= require("./routes/admin")
 const app = express();
 const PORT = 3000;
-
+const userRouter= require("./routes/user");
 const cors = require("cors");
-
+const studentRouter= require("./routes/student")
 //socket
 const { Server } = require("socket.io");
 
@@ -22,6 +23,9 @@ app.use(cors(
 ));
 
 // Routes
+app.use("/api/admin", adminRouter);
+app.use("/api/user", userRouter);
+app.use("/api/student", studentRouter);
 app.get('/', async(req, res) => {
     // res.send('Hello, World!');
 
