@@ -1,10 +1,10 @@
 import { useContext, useEffect } from "react";
 import getSocketInstance from "../socket";
-import {user} from '../App'
+
 // import { io } from "socket.io-client";
 // import { useAuthContext } from "./useAuthContext";
-const UseSocketSetup = (setUserId) => {
-    const {userId} = useContext(user)
+const UseSocketSetup = () => {
+   
   // const {user}= useAuthContext();
   // const username= "smt96700"
   // const token= "Hello8938";
@@ -16,7 +16,7 @@ const UseSocketSetup = (setUserId) => {
   //         token,
   //     },
   // });
-  const socket= getSocketInstance(userId);
+  const socket= getSocketInstance();
   useEffect(() => {
     // const user= JSON.parse(localStorage.getItem('user'));
     // const userid = user.userid;
@@ -53,6 +53,6 @@ const UseSocketSetup = (setUserId) => {
       socket.off("dm");
       socket.off("connected")
     };
-  }, [setUserId]);
+  }, []);
 };
 export default UseSocketSetup;

@@ -1,21 +1,26 @@
-import { useState, createContext } from 'react'
-import UseSocketSetup from '../hooks/UseSocketSetup'
-export const user = createContext();
+import React, { useState, createContext } from 'react';
+import UseSocketSetup from './hooks/UseSocketSetup';
 
-function App() {
-  const [userId, setUserId] = useState('')
-  UseSocketSetup(setUserId);
+export const UserContext = createContext();
+
+function InputComponent() {
+  const [userId, setUserId] = useState('');
+  // UseSocketSetup(setUserId);
+
+  const handleChange = (e) => {
+    setUserId(e.target.value);
+  };
+
   return (
-    <>
-      <user.Provider value= {{userId, setUserId}}>
+    <UserContext.Provider value={{ userId, setUserId }}>
       <input
-        type = "text"
-        value = {userId}
-        onChange={setUserId(e.target.value)}
+        type="text"
+        value={userId}
+        onChange={handleChange}
       />
-      </user.Provider>
-    </>
-  )
+      <h1>Hello Buddy</h1>
+    </UserContext.Provider>
+  );
 }
 
-export default App
+export default InputComponent;

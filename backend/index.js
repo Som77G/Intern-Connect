@@ -61,6 +61,7 @@ const io = new Server(server, {
 // handle WebSocket connections
 io.on("connection", (socket) => {
     //const { userid, username } = socket.handshake.query;
+    console.log("value", socket.handshake.query)
     console.log("Hello Socket");
     // console.log(`user connected: ${socket.id}`)
     //console.log(userid);
