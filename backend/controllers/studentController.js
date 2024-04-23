@@ -3,6 +3,7 @@ const {decodejwt} = require('../helpers/decodejwt');
 
 const dashboard = async (req, res) => {
     try {
+        console.log("REquest accepted")
         const { userid } = await decodejwt(req);
 
         const findUserQuery = `

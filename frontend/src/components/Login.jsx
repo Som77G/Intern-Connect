@@ -23,10 +23,10 @@ export default function Login() {
             const message = response.data.message;
             if (message.resetpassword !== 0) {
                 if (user.userType == 'student') {
-                    navigate('/studentDashboard')
+                    navigate('/student-dashboard')
                 }
                 else if (user.userType == 'admin') {
-                    navigate('/adminDashboard')
+                    navigate('/admin-dashboard')
                 }
             }
 

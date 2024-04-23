@@ -6,11 +6,13 @@ const PORT = 3000;
 const userRouter= require("./routes/user");
 const cors = require("cors");
 const studentRouter= require("./routes/student")
+const cookieParser = require('cookie-parser');
 //socket
 const { Server } = require("socket.io");
 
 // Middleware
 app.use(express.json()); // Parse JSON bodies
+app.use(cookieParser());
 const {query}  = require('./dbconfig/dbconfig');
 
 //cors policy

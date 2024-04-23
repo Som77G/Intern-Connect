@@ -3,7 +3,7 @@ const { query } = require('../dbconfig/dbconfig');
 const bcryptjs = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { sendEmail } = require('../helpers/sendEmail');
-const verifyEmail= async (req, res) => {
+const verifyEmail = async (req, res) => {
     try {
         const { token, userType } = req.body;
         console.log("Token : ", token);
@@ -47,7 +47,7 @@ const verifyEmail= async (req, res) => {
 
 
 // Login endpoint
-const login= async (req, res) => {
+const login = async (req, res) => {
     try {
         const { username, password, userType } = req.body;
 
@@ -60,7 +60,7 @@ const login= async (req, res) => {
         const searchUser = `
             SELECT * FROM ${tableType[userType]} WHERE username = ?
         `;
-        
+
         const user = await query({
             query: searchUser,
             values: [username]
@@ -80,7 +80,7 @@ const login= async (req, res) => {
                 return res.status(400).json({ message: "Password doesn't match", status: '400' });
             }
         }
-        
+
         // Create web token for user authorization
         const tokenData = { userid: user[0].userid };
         const token = await jwt.sign(tokenData, process.env.TOKEN_SECRET, { expiresIn: "1d" });
@@ -92,8 +92,15 @@ const login= async (req, res) => {
         }
 
         // Set cookies and send response
-        res.cookie("token", token, { httpOnly: true });
-        return res.status(200).json({ message: user[0], status: 200 });
+        console.log("token: ", token)
+        // res.cookie("token", token, { httpOnly: true });
+        res.cookie('token',token, { maxAge: 900000, httpOnly: true });
+
+
+        console.log("Cookie set"); // Debugging log
+
+        // End the response
+        return res.end(JSON.stringify({message: user[0], status: 200 }));
     } catch (error) {
         console.error("Error processing POST request:", error);
         return res.status(500).json({ status: 500, error: "Internal Server Error" });
@@ -101,10 +108,10 @@ const login= async (req, res) => {
 };
 
 // Reset password endpoint
-const resetPassword= async (req, res) => {
+const resetPassword = async (req, res) => { 
     try {
         const { username, password, userType } = req.body;
-        
+
         const tableType = {
             'student': 'users_student',
             'admin': 'users_admin'
@@ -132,4 +139,4 @@ const resetPassword= async (req, res) => {
         return res.status(500).json({ status: 500, error: "Internal Server Error" });
     }
 };
-module.exports = {verifyEmail, login, resetPassword};
+module.exports = { verifyEmail, login, resetPassword };

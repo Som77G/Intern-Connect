@@ -2,7 +2,8 @@ const jwt = require('jsonwebtoken');
 
 const decodejwt = (req, res, next) => {
     try {
-        const token = req.cookies.token || '';
+        const token = req.headers.cookie ? req.headers.cookie.split(';').find(c => c.trim().startsWith('token=')) : null;
+
 
         if (!token) {
             throw new Error('Token not found');
