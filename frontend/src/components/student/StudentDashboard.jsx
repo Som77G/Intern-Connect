@@ -32,7 +32,7 @@ export default function StudentDashboard() {
 
     const onLogout = async () => {
         try {
-            const res = await axios.get('/api/user/logout')
+            const res = await axios.get(`${PORT}/api/user/logout`)
             navigate('/login')
             console.log(res.data)
 

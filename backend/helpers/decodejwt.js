@@ -2,8 +2,8 @@ const jwt = require('jsonwebtoken');
 
 const decodejwt = (req, res, next) => {
     try {
-        const token = req.headers.cookie ? req.headers.cookie.split(';').find(c => c.trim().startsWith('token=')) : null;
-
+        const token = req.headers.cookie ? req.headers.cookie.split(';').find(c => c.trim().startsWith('token=')).split('=')[1] : null;
+        console.log("token" ,token)
 
         if (!token) {
             throw new Error('Token not found');
@@ -13,10 +13,7 @@ const decodejwt = (req, res, next) => {
         console.log("decoded token : ", decodedToken);
         
         // Attach the decoded token to the request object for further processing
-        req.decodedToken = decodedToken;
-
-        // Call next middleware or route handler
-        next();
+        return decodedToken
     } catch (error) {
         console.error("Error decoding token:", error);
         return res.status(500).json({

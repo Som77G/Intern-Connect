@@ -4,6 +4,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+const PORT = import.meta.env.VITE_DOMAIN;
 
 const schema = yup.object().shape({
     username: yup.string().required('Username is required').max(50, 'Username must be at most 50 characters'),
@@ -26,7 +27,7 @@ export default function AddStudent() {
         console.log("hello onsubmit ");
         // Here you can perform actions like submitting the form data to an API
         try {
-            const data = await axios.post("/api/admin/addstudent", { username, password, email })
+            const data = await axios.post(`${PORT}/api/admin/addstudent`, { username, password, email })
             navigate('/admin-dashboard')
             console.log(data);
         } catch (error) {

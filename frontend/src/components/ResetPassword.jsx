@@ -18,7 +18,7 @@ export default function ResetPassword() {
 
     const verifyUserEmail = async () => {
         try {
-            const response = await axios.post(`${PORT}/api/user/resetPassword`, { token, userType })
+            const response = await axios.post(`${PORT}/api/user/verifyEmail`, { token, userType })
             const data = response.data
             console.log(data);
             setUsername(data.user.username);
@@ -47,7 +47,7 @@ export default function ResetPassword() {
 
     const onReset = async () => {
         try {
-            const response = await axios.put('/api/user/login', { username, password, userType });
+            const response = await axios.put(`${PORT}/api/user/resetPassword`, { username, password, userType });
             // console.log("updated password", response.data)
             if (userType == 'student') {
                 navigate('/student-dashboard')
@@ -55,7 +55,7 @@ export default function ResetPassword() {
             else{
                 navigate('/admin-dashboard')
             }
-        } catch {
+        } catch (error) {
             setError(true);
             console.log(error.response)
         } finally {

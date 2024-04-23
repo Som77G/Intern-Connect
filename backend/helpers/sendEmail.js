@@ -43,11 +43,11 @@ const sendEmail= async ({email, userId, username, userType}) => {
         });
 
         const mailOptions = {
-            from: myEmail,
+            from: myEmail, 
             to: email,
             subject: 'Reset your password',
-            html: `<p>Click <a href="${process.env.domain}/reset-password?token=${hashedToken}&userType=${userType}">here</a> to reset your password or copy and paste the below link in your browser,
-                <br>${process.env.domain}/resetPassword?token=${hashedToken}&userType=${userType}</p> `
+            html: `<p>Click <a href="${process.env.DOMAIN}/reset-password?token=${hashedToken}&userType=${userType}">here</a> to reset your password or copy and paste the below link in your browser,
+                <br>${process.env.DOMAIN}/reset-password?token=${hashedToken}&userType=${userType}</p> `
         };
 
         // Send email
