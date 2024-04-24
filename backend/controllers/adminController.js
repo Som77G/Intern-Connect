@@ -57,9 +57,14 @@ const addStudent = async (req, res) => {
 
 const getAdmin = async (req, res) => {
     try {
-        const { userid, username, userType } = await decodejwt(req);
-        
-
+        const decodedToken = await decodejwt(req);
+        if (!decodedToken) {
+            return res.status(200).json({
+                user: null,
+                status: 200
+            });
+        }
+        const { userid, username, userType } = decodedToken;
         // const findAdminQuery = `
         //  SELECT * FROM users_admin
         //  WHERE userid= ?
@@ -68,7 +73,7 @@ const getAdmin = async (req, res) => {
         //     query: findAdminQuery,
         //     values: [userid]
         // })
-        const user= {userid: userid, username: username, userType: userType};
+        const user = { userid: userid, username: username, userType: userType };
         console.log("Admin data:", user);
         res.status(200).json({
             user: user,
