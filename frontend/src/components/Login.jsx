@@ -43,7 +43,7 @@ export default function Login() {
                 navigate('/student-dashboard')
             }
         } catch (error) {
-            console.log("Login failed", error);
+            console.log("Login failed", error.response.data.message);
         } finally {
             setLoading(false);
         }

@@ -3,11 +3,14 @@ import {Navigate} from 'react-router-dom'
 import getSocketInstance from "../socket";
 import { useAdminContext } from "./useAdminContext";
 import AdminDashboard from "../components/admin/AdminDashboard"
+import RequestToAdmin from "../components/student/RequestToAdmin";
+import MessageSent from "../components/MessageSent";
 // import { io } from "socket.io-client";
 // import { useAuthContext } from "./useAuthContext";
 const UseSocketSetup = () => {
    
   const {user}= useAdminContext();
+  console.log("detials", user , " ", user.userType)
   // const username= "smt96700"
   // const token= "Hello8938";
   // const socket= new io("http://localhost:4000", {
@@ -56,9 +59,14 @@ const UseSocketSetup = () => {
     };
   }, []);
   return(
-    <div>
-      <AdminDashboard/>
-    </div>
+    <>
+      {user && (user.userType == 'student') && (
+        <MessageSent/>
+      )} 
+      {user && (user.userType == 'admin') && (
+        <AdminDashboard/>
+      )}
+    </>
   )
 };
 export default UseSocketSetup;

@@ -1,8 +1,9 @@
 const express= require("express")
 const router= express.Router();
-const {addStudent, getAdmin}= require("../controllers/adminController")
+const {addStudent}= require("../controllers/adminController")
 //adding a student 
+const {requireAuth} = require('../middleware/requireAuth')
 
+router.use(requireAuth)
 router.post("/addstudent", addStudent);
-router.get("/getAdmin", getAdmin);
 module.exports= router

@@ -3,12 +3,14 @@ const jwt = require('jsonwebtoken');
 const decodejwt = (req, res, next) => {
     try {
 
-        const token = req.headers.cookie ? req.headers.cookie.split(';').find(c => c.trim().startsWith('token=')).split('=')[1] : null;
-        // console.log("token" ,token)
-        
+        let token = req.headers.cookie ? req.headers.cookie.split(';').find(c => c.trim().startsWith('token=')).split('=')[1] : null;
+        console.log("token in decode jwt: ",token)
         if (!token) {
-           return null;
+            return null;
         }
+        
+        
+        // console.log("token" ,token)
 
         const decodedToken = jwt.verify(token, process.env.TOKEN_SECRET);
         console.log("decoded token : ", decodedToken);

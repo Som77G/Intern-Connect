@@ -2,6 +2,8 @@ const express = require('express');
 const { query } = require('../dbconfig/dbconfig');
 const bcryptjs = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const { decodejwt } = require("../helpers/decodejwt")
+
 const { sendEmail } = require('../helpers/sendEmail');
 const verifyEmail= async (req, res) => {
     try {
@@ -67,17 +69,17 @@ const login= async (req, res) => {
 
         if (user.length === 0) {
             console.log("hello babu");
-            return res.status(400).json({ message: "Username doesn't exist", status: '400' })       
+            return res.status(404).json({ message: "Username doesn't exist", status: '400' })       
         }
 
         if (user[0].resetpassword === 0 && user[0].password !== password) {
-            return res.status(400).json({ message: "Password doesn't match", status: '400' });
+            return res.status(404).json({ message: "Password doesn't match", status: '400' });
         }
 
         if (user[0].resetpassword === 1) {
             const validPassword = await bcryptjs.compare(password, user[0].password);
             if (!validPassword) {
-                return res.status(400).json({ message: "Password doesn't match", status: '400' });
+                return res.status(404).json({ message: "Password doesn't match", status: '400' });
             }
         }
         console.log("User searched in database");
@@ -149,4 +151,39 @@ const logout = async(req, res) => {
 
     }
 }
-module.exports = {verifyEmail, login, resetPassword, logout};
+
+const getAdmin = async (req, res) => {
+    try {
+        const decodedToken = await decodejwt(req);
+        if (!decodedToken) {
+            return res.status(200).json({
+                user: null,
+                status: 200
+            });
+        }
+        const { userid, username, userType } = decodedToken;
+        // const findAdminQuery = `
+        //  SELECT * FROM users_admin
+        //  WHERE userid= ?
+        // `
+        // const user = await query({
+        //     query: findAdminQuery,
+        //     values: [userid]
+        // })
+        const user = { userid: userid, username: username, userType: userType };
+        console.log("Admin data:", user);
+        res.status(200).json({
+            user: user,
+            status: 200
+        });
+    } catch (error) {
+        console.error("Error fetching user:", error);
+        res.status(500).json({
+            error: error.message,
+            status: 500
+        });
+    }
+
+
+}
+module.exports = {verifyEmail, login, resetPassword, logout, getAdmin};

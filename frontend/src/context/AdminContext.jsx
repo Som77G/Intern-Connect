@@ -31,12 +31,13 @@ export const AdminContextProvider=  ({children})=>{
          
          const getAdmin= async()=>{
             try{
-                const response = await axios.get(`${PORT}/api/admin/getAdmin`);
+                const response = await axios.get(`${PORT}/api/user/getAdmin`);
                 const user= await response.data.user;
                 dispatch({type: "LOGIN", payload: user});
     
             }catch(error){
-                console.log("error at fetching admin", error.message);
+                console.log("Getting error at conxtext")
+                console.log("error at fetching admin", error.response.data.error);
                 
             }
         }

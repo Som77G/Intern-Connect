@@ -33,11 +33,17 @@ export default function ResetPassword() {
     }
 
     useEffect(() => {
-        const url = window.location.search.split("=");
-        const token = url[1].split('&')[0];
-        const userType = url[2];
-        setToken(token || "");
-        setUserType(userType);
+        try {
+            const url = window.location.search.split("=");
+            const token = url[1].split('&')[0]
+
+            const userType = url[2]
+            setToken(token || "");
+            setUserType(userType);
+        } catch (error) {
+            setLoading(true);
+            setError(true)
+        }
     }, [])
     useEffect(() => {
         if (token.length > 0) {

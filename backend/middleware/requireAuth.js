@@ -1,21 +1,39 @@
 // Define your Express middleware function
-const middleware = (req, res, next) => {
-    const path = req.path;
+const {decodejwt} = require('../helpers/decodejwt')
+const { query } = require("../dbconfig/dbconfig");
 
-    const isPublicPath = path === '/login' || path === '/';
-    const token = req.cookies.token || '';
+const requireAuth = async (req, res, next) => {
+    const decodedToken = await decodejwt(req)
 
-    if (isPublicPath && token) {
-        return res.redirect('/profile');
+    if (!decodedToken) {
+        return res.status(401).json({ error: 'Authorization token is required' });
     }
 
-    if (!isPublicPath && !token) {
-        return res.redirect('/login');
-    }
+    const userid = decodedToken.userid;  
+    const userType = decodedToken.userType;
+    const tableType = {
+        'student': 'users_student',
+        'admin': 'users_admin'
+    };
+    try {
+        const matchid = `
+            SELECT * FROM ${tableType[userType]}
+            WHERE userid = ?
+        `
 
-    // Call next to continue processing the request
-    next();
-};
+        const user = await query({
+            query: matchid,
+            values: [userid]
+        })
+        if (user.length == 0) {
+            throw new Error("Request token is not authorized")
+        }
+        next();
+    } catch (error) {
+        console.log(error);
+        res.status(401).json({ error: 'Request is not Authorized' });
+    }
+}
 
 // Export the middleware function
-module.exports = {middleware};
+module.exports = {requireAuth};

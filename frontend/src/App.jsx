@@ -6,7 +6,10 @@ import AddStudent from './components/admin/AddStudent'
 import AdminNavbar from './components/admin/AdminNavbar'
 import ResetPassword from './components/ResetPassword'
 import RequestToAdmin from './components/student/RequestToAdmin'
+import { AdminContext } from './context/AdminContext'
+import { useAdminContext } from './hooks/useAdminContext'
 function App() {
+  const {user} = useAdminContext();
   return (
     <>
       {/* <AdminNavbar/> */}
@@ -18,7 +21,7 @@ function App() {
           />
           <Route
             path='/login'
-            element={<Login />}
+            element={!user? <Login /> : (user.userType == 'student'? <StudentDashboard/> : <AdminDashboard/>)}
           />
           <Route
             path = '/reset-password'
@@ -26,15 +29,15 @@ function App() {
           />
           <Route
             path='/student-dashboard'
-            element={<StudentDashboard />}
+            element={user && user.userType == 'student'? <StudentDashboard/> : <Login/>}
           />
           <Route
             path='/admin-dashboard'
-            element={<AdminDashboard />}
+            element={user && user.userType == 'admin'? <AdminDashboard/> : <Login/>}
           />
           <Route
             path='/admin-dashboard/add-student'
-            element={<AddStudent />}
+            element={user && user.userType == 'admin'? <AddStudent/> : <Login/>}
           />
 
         </Routes>
