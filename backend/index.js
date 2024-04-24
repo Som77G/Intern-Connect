@@ -1,44 +1,46 @@
 require('dotenv').config();
 const express = require('express');
-const adminRouter= require("./routes/admin")
+const adminRouter = require("./routes/admin")
 const app = express();
 const PORT = 3000;
-const userRouter= require("./routes/user");
+const userRouter = require("./routes/user");
 const cors = require("cors");
-const studentRouter= require("./routes/student")
+const studentRouter = require("./routes/student")
 //socket
 const { Server } = require("socket.io");
+const cookieParser = require('cookie-parser');
 
 // Middleware
 app.use(express.json()); // Parse JSON bodies
-const {query}  = require('./dbconfig/dbconfig');
+const { query } = require('./dbconfig/dbconfig');
+app.use(cookieParser());
 
 //cors policy
 app.use(cors(
     {
-        origin : "http://localhost:5173",
+        origin: "http://localhost:5173",
         methods: "GET, POST, OPTIONS, PUT, DELETE",
         credentials: true,
-      }
+    }
 ));
 
 // Routes
 app.use("/api/admin", adminRouter);
 app.use("/api/user", userRouter);
 app.use("/api/student", studentRouter);
-app.get('/', async(req, res) => {
+app.get('/', async (req, res) => {
     // res.send('Hello, World!');
 
     try {
-        const queryi= `
+        const queryi = `
         SELECT * FROM users_student
         `
-        
+
         const users = await query({
             query: queryi,
-            values:[]
+            values: []
         });
-        
+
         res.json(users);
     } catch (error) {
         console.log("helllo error")
@@ -52,35 +54,52 @@ const server = app.listen(process.env.PORT, () => {
 //create socket instance
 const io = new Server(server, {
     cors: {
-      origin: "http://localhost:5173",
-      methods: ["GET", "POST", "PUT"],
-      credentials: true,
+        origin: "http://localhost:5173",
+        methods: ["GET", "POST", "PUT"],
+        credentials: true,
     },
 });
 
 // handle WebSocket connections
+const userSocketMap = new Map();
 io.on("connection", (socket) => {
-    //const { userid, username } = socket.handshake.query;
+    const { username, message, userType } = socket.handshake.query;
     console.log("value", socket.handshake.query)
     console.log("Hello Socket");
     // console.log(`user connected: ${socket.id}`)
     //console.log(userid);
     // Attach userid and username to the socket object
-    // socket.userid = userid;
-    // socket.username = username;
+    socket.message = message;
+    socket.username = username;
+    socket.userType= userType;
 
     //initialise user
     //initializeUser(userSocketMap,socket);
-     // Add the user ID and socket ID to the mapping
-    //   userSocketMap.set(userid, socket.id);
-    socket.on("add_friend", (friendName, cb)=>{
-         addFriend(socket, friendName, cb);
+    // Add the user ID and socket ID to the mapping
+    userSocketMap.set(username, socket.id);
+
+    console.log("User Socket Map:");
+    userSocketMap.forEach((value, key) => {
+        console.log(`${key}: ${value}`);
     });
-    socket.on("disconnecting", ()=> onDisconnect(userSocketMap, socket))
-    socket.on("dm", (message)=> dm(io, userSocketMap, socket, message))
+    // socket.on("add_friend", (friendName, cb)=>{
+    //      addFriend(socket, friendName, cb);
+    // });
+    // socket.on("disconnecting", ()=>{ 
+    //     onDisconnect(userSocketMap, socket)
+    // }
+    // )
+    console.log("userType:",userType)
+    if(userType=="student"){
+        console.log("message is being sended from student to admin")
+        const adminSocketId= userSocketMap.get("admin01");
+        socket.to(adminSocketId).emit("message", message);
+    }
+    // socket.on("dm", (message)=> {dm(io, userSocketMap, socket, message)})
     socket.on('disconnect', () => {
-      // Remove the user ID and socket ID from the mapping when a socket disconnects
-      userSocketMap.delete(userid);
+        console.log("deletion of the the user from map")
+        // Remove the user ID and socket ID from the mapping when a socket disconnects
+        userSocketMap.delete(username);
     });
-  });
+});
 

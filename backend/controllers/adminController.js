@@ -1,8 +1,8 @@
 const express = require('express');
 const { query } = require("../dbconfig/dbconfig");
 const { v4: uuidv4 } = require('uuid');
-
-const addStudent=async (req, res) => {
+const { decodejwt } = require("../helpers/decodejwt")
+const addStudent = async (req, res) => {
     try {
         const { username, password, email } = req.body;
         console.log("dataaaaaa", username, password, email)
@@ -55,4 +55,33 @@ const addStudent=async (req, res) => {
     }
 };
 
-module.exports= {addStudent}
+const getAdmin = async (req, res) => {
+    try {
+        const { userid, username, userType } = await decodejwt(req);
+        
+
+        // const findAdminQuery = `
+        //  SELECT * FROM users_admin
+        //  WHERE userid= ?
+        // `
+        // const user = await query({
+        //     query: findAdminQuery,
+        //     values: [userid]
+        // })
+        const user= {userid: userid, username: username, userType: userType};
+        console.log("Admin data:", user);
+        res.status(200).json({
+            user: user,
+            status: 200
+        });
+    } catch (error) {
+        console.error("Error fetching user:", error);
+        res.status(500).json({
+            error: error.message,
+            status: 500
+        });
+    }
+
+
+}
+module.exports = { addStudent, getAdmin }

@@ -1,26 +1,46 @@
-import React, { useState, createContext } from 'react';
-import UseSocketSetup from './hooks/UseSocketSetup';
-
-export const UserContext = createContext();
-
-function InputComponent() {
-  const [userId, setUserId] = useState('');
-  // UseSocketSetup(setUserId);
-
-  const handleChange = (e) => {
-    setUserId(e.target.value);
-  };
-
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import Login from './components/Login'
+import StudentDashboard from './components/student/StudentDashboard'
+import AdminDashboard from './components/admin/AdminDashboard'
+import AddStudent from './components/admin/AddStudent'
+import AdminNavbar from './components/admin/AdminNavbar'
+import ResetPassword from './components/ResetPassword'
+import RequestToAdmin from './components/student/RequestToAdmin'
+function App() {
   return (
-    <UserContext.Provider value={{ userId, setUserId }}>
-      <input
-        type="text"
-        value={userId}
-        onChange={handleChange}
-      />
-      <h1>Hello Buddy</h1>
-    </UserContext.Provider>
-  );
+    <>
+      {/* <AdminNavbar/> */}
+      <BrowserRouter>
+        <Routes>
+          <Route
+            path = '/'
+            element = {<RequestToAdmin/>}
+          />
+          <Route
+            path='/login'
+            element={<Login />}
+          />
+          <Route
+            path = '/reset-password'
+            element = {<ResetPassword/>}
+          />
+          <Route
+            path='/student-dashboard'
+            element={<StudentDashboard />}
+          />
+          <Route
+            path='/admin-dashboard'
+            element={<AdminDashboard />}
+          />
+          <Route
+            path='/admin-dashboard/add-student'
+            element={<AddStudent />}
+          />
+
+        </Routes>
+      </BrowserRouter>
+    </>
+  )
 }
 
-export default InputComponent;
+export default App;

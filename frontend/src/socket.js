@@ -1,18 +1,22 @@
 import { io } from "socket.io-client";
+import { useAdminContext } from "./hooks/useAdminContext";
 let socket; // Declare a variable to store the socket instance
 
 const createSocketInstance = () => {
-    const userid = '12233'
+  const {user}= useAdminContext();
+
   return io("http://localhost:3000", {
     autoConnect: false,
     withCredentials: true,
     query: {
-      userid,
+      username: user.username,
+      message: "Hello sir",
+      userType: user.userType
     },
   });
 };
 
-const getSocketInstance = (userId) => {
+const getSocketInstance = () => {
   if (!socket) {
     // If the socket instance doesn't exist, create it
     socket = createSocketInstance();

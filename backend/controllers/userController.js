@@ -50,7 +50,6 @@ const verifyEmail= async (req, res) => {
 const login= async (req, res) => {
     try {
         const { username, password, userType } = req.body;
-
         // Define table type based on userType
         const tableType = {
             'student': 'users_student',
@@ -67,7 +66,8 @@ const login= async (req, res) => {
         });
 
         if (user.length === 0) {
-            return res.status(400).json({ message: "Username doesn't exist", status: '400' });
+            console.log("hello babu");
+            return res.status(400).json({ message: "Username doesn't exist", status: '400' })       
         }
 
         if (user[0].resetpassword === 0 && user[0].password !== password) {
@@ -80,9 +80,13 @@ const login= async (req, res) => {
                 return res.status(400).json({ message: "Password doesn't match", status: '400' });
             }
         }
-        
+        console.log("User searched in database");
         // Create web token for user authorization
-        const tokenData = { userid: user[0].userid };
+        const tokenData = { 
+            userid: user[0].userid,
+            username: user[0].username,
+            userType:userType
+        };
         const token = await jwt.sign(tokenData, process.env.TOKEN_SECRET, { expiresIn: "1d" });
 
         // Send email if password reset is required
@@ -93,7 +97,7 @@ const login= async (req, res) => {
 
         // Set cookies and send response
         res.cookie("token", token, { httpOnly: true });
-        return res.status(200).json({ message: user[0], status: 200 });
+        return res.status(200).json({ message: user[0], userType:userType, status: 200 });
     } catch (error) {
         console.error("Error processing POST request:", error);
         return res.status(500).json({ status: 500, error: "Internal Server Error" });
@@ -132,4 +136,17 @@ const resetPassword= async (req, res) => {
         return res.status(500).json({ status: 500, error: "Internal Server Error" });
     }
 };
-module.exports = {verifyEmail, login, resetPassword};
+
+const logout = async(req, res) => {
+    try {
+        res.cookie("token", "", {
+            httpOnly : true,
+            expiresIn : new Date(0)
+        });
+        return res.status(200).json({ status: 200, message: "Successfully logout"});
+    } catch (error) {
+        return res.status(500).json({ status: 500, error: "Internal Server Error" });
+
+    }
+}
+module.exports = {verifyEmail, login, resetPassword, logout};

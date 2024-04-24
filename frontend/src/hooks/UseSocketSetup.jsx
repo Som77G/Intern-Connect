@@ -1,11 +1,13 @@
-import { useContext, useEffect } from "react";
+import { useEffect } from "react";
+import {Navigate} from 'react-router-dom'
 import getSocketInstance from "../socket";
-
+import { useAdminContext } from "./useAdminContext";
+import AdminDashboard from "../components/admin/AdminDashboard"
 // import { io } from "socket.io-client";
 // import { useAuthContext } from "./useAuthContext";
 const UseSocketSetup = () => {
    
-  // const {user}= useAuthContext();
+  const {user}= useAdminContext();
   // const username= "smt96700"
   // const token= "Hello8938";
   // const socket= new io("http://localhost:4000", {
@@ -33,9 +35,8 @@ const UseSocketSetup = () => {
     socket.on("connected", (status, username)=>{
       console.log("connected to socket")
     });
-    socket.on("messages", messages=>{
-          console.log("messgage")
-          //setMessages(messages);
+    socket.on("message",(message)=>{
+      console.log("message received from stduent")
     })
     socket.on("dm", message => {
       console.log("dm socket");
@@ -49,10 +50,15 @@ const UseSocketSetup = () => {
     });
     return () => {
       socket.off("connect_error");
-      socket.off("messages");
+      socket.off("message");
       socket.off("dm");
       socket.off("connected")
     };
   }, []);
+  return(
+    <div>
+      <AdminDashboard/>
+    </div>
+  )
 };
 export default UseSocketSetup;
