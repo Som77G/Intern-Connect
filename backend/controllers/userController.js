@@ -183,7 +183,9 @@ const getAdmin = async (req, res) => {
             status: 500
         });
     }
-
-
 }
-module.exports = {verifyEmail, login, resetPassword, logout, getAdmin};
+
+const validUser = async (req, res) => {
+    
+}
+module.exports = {verifyEmail, login, resetPassword, logout, getAdmin, validUser};

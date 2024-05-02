@@ -36,12 +36,14 @@ export default function RequestToAdmin() {
         try {
             // const data = await axios.post(`${PORT}/api/admin/addstudent`, { username, password, email })
             // navigate('/admin-dashboard')
+
+            const res = await axios.get(`${PORT}/api/user/validUser`, username)
             const user= {username: username, message: message, userType:"student"};
             await dispatch({type:"LOGIN", payload:user});
             // console.log(state);
             console.log("Running")
         } catch (error) {
-            console.log("error in adding student: ", error.message);
+            console.log("Not a valid username: ", error.message);
         }
         finally {
             setSubmitting(false);
