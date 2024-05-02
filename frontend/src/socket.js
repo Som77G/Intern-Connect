@@ -10,7 +10,7 @@ const createSocketInstance = () => {
     withCredentials: true,
     query: {
       username: user.username,
-      message: "Hello sir",
+      message: null,
       userType: user.userType
     },
   });

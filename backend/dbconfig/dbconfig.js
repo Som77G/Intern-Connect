@@ -1,7 +1,7 @@
 const mysql = require("mysql2/promise");
 const {createStudentUserTable} = require("../models/student/user");
 const {createAdminUserTable} = require("../models/admin/user");
-
+const {createMessageTable}= require("../models/messages/structure")
 async function query({ query, values = [] }) {
     console.log("hello database")
     const dbconnection = await mysql.createConnection({
@@ -22,7 +22,10 @@ async function query({ query, values = [] }) {
             console.log("Creating admin user table");
             await createAdminUserTable(dbconnection);
         }
-
+        if (query.toLowerCase().includes('messages')) {
+            console.log("Creating message table");
+            await createMessageTable(dbconnection);
+        }
         // Execute the original query
         const [results] = await dbconnection.execute(query, values);
 

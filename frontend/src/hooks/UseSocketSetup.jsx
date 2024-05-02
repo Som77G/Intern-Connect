@@ -5,10 +5,11 @@ import { useAdminContext } from "./useAdminContext";
 import AdminDashboard from "../components/admin/AdminDashboard"
 import RequestToAdmin from "../components/student/RequestToAdmin";
 import MessageSent from "../components/MessageSent";
+import { useMessageContext } from "./useMessageContext";
 // import { io } from "socket.io-client";
 // import { useAuthContext } from "./useAuthContext";
 const UseSocketSetup = () => {
-   
+  const {messages, dispatch}= useMessageContext();
   const {user}= useAdminContext();
   console.log("detials", user , " ", user.userType)
   // const username= "smt96700"
@@ -38,8 +39,9 @@ const UseSocketSetup = () => {
     socket.on("connected", (status, username)=>{
       console.log("connected to socket")
     });
-    socket.on("message",(message)=>{
-      console.log("message received from stduent")
+    socket.on("message_received",(message)=>{
+      console.log("message received from stduent", message)
+      dispatch({type:'ADD_MESSAGE', payload:message})
     })
     socket.on("dm", message => {
       console.log("dm socket");
@@ -57,7 +59,7 @@ const UseSocketSetup = () => {
       socket.off("dm");
       socket.off("connected")
     };
-  }, []);
+  }, [dispatch]);
   return(
     <>
       {user && (user.userType == 'student') && (

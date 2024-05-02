@@ -6,6 +6,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useAdminContext } from '../../hooks/useAdminContext';
 import UseSocketSetup from '../../hooks/UseSocketSetup';
+import getSocketInstance from '../../socket';
 const PORT = import.meta.env.VITE_DOMAIN;
 
 const schema = yup.object().shape({
@@ -39,7 +40,11 @@ export default function RequestToAdmin() {
 
             const res = await axios.get(`${PORT}/api/user/validUser`, username)
             const user= {username: username, message: message, userType:"student"};
+            const messageObject={to_username: "admin01", from_username:username, message: message};
             await dispatch({type:"LOGIN", payload:user});
+            const socket= getSocketInstance();
+            socket.connect();
+            socket.emit("message_sent", messageObject);
             // console.log(state);
             console.log("Running")
         } catch (error) {
