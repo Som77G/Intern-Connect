@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import Login from './components/Login'
 import StudentDashboard from './components/student/StudentDashboard'
 import AdminDashboard from './components/admin/AdminDashboard'
@@ -8,6 +8,7 @@ import ResetPassword from './components/ResetPassword'
 import RequestToAdmin from './components/student/RequestToAdmin'
 import { AdminContext } from './context/AdminContext'
 import { useAdminContext } from './hooks/useAdminContext'
+import UpdatePassword from './components/admin/UpdatePasswrod'
 function App() {
   const {user} = useAdminContext();
   return (
@@ -21,7 +22,7 @@ function App() {
           />
           <Route
             path='/login'
-            element={!user? <Login /> : (user.userType == 'student'? <StudentDashboard/> : <AdminDashboard/>)}
+            element={!user? <Login /> : (user.userType == 'student'? <Navigate to = '/student-dashboard'/> : <Navigate to = '/admin-dashboard'/>)}
           />
           <Route
             path = '/reset-password'
@@ -29,17 +30,22 @@ function App() {
           />
           <Route
             path='/student-dashboard'
-            element={user && user.userType == 'student'? <StudentDashboard/> : <Login/>}
+            //conditon add kro when user log in for first time
+            element={user && user.userType == 'student'? <StudentDashboard/> : <Navigate to = '/login'/>}
           />
           <Route
             path='/admin-dashboard'
-            element={user && user.userType == 'admin'? <AdminDashboard/> : <Login/>}
+            //conditon add kro when user log in for first time
+            element={user && user.userType == 'admin'? <AdminDashboard/> : <Navigate to = '/login'/>}
           />
           <Route
             path='/admin-dashboard/add-student'
-            element={user && user.userType == 'admin'? <AddStudent/> : <Login/>}
+            element={user && user.userType == 'admin'? <AddStudent/> : <Navigate to = '/login'/>}
           />
-
+          <Route
+            path = '/admin-dashboard/update-password'
+            element = {<UpdatePassword/>}
+          />
         </Routes>
       </BrowserRouter>
     </>

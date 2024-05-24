@@ -26,8 +26,16 @@ export default function RequestToAdmin() {
         resolver: yupResolver(schema)
 
     });
+    const messageObject={to_username: "admin01", from_username:username, message: message};
     useEffect(()=>{
          console.log("helllo buddy")
+         if (user) {
+            const socket= getSocketInstance();
+         socket.connect();
+         socket.emit("message_sent", messageObject);
+         // console.log(state);
+         console.log("Running")
+         }
     }, [user])
    
     const onSubmit = async () => {
@@ -38,15 +46,12 @@ export default function RequestToAdmin() {
             // const data = await axios.post(`${PORT}/api/admin/addstudent`, { username, password, email })
             // navigate('/admin-dashboard')
 
-            const res = await axios.get(`${PORT}/api/user/validUser`, username)
+            const res = await axios.post(`${PORT}/api/user/validUser`, {username})
+            console.log("User validated")
             const user= {username: username, message: message, userType:"student"};
-            const messageObject={to_username: "admin01", from_username:username, message: message};
-            await dispatch({type:"LOGIN", payload:user});
-            const socket= getSocketInstance();
-            socket.connect();
-            socket.emit("message_sent", messageObject);
-            // console.log(state);
-            console.log("Running")
+            
+             dispatch({type:"LOGIN", payload:user});
+            
         } catch (error) {
             console.log("Not a valid username: ", error.message);
         }

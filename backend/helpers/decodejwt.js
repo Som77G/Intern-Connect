@@ -3,12 +3,12 @@ const jwt = require('jsonwebtoken');
 const decodejwt = (req, res, next) => {
     try {
 
-        let token = req.headers.cookie ? req.headers.cookie.split(';').find(c => c.trim().startsWith('token=')).split('=')[1] : null;
+        let token = req.headers.cookie ? req.headers.cookie.split(';').find(c => c.trim().startsWith('token=')) : null;
         console.log("token in decode jwt: ",token)
         if (!token) {
             return null;
         }
-        
+        token = token.split('=')[1]
         
         // console.log("token" ,token)
 
@@ -19,10 +19,10 @@ const decodejwt = (req, res, next) => {
         return decodedToken
     } catch (error) {
         console.error("Error decoding token:", error);
-        return res.status(500).json({
-            error: error.message,
-            status: 500
-        });
+        // return res.status(500).json({
+        //     error: error.message,
+        //     status: 500
+        // });
     }
 };
 

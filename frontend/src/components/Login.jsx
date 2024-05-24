@@ -38,9 +38,13 @@ export default function Login() {
             // }
             console.log("User of login: ", type);
             const loginUser = { userid: message.userid, username: message.username, userType: type }
-            dispatch({ type: "LOGIN", payload: loginUser })
-            if (type == 'student') {
-                navigate('/student-dashboard')
+            
+            if (message.resetpassword != 0) {
+                dispatch({ type: "LOGIN", payload: loginUser })
+                if (type == 'student') {
+                    console.log("Redirecting....")
+                    navigate('/student-dashboard')
+                }
             }
         } catch (error) {
             console.log("Login failed", error.response.data.message);

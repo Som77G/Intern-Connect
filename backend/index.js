@@ -90,11 +90,11 @@ io.on("connection", (socket) => {
     // }
     // )
     console.log("userType:",userType)
-    if(userType=="student"){
-        console.log("message is being sended from student to admin")
-        const adminSocketId= userSocketMap.get("admin01");
-        socket.to(adminSocketId).emit("message", message);
-    }
+    // if(userType=="student"){
+    //     console.log("message is being sended from student to admin")
+    //     const adminSocketId= userSocketMap.get("admin01");
+    //     socket.to(adminSocketId).emit("message", message);
+    // }
     socket.on("message_sent", (message)=>{
         if(userType=="student" && message){
             console.log("inside socket on :", message);

@@ -1,9 +1,13 @@
 import axios from 'axios';
 import {useEffect, useState} from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAdminContext } from "../hooks/useAdminContext";
+
 const PORT = import.meta.env.VITE_DOMAIN;
 
 export default function ResetPassword() {
+    const { user: loginUser, dispatch } = useAdminContext();
+
     const navigate = useNavigate();
     const [token, setToken] = useState("");
     const [verified, setVerified] = useState(false)
@@ -54,13 +58,17 @@ export default function ResetPassword() {
     const onReset = async () => {
         try {
             const response = await axios.put(`${PORT}/api/user/resetPassword`, { username, password, userType });
-            // console.log("updated password", response.data)
-            if (userType == 'student') {
-                navigate('/student-dashboard')
-            }
-            else{
-                navigate('/admin-dashboard')
-            }
+            const message = response.data.message;
+            console.log("updated password", response)
+            const loginUser = { userid: message.userid, username: message.username, userType: type }
+            // dispatch({ type: "LOGIN", payload: loginUser })
+            // if (userType == 'student') {
+            //     navigate('/student-dashboard')
+            // }
+            // else{
+            //     navigate('/admin-dashboard')
+            // }
+            
         } catch (error) {
             setError(true);
             console.log(error.response)
