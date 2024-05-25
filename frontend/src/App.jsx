@@ -9,6 +9,8 @@ import RequestToAdmin from './components/student/RequestToAdmin'
 import { AdminContext } from './context/AdminContext'
 import { useAdminContext } from './hooks/useAdminContext'
 import UpdatePassword from './components/admin/UpdatePasswrod'
+import AdminHomePage from './components/admin/AdminHomePage'
+import Notifications from './components/admin/Notifications'
 function App() {
   const {user} = useAdminContext();
   return (
@@ -22,7 +24,7 @@ function App() {
           />
           <Route
             path='/login'
-            element={!user? <Login /> : (user.userType == 'student'? <Navigate to = '/student-dashboard'/> : <Navigate to = '/admin-dashboard'/>)}
+            element={!user? <Login /> : (user.userType == 'student'? <Navigate to = '/student-dashboard'/> : <Navigate to = '/admin-home-page'/>)}
           />
           <Route
             path = '/reset-password'
@@ -46,6 +48,16 @@ function App() {
             path = '/admin-dashboard/update-password'
             element = {<UpdatePassword/>}
           />
+          <Route
+            path= '/admin-home-page'
+            element={user && user.userType == 'admin'? <AdminHomePage/> : <Navigate to = '/login'/>}
+            >
+          </Route>
+          <Route
+             path='/admin-home-page/notifications'
+             element={user && user.userType == 'admin'? <Notifications/> : <Navigate to = '/login'/>}
+          >
+          </Route>
         </Routes>
       </BrowserRouter>
     </>

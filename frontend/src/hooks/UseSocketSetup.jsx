@@ -58,6 +58,7 @@ const UseSocketSetup = () => {
       socket.off("message");
       socket.off("dm");
       socket.off("connected")
+      socket.off("message_received")
     };
   }, [dispatch]);
   return (

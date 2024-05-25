@@ -14,7 +14,7 @@ export const MessageReducer= (state, action)=>{
         case 'ADD_MESSAGE':
             console.log("this is in add_message:",state);
             let newMessages=[];
-            if(state && state.message){
+            if(state && state.messages){
                 newMessages= [action.payload, ...state.messages]
             }else{
                 newMessages= [action.payload];
