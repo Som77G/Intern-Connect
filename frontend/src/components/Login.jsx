@@ -42,13 +42,17 @@ export default function Login() {
             // }
             console.log("User of login: ", type);
             const loginUser = { userid: message.userid, username: message.username, userType: type }
-            toast.success("Login Successful")
+            
             if (message.resetpassword != 0) {
+                toast.success("Login Successful")
                 dispatch({ type: "LOGIN", payload: loginUser })
                 if (type == 'student') {
                     console.log("Redirecting....")
                     navigate('/student-dashboard')
                 }
+            }
+            if (message.resetpassword == 0) {
+                toast.success("Mail has been sent")
             }
         } catch (error) {
             toast.error(error.response.data.message)

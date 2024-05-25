@@ -12,7 +12,7 @@ export default function UpdatePassword() {
             setSubmitting(true)
             const res = await axios.put(`${PORT}/api/user/updatePassword`, {username})
             console.log("Now student can reset password")
-
+            
             //here we can write logic to notify student about it by sending him mail or something
         } catch (error) {
             console.log(error)

@@ -76,7 +76,7 @@ export default function RequestToAdmin() {
         <>
             {!user &&
                 <div>
-                    <nav  className="flex justify-between py-4 px-10 shadow-2xl" >
+                    <nav  className="flex justify-between py-4 px-10 shadow-2xl shadow-zinc-950" >
                     <div className="text-3xl font-bold text-purple-600">SIP Portal</div>
                         <a href="/" className="bg-yellow-500 text-black py-2 px-6 rounded-2xl hover:bg-yellow-600">Home</a>
                     </nav>

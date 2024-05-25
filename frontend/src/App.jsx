@@ -25,11 +25,11 @@ function App() {
         <Routes>
           <Route
             path = '/'
-            element = {<Home/>}
+            element = {!user? <Home/> : (user.userType == 'student'? <Navigate to = '/student-dashboard'/> : <Navigate to = '/admin-home-page'/>)}
           />
           <Route
             path = '/request-admin'
-            element = {<RequestToAdmin/>}
+            element = {!user? <RequestToAdmin/>: (user.userType == 'student'? <Navigate to = '/student-dashboard'/> : <Navigate to = '/admin-home-page'/>)}
           />
           <Route
             path='/login'
@@ -42,11 +42,11 @@ function App() {
           <Route
             path='/student-dashboard'
             //conditon add kro when user log in for first time
-            element={user && user.userType == 'student'? <StudentDashboard/> : <Navigate to = '/login'/>}
+            element={user && user.userType == 'student'? <StudentDashboard/> : <Navigate to = '/'/>}
           />
           <Route
-            path = 'student-dashboard/profile'
-            element = {<Profile/>}
+            path = '/student-dashboard/profile'
+            element = {user && user.userType == 'student'? <Profile/> : <Navigate to = '/'/>}
           />
           {/* <Route
             path='/admin-dashboard'
@@ -55,20 +55,20 @@ function App() {
           /> */}
           <Route
             path='/admin-home-page/add-student'
-            element={user && user.userType == 'admin'? <AddStudent/> : <Navigate to = '/login'/>}
+            element={user && user.userType == 'admin'? <AddStudent/> : <Navigate to = '/'/>}
           />
           <Route
             path = '/admin-home-page/update-password'
-            element = {<UpdatePassword/>}
+            element = {user && user.userType == 'admin'? <UpdatePassword/> : <Navigate to = '/'/>}
           />
           <Route
             path= '/admin-home-page'
-            element={user && user.userType == 'admin'? <AdminHomePage/> : <Navigate to = '/login'/>}
+            element={user && user.userType == 'admin'? <AdminHomePage/> : <Navigate to = '/'/>}
             >
           </Route>
           <Route
              path='/admin-home-page/notifications'
-             element={user && user.userType == 'admin'? <Notifications/> : <Navigate to = '/login'/>}
+             element={user && user.userType == 'admin'? <Notifications/> : <Navigate to = '/'/>}
           >
           </Route>
         </Routes>

@@ -2,6 +2,7 @@ import axios from 'axios';
 import {useEffect, useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAdminContext } from "../hooks/useAdminContext";
+import { toast } from 'react-toastify';
 
 const PORT = import.meta.env.VITE_DOMAIN;
 
@@ -60,7 +61,7 @@ export default function ResetPassword() {
             const response = await axios.put(`${PORT}/api/user/resetPassword`, { username, password, userType });
             const message = response.data.message;
             console.log("updated password", response)
-            const loginUser = { userid: message.userid, username: message.username, userType: type }
+            //const loginUser = { userid: message.userid, username: message.username, userType: type }
             // dispatch({ type: "LOGIN", payload: loginUser })
             // if (userType == 'student') {
             //     navigate('/student-dashboard')
@@ -68,6 +69,7 @@ export default function ResetPassword() {
             // else{
             //     navigate('/admin-dashboard')
             // }
+            toast.success("Password has been set")
             
         } catch (error) {
             setError(true);

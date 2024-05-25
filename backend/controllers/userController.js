@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken');
 const { decodejwt } = require("../helpers/decodejwt")
 
 const { sendEmail } = require('../helpers/sendEmail');
+const {sendMailtoStudent} = require('../helpers/sendMailtoStudent')
 const verifyEmail = async (req, res) => {
     try {
         const { token, userType } = req.body;
@@ -12,7 +13,7 @@ const verifyEmail = async (req, res) => {
         const tableType = {
             'student': 'users_student',
             'admin': 'users_admin'
-        };
+        }; 
         const searchUser = `
             SELECT * FROM ${tableType[userType]} WHERE verifytoken= ?
         `;
@@ -229,6 +230,20 @@ const updatePassword = async (req, res) => {
         if (updatedUser.length == 0) {
             throw new Error("User not present")
         }
+        
+        const getUser = `
+        SELECT * FROM users_student
+        WHERE username = ?
+        `
+
+        const User = await query({
+            query : getUser,
+            values : [username]
+        })
+
+        console.log("here is my updated user's resetPassword field: ",User)
+
+        await sendMailtoStudent({email : User[0].email, username : username})
         return res.status(200).json({
             message : "User password updated successfully"
         })
