@@ -4,13 +4,14 @@ import getSocketInstance from "../socket";
 import { useAdminContext } from "./useAdminContext";
 import AdminDashboard from "../components/admin/AdminDashboard"
 import RequestToAdmin from "../components/student/RequestToAdmin";
-import MessageSent from "../components/MessageSent";
+import MessageSent from "../components/Home";
 import { useMessageContext } from "./useMessageContext";
+import { toast } from 'react-toastify';
 // import { io } from "socket.io-client";
 // import { useAuthContext } from "./useAuthContext";
 const UseSocketSetup = () => {
-  const { messages, dispatch } = useMessageContext();
-  const { user } = useAdminContext();
+  const { messages, dispatch: messageDispatch } = useMessageContext();
+  const { user, dispatch: userDispatch } = useAdminContext();
   console.log("detials", user, " ", user.userType)
   // const username= "smt96700"
   // const token= "Hello8938";
@@ -23,6 +24,14 @@ const UseSocketSetup = () => {
   //     },
   // });
   const socket = getSocketInstance();
+
+  function f() {
+    if (user)
+      toast.success("Message sent")
+    userDispatch({type : 'LOGOUT'});
+    
+    return
+  }
   useEffect(() => {
     // const user= JSON.parse(localStorage.getItem('user'));
     // const userid = user.userid;
@@ -41,7 +50,7 @@ const UseSocketSetup = () => {
     });
     socket.on("message_received", (message) => {
       console.log("message received from stduent", message)
-      dispatch({ type: 'ADD_MESSAGE', payload: message })
+      messageDispatch({ type: 'ADD_MESSAGE', payload: message })
     })
     socket.on("dm", message => {
       console.log("dm socket");
@@ -60,14 +69,14 @@ const UseSocketSetup = () => {
       socket.off("connected")
       socket.off("message_received")
     };
-  }, [dispatch]);
+  }, [messageDispatch]);
   return (
     <>
       {user && (user.userType == 'student') && (
-        <MessageSent />
+        f()
       )}
       {user && (user.userType == 'admin') && (
-        <Navigate to = '/admin-dashboard'/>
+        <Navigate to = '/admin-home-page'/>
       )}
     </>
   )
