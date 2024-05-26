@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAdminContext } from '../../hooks/useAdminContext';
 import UseSocketSetup from '../../hooks/UseSocketSetup';
 import getSocketInstance from '../../socket';
+axios.defaults.withCredentials= true;
 const PORT = import.meta.env.VITE_DOMAIN;
 
 const schema = yup.object().shape({
@@ -29,13 +30,22 @@ export default function RequestToAdmin() {
     const messageObject={to_username: "admin01", from_username:username, message: message};
     useEffect(()=>{
          console.log("helllo buddy")
+         try{
          if (user) {
             const socket= getSocketInstance();
          socket.connect();
          socket.emit("message_sent", messageObject);
+         
          // console.log(state);
          console.log("Running")
+
+         //save message within the database
+         const response = axios.post(`${PORT}/api/anonymous/reset_password_message`, messageObject);
+         console.log("Message is being saved");
          }
+        }catch(error){
+            console.log("message failed to save");
+        }
     }, [user])
    
     const onSubmit = async () => {

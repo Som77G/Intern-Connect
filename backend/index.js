@@ -5,7 +5,8 @@ const app = express();
 const PORT = 3000;
 const userRouter = require("./routes/user");
 const cors = require("cors");
-const studentRouter = require("./routes/student")
+const studentRouter = require("./routes/student");
+const anonymousRouter= require("./routes/anonymous");
 //socket
 const { Server } = require("socket.io");
 const cookieParser = require('cookie-parser');
@@ -28,6 +29,7 @@ app.use(cors(
 app.use("/api/admin", adminRouter);
 app.use("/api/user", userRouter);
 app.use("/api/student", studentRouter);
+app.use("/api/anonymous", anonymousRouter);
 app.get('/', async (req, res) => {
     // res.send('Hello, World!');
 

@@ -41,11 +41,11 @@ function App() {
             element={user && user.userType == 'admin'? <AdminDashboard/> : <Navigate to = '/login'/>}
           />
           <Route
-            path='/admin-dashboard/add-student'
+            path='/admin-home-page/add-student'
             element={user && user.userType == 'admin'? <AddStudent/> : <Navigate to = '/login'/>}
           />
           <Route
-            path = '/admin-dashboard/update-password'
+            path = '/admin-home-page/update-password'
             element = {<UpdatePassword/>}
           />
           <Route

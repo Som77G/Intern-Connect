@@ -27,6 +27,7 @@ async function query({ query, values = [] }) {
             await createMessageTable(dbconnection);
         }
         // Execute the original query
+        console.log("This is line 30 in dbconfig");
         const [results] = await dbconnection.execute(query, values);
 
         // Close the database connection
@@ -34,6 +35,7 @@ async function query({ query, values = [] }) {
 
         return results;
     } catch (error) {
+        console.log("Error in dbconfig line 38");
         throw new Error(error.message);
     }
 }

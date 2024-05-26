@@ -34,4 +34,5 @@ const dashboard = async (req, res) => {
     }
 };
 
-module.exports = { dashboard };
+
+module.exports = { dashboard};
