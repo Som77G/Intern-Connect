@@ -7,10 +7,12 @@ import RequestToAdmin from "../components/student/RequestToAdmin";
 import MessageSent from "../components/Home";
 import { useMessageContext } from "./useMessageContext";
 import { toast } from 'react-toastify';
+import { useNewMessageContext } from "./useNewMessageContext";
 // import { io } from "socket.io-client";
 // import { useAuthContext } from "./useAuthContext";
 const UseSocketSetup = () => {
   const { messages, dispatch: messageDispatch } = useMessageContext();
+  const {hasNewMessage, dispatch: newMessageDispatch}= useNewMessageContext();
   const { user, dispatch: userDispatch } = useAdminContext();
   console.log("detials", user, " ", user.userType)
   // const username= "smt96700"
@@ -51,6 +53,8 @@ const UseSocketSetup = () => {
     socket.on("message_received", (message) => {
       console.log("message received from stduent", message)
       messageDispatch({ type: 'ADD_MESSAGE', payload: message })
+      newMessageDispatch({type: 'RESET'});
+
     })
     socket.on("dm", message => {
       console.log("dm socket");

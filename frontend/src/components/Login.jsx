@@ -5,6 +5,7 @@ import { useAdminContext } from "../hooks/useAdminContext";
 import UseSocketSetup from "../hooks/UseSocketSetup";
 import StudentDashboard from "./student/StudentDashboard";
 import { toast } from 'react-toastify';
+import { useNewMessageContext } from "../hooks/useNewMessageContext";
 
 axios.defaults.withCredentials = true;
 
@@ -13,6 +14,7 @@ const PORT = import.meta.env.VITE_DOMAIN;
 
 export default function Login() {
     const { user: loginUser, dispatch } = useAdminContext();
+    const {hasNewMessage, dispatch: dispatch_hasNewMessage}= useNewMessageContext();
     const navigate = useNavigate()
     const [user, setUser] = useState({
         username: "",
@@ -66,6 +68,8 @@ export default function Login() {
 
         if (user.password.length > 0 && user.username.length > 0) {
             setButtonDisabled(false);
+            
+
         } else {
             setButtonDisabled(true);
         }

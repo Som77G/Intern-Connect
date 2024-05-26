@@ -29,7 +29,7 @@ function App() {
           />
           <Route
             path = '/request-admin'
-            element = {!user? <RequestToAdmin/>: (user.userType == 'student'? <Navigate to = '/student-dashboard'/> : <Navigate to = '/admin-home-page'/>)}
+            element = {<RequestToAdmin />}
           />
           <Route
             path='/login'

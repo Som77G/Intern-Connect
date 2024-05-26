@@ -11,8 +11,9 @@ import { toast } from 'react-toastify';
 
 import { FaMapMarkerAlt, FaPhoneAlt, FaFacebookF, FaLinkedinIn } from 'react-icons/fa';
 
-axios.defaults.withCredentials= true;
+
 const PORT = import.meta.env.VITE_DOMAIN;
+axios.defaults.withCredentials= true;
 
 const schema = yup.object().shape({
     username: yup.string().required('Username is required').max(50, 'Username must be at most 50 characters'),
@@ -38,6 +39,7 @@ export default function RequestToAdmin() {
          console.log("helllo buddy")
          try{
          if (user) {
+            console.log("inside socket functionality");
             const socket= getSocketInstance();
          socket.connect();
          socket.emit("message_sent", messageObject);
