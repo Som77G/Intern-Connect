@@ -17,7 +17,7 @@ const createStudentUserTable = async(dbconnection) => {
         console.log("Users table created or already exists.");
     } catch (error) {
         // throw new Error("Error creating users table: " + error.message);
-        console.log("hello createStudent table")
+        console.log("error in creating createStudent table")
         return res.json({
             error: error.message
         })
