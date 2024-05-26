@@ -29,7 +29,7 @@ function App() {
           />
           <Route
             path = '/request-admin'
-            element = {<RequestToAdmin/>}
+            element = {<RequestToAdmin />}
           />
           <Route
             path='/login'

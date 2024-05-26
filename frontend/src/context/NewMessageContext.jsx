@@ -17,12 +17,16 @@ export const NewMessageReducer= (state, action)=>{
             return{
                 hasNewMessage: "default"
             }
+        case 'NONE':
+            return{
+                hasNewMessage: 'none'
+            }
         default:
             return state;
     }
 }
 export const NewMessageContextProvider= ({children})=>{
-  const [state, dispatch]= useReducer(NewMessageReducer, {hasNewMessage: 'default'})
+  const [state, dispatch]= useReducer(NewMessageReducer, {hasNewMessage: 'none'})
   return (
     <NewMessageContext.Provider value= {{...state, dispatch}}>
         {children}
