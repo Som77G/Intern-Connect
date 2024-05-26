@@ -38,7 +38,7 @@ export default function AdminHomePage(){
           console.log("admin page render again");
           console.log("hasNewMessage: ", hasNewMessage);
           if((hasNewMessage=="seen_message")){
-           dispatch({type: "RESET"});
+           dispatch({type: "NONE"});
           }
     }, [hasNewMessage])
 
