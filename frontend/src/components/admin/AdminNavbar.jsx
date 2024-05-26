@@ -14,7 +14,7 @@ export default function AdminNavbar(){
                         <Link to="/admin-home-page/add-student">
                             Add Student
                         </Link>
-                        <Link to="/admin-home-page/update-credentials">
+                        <Link to="/admin-home-page/update-password">
                           Update Credentials
                         </Link>
                         <Link to="/admin-home-page/analysis">
