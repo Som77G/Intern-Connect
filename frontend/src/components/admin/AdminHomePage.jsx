@@ -6,7 +6,7 @@ import AdminNavbar from "./AdminNavbar";
 import { useNewMessageContext } from "../../hooks/useNewMessageContext";
 import { useAdminContext } from "../../hooks/useAdminContext";
 // export const HasNewMessageContext= createContext();
-export default function AdminHomePage(){
+export default function AdminHomePage() {
     const navigate = useNavigate()
     const {messages}= useMessageContext();
     const {hasNewMessage, dispatch}= useNewMessageContext();
@@ -48,17 +48,17 @@ export default function AdminHomePage(){
     console.log("hasNewMessage: ", hasNewMessage);
     return(
         <>
-           {/* <HasNewMessageContext.Provider value= {{hasNewMessage, setHasNewMessage}}> */}
+            {/* <HasNewMessageContext.Provider value= {{hasNewMessage, setHasNewMessage}}> */}
             <div className="mt-10">
                 <h1 className="text-xl text-center">Admin Home Page</h1>
             </div>
             <AdminNavbar />
-            {hasNewMessage=="new_message" && (
+            {hasNewMessage == "new_message" && (
                 <div className="fixed top-0 right-0 m-4 bg-yellow-500 text-white px-4 py-2 rounded">
                     New Message!
                 </div>
             )}
-        {/* </HasNewMessageContext.Provider> */}
+            {/* </HasNewMessageContext.Provider> */}
         </>
     )
 }

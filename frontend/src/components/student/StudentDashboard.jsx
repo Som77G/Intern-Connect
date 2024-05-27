@@ -4,57 +4,6 @@ import { useNavigate } from "react-router-dom";
 import { useAdminContext } from "../../hooks/useAdminContext";
 const PORT = import.meta.env.VITE_DOMAIN;
 
-// export default function StudentDashboard() {
-//     const {dispatch}= useAdminContext();
-//     const [user, setUser] = useState({
-//         username: '',
-//         email: '',
-//     })
-//     const navigate = useNavigate();
-
-//     const getStudentProfile = async () => {
-//         try {
-//             const response = await axios.get(`${PORT}/api/student/dashboard`);
-//             const student = response.data.message
-//             console.log(student)
-//             setUser({
-//                 ...user,
-//                 username: student.username,
-//                 email: student.email,
-//             });
-
-//         } catch (error) {
-//             console.log(error.message)
-//         }
-
-//     }
-//     useEffect(() => {
-//         getStudentProfile();
-//     }, [])
-
-//     const onLogout = async () => {
-//         try {
-//             const res = await axios.get(`${PORT}/api/user/logout`)
-//             dispatch({type:"LOGOUT"});
-//             navigate('/login')
-//             console.log(res.data)
-
-//         } catch (error) {
-//             console.log(error.message);
-//         }
-//     }
-//     return (
-//         <>
-//             <button
-//                 onClick={onLogout}
-//                 className="p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600">Log out</button>
-
-//             <h1>{user.username ? user.username : ''}</h1>
-//             <h1>{user.email ? user.email : ''}</h1>
-//         </>
-//     )
-// }
-
 import React from 'react';
 import { FaHome, FaRedo, FaMoneyCheckAlt } from 'react-icons/fa';
 
@@ -99,39 +48,37 @@ export default function StudentDashboard() {
   }
   return (
     <>
-    <nav className=" bg-gray-900 flex justify-between py-4 px-10 " >
+      <nav className="flex justify-between py-4 px-10 lg:px-16 shadow-2xl rounded" >
         <div className="text-3xl font-bold text-purple-600">SIP Portal</div>
-    </nav>
-    <div className="flex font-sans">
-      
-      <aside className="w-64 bg-gray-900 text-white p-6 flex flex-col">
-        <nav className="flex-1">
-          <div className="flex items-center mb-4 cursor-pointer hover:text-blue-400">
-            <FaHome size={20} />
-            <button className="ml-3"
-              onClick={(e) => navigate('/student-dashboard')}
-            >Dashboard</button>
-          </div>
-          <div className="flex items-center mb-4 cursor-pointer hover:text-blue-400">
-            <FaRedo size={20} />
-            <button className="ml-3"
-              onClick={(e) => navigate('/student-dashboard/profile')}
-            >Profile</button>
-          </div>
-          <div className="flex items-center mb-4 cursor-pointer hover:text-blue-400">
-            <FaMoneyCheckAlt size={20} />
-            <span className="ml-3">Notifications</span>
-          </div>
-          <div className="flex items-center mb-4 cursor-pointer hover:text-blue-400">
-            <FaMoneyCheckAlt size={20} />
-            <button className="ml-3"
-              onClick={onLogout}
-            >Logout</button>
-          </div>
-        </nav>
-        <button className="mt-auto bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Dark Mode</button>
-      </aside>
-      <main className="flex-1 p-6 bg-zinc-900">
+        <button
+          className="bg-yellow-500 text-black py-2 px-6 rounded-2xl hover:bg-yellow-600"
+          onClick={(e) => onLogout()}>Log Out</button>
+
+      </nav>
+      <section className="flex flex-col lg:flex-row py-1 bg-blueGray-50">
+        <div className='shadow-lg shadow-zinc-950'>
+          <aside className="w-20 lg:w-60 text-white p-6 flex flex-col">
+            <nav className="flex flex-row justify-between lg:flex-col">
+              <div className="flex items-center mb-4 ml-5 lg:ml-10 cursor-pointer hover:text-blue-400">
+                <FaHome size={20} />
+                <button className="mr-4 ml-1 lg:mx-3"
+                  onClick={(e) => navigate('/student-dashboard')}
+                >Dashboard</button>
+              </div>
+              <div className="flex items-center mb-4 ml-5 lg:ml-10 cursor-pointer hover:text-blue-400">
+                <FaRedo size={20} />
+                <button className="mr-4 ml-1 lg:mx-3"
+                  onClick={(e) => navigate('/student-dashboard/profile')}
+                >Profile</button>
+              </div>
+              <div className="flex items-center mb-4 ml-5 lg:ml-10 cursor-pointer hover:text-blue-400">
+                <FaMoneyCheckAlt size={20} />
+                <span className="mr-4 ml-1 lg:mx-3">Notifications</span>
+              </div>
+
+            </nav>
+          </aside>
+        </div>
         <div className='flex space-x-4 '>
           <div className="bg-gray-800 p-4 rounded flex items-center mb-6">
             <img src="https://via.placeholder.com/60" alt="Profile" className="rounded-full w-16 h-16 mr-4" />
@@ -147,10 +94,7 @@ export default function StudentDashboard() {
             <p>Sem 3</p>
           </div>
         </div>
-
-      </main>
-    </div>
-    
+      </section>
     </>
   );
 };
