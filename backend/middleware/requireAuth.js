@@ -11,6 +11,7 @@ const requireAuth = async (req, res, next) => {
 
     const userid = decodedToken.userid;  
     const userType = decodedToken.userType;
+    const username= decodedToken.username;
     const tableType = {
         'student': 'users_student',
         'admin': 'users_admin'
@@ -28,6 +29,8 @@ const requireAuth = async (req, res, next) => {
         if (user.length == 0) {
             throw new Error("Request token is not authorized")
         }
+        const currUser= {userid: userid, userType: userType, username: username};
+        req.user= currUser;
         next();
     } catch (error) {
         console.log(error);

@@ -7,12 +7,14 @@ const userRouter = require("./routes/user");
 const cors = require("cors");
 const studentRouter = require("./routes/student");
 const anonymousRouter= require("./routes/anonymous");
+
 //socket
 const { Server } = require("socket.io");
 const cookieParser = require('cookie-parser');
+const fileUpload= require('express-fileupload');
+const jobRouter= require("./routes/jobRoutes");
+const applicationRouter= require('./routes/applicationRoutes');
 
-//multer
-const cloudinary = require('cloudinary').v2
 // Middleware
 app.use(express.json()); // Parse JSON bodies
 const { query } = require('./dbconfig/dbconfig');
@@ -27,12 +29,22 @@ app.use(cors(
     }
 ));
 
+//file upload
+app.use(
+    fileUpload({
+        useTempFiles: true,
+        tempFileDir:'/tmp/',
+    })
+)
+
 
 // Routes
 app.use("/api/admin", adminRouter);
 app.use("/api/user", userRouter);
 app.use("/api/student", studentRouter);
 app.use("/api/anonymous", anonymousRouter);
+app.use("/api/job", jobRouter);
+app.use("/api/application", applicationRouter);
 app.get('/', async (req, res) => {
     // res.send('Hello, World!');
 
@@ -53,12 +65,6 @@ app.get('/', async (req, res) => {
     }
 });
 
-cloudinary.config({
-    cloud_name : process.env.CLOUD_NAME,
-    api_key : process.env.CLOUD_API_KEY,
-    api_secret : process.env.CLOUD_API_SECRET 
-
-})
 const server = app.listen(process.env.PORT, () => {
     console.log("connected to db & listening on port", process.env.PORT);
 });

@@ -4,6 +4,8 @@ const {createAdminUserTable} = require("../models/admin/user");
 const {createMessageTable}= require("../models/messages/structure");
 const { createStudentProfileTable } = require("../models/student/profile");
 const { studentProfileViewTable } = require("../models/student/profileView");
+const {createJobTable}= require('../models/job/job')
+const {createApplicationTable}= require("../models/application/application")
 async function query({ query, values = [] }) {
     console.log("hello database")
     const dbconnection = await mysql.createConnection({
@@ -27,6 +29,15 @@ async function query({ query, values = [] }) {
         if (query.toLowerCase().includes('messages')) {
             console.log("Creating message table");
             await createMessageTable(dbconnection);
+        }
+        if (query.toLowerCase().includes('jobs')) {
+            console.log("Creating jobs table");
+            await createJobTable(dbconnection);
+        }
+
+        if (query.toLowerCase().includes('applications')) {
+            console.log("Creating applications table");
+            await createApplicationTable(dbconnection);
         }
         if (query.toLowerCase().includes('profiles_student')) {
             console.log("Updating Profile")
