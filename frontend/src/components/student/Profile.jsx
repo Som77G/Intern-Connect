@@ -1,22 +1,31 @@
 import { useNavigate } from 'react-router-dom';
 import { FaHome, FaRedo, FaMoneyCheckAlt } from 'react-icons/fa';
 import { useState } from 'react';
+import axios from "axios";
+import { toast } from 'react-toastify';
+
+const PORT = import.meta.env.VITE_DOMAIN;
+axios.defaults.withCredentials = true;
 
 
 export default function Profile() {
     const navigate = useNavigate();
+    const [docs, setDocs] = useState({
+        profilePicture: null,
+        resume: null
+    })
+    const [picture, setPicture] = useState('')
     const [studentProfile, setStudentProfile] = useState({
-        username: '',
-        email: '',
         firstName: '',
         lastName: '',
         college: '',
+        course: '',
         branch: '',
         year: '',
         cpi: '',
-        profilePicture: '',
+        profilePicturePath: '',
 
-        resume: '',
+        resumePath: '',
         project1: {
             githubLink: '',
             projectLink: '',
@@ -30,11 +39,70 @@ export default function Profile() {
         gitHub: '',
         linkedIn: '',
 
+        phoneNumber: '',
         address: '',
         city: '',
         country: '',
         postalCode: ''
+
     })
+
+    const uploadPicture = async () => {
+        try {
+            const formData = new FormData()
+
+            formData.append('profilePicture', docs.profilePicture);
+            const response = await axios.post(`${PORT}/api/student/uploadProfile`, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            })
+            const data = response.data
+            console.log('Data containing files', data)
+            setStudentProfile({
+                ...studentProfile, profilePicturePath: data.profilePictureUrl,
+            })
+            toast.success("Profile Picture Uploaded, Update Profile now to reflect changes.")
+
+        } catch (error) {
+            toast.error("Error in uploading Profile Picture")
+            console.log('Error in uploading files', error)
+        }
+    }
+
+    const uploadResume = async () => {
+        try {
+            console.log(docs.resume)
+            const formData = new FormData()
+
+            formData.append('resume', docs.resume);
+            const response = await axios.post(`${PORT}/api/student/uploadResume`, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            })
+            const data = response.data
+            console.log('Data containing files', data)
+            setStudentProfile({
+                ...studentProfile, resumePath: data.resumeUrl,
+            })
+            toast.success("Resume Uploaded, Update Profile now to reflect changes.")
+        } catch (error) {
+            toast.error("Error in uploading Resume")
+            console.log('Error in uploading files', error)
+        }
+    }
+    const onUpdate = async () => {
+        try {
+            const response = await axios.put(`${PORT}/api/student/updateProfile`, studentProfile)
+            console.log("Profile Updated", response)
+            toast.success(response.data.message)
+        } catch (error) {
+            toast.error("Error in Updating Profile")
+            console.log("error in updating profile", error)
+        }
+
+    }
     return (
         <>
             <nav className="flex justify-between py-4 px-10 lg:px-16 shadow-2xl rounded" >
@@ -70,40 +138,12 @@ export default function Profile() {
                 </div>
                 <div className="w-full lg:w-7/12 px-4 mt-6 mx-auto">
                     <div className="relative flex flex-col min-w-0 break-words w-full mb-6 rounded-lg bg-blueGray-100 border-0">
-
+                        <p className='mb-5 lg:mb-0'><i>*Fill only those fields you want to update</i></p>
                         <div className="flex-auto px-4 lg:px-10 py-10 pt-0">
-                            <form>
+                            <div>
                                 <h6 className="text-blueGray-400 text-sm mt-0 lg:mt-10 mb-6 font-bold uppercase">User Information</h6>
                                 <div className="flex flex-wrap">
-                                    <div className="w-full lg:w-6/12 px-4">
-                                        <div className="relative w-full mb-5">
-                                            <label className="block uppercase text-blueGray-600 text-xs font-bold mb-2" htmlFor="username">
-                                                Username
-                                            </label>
-                                            <input
-                                                type="text"
-                                                id="username"
-                                                className="text-black border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                                value={studentProfile.username}
-                                                onChange={(e) => setStudentProfile({ ...studentProfile, username: e.target.value })}
 
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className="w-full lg:w-6/12 px-4">
-                                        <div className="relative w-full mb-5">
-                                            <label className="block uppercase text-blueGray-600 text-xs font-bold mb-2" htmlFor="email">
-                                                Email address
-                                            </label>
-                                            <input
-                                                type="email"
-                                                id="email"
-                                                className="text-black border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                                value={studentProfile.email}
-                                                onChange={(e) => setStudentProfile({ ...studentProfile, email: e.target.value })}
-                                            />
-                                        </div>
-                                    </div>
                                     <div className="w-full lg:w-6/12 px-4">
                                         <div className="relative w-full mb-5">
                                             <label className="block uppercase text-blueGray-600 text-xs font-bold mb-2" htmlFor="first-name">
@@ -146,7 +186,21 @@ export default function Profile() {
                                             />
                                         </div>
                                     </div>
-                                    <div className="w-full lg:w-4/12 px-4">
+                                    <div className="w-full lg:w-6/12 px-4">
+                                        <div className="relative w-full mb-5">
+                                            <label className="block uppercase text-blueGray-600 text-xs font-bold mb-2" htmlFor="last-name">
+                                                Course
+                                            </label>
+                                            <input
+                                                type="text"
+                                                id="course"
+                                                className="text-black border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                                value={studentProfile.course}
+                                                onChange={(e) => setStudentProfile({ ...studentProfile, course: e.target.value })}
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="w-full lg:w-6/12 px-4">
                                         <div className="relative w-full mb-5">
                                             <label className="block uppercase text-blueGray-600 text-xs font-bold mb-2" htmlFor="last-name">
                                                 Branch
@@ -197,7 +251,7 @@ export default function Profile() {
                                             <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
                                                 <div className="space-y-1 text-center">
                                                     <svg className="mx-auto h-12 w-12 text-white" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
-                                                        <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                                        <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                                                     </svg>
                                                     <div className="flex text-sm text-gray-600">
 
@@ -207,8 +261,7 @@ export default function Profile() {
                                                             name="file-upload"
                                                             id="file-upload"
                                                             accept="image/*"
-                                                            value={studentProfile.profilePicture}
-                                                            onChange={(e) => setStudentProfile({ ...studentProfile, profilePicture: e.target.value })}
+                                                            onChange={(e) => setDocs({ ...docs, profilePicture: e.target.files[0] })}
                                                             required />
                                                     </div>
 
@@ -217,8 +270,13 @@ export default function Profile() {
 
                                         </div>
                                     </div>
+                                    {/* button to upload file */}
+
                                 </div>
 
+                                <button
+                                    className=" bg-yellow-500 text-zinc-900 font-semibold py-2 mt-2 ml-4 px-6 rounded-2xl hover:bg-yellow-600"
+                                    onClick={uploadPicture}>Upload</button>
                                 <hr className="mt-6 border-b-1 border-blueGray-300" />
 
                                 <h6 className="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase">Academic Information</h6>
@@ -231,7 +289,7 @@ export default function Profile() {
                                             <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
                                                 <div className="space-y-1 text-center">
                                                     <svg className="mx-auto h-12 w-12 text-white" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
-                                                        <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                                        <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                                                     </svg>
                                                     <div className="flex text-sm text-gray-600">
 
@@ -241,8 +299,7 @@ export default function Profile() {
                                                             name="file-upload"
                                                             id="file-upload"
                                                             accept="application/pdf"
-                                                            value={studentProfile.resume}
-                                                            onChange={(e) => setStudentProfile({ ...studentProfile, resume: e.target.value })}
+                                                            onChange={(e) => setDocs({ ...docs, resume: e.target.files[0] })}
                                                             required />
                                                     </div>
 
@@ -250,6 +307,12 @@ export default function Profile() {
                                             </div>
                                         </div>
                                     </div>
+                                    <div className='w-full'>
+                                        <button
+                                            className=" bg-yellow-500 text-zinc-900 font-semibold py-2 mt-2 mb-10 ml-4 px-6 rounded-2xl hover:bg-yellow-600"
+                                            onClick={uploadResume}>Upload</button>
+                                    </div>
+
 
                                     <div className="w-full lg:w-6/12 px-4">
                                         <div className="relative w-full mb-5">
@@ -408,6 +471,20 @@ export default function Profile() {
 
                                 <h6 className="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase">Contact Information</h6>
                                 <div className="flex flex-wrap">
+                                    <div className="w-full lg:w-7/12 px-4">
+                                        <div className="relative w-full mb-5">
+                                            <label className="block uppercase text-blueGray-600 text-xs font-bold mb-2" htmlFor="address">
+                                                Phone Number
+                                            </label>
+                                            <input
+                                                type="number"
+                                                id="phoneNumber"
+                                                className="text-black border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                                value={studentProfile.phoneNumber}
+                                                onChange={(e) => setStudentProfile({ ...studentProfile, phoneNumber: e.target.value })}
+                                            />
+                                        </div>
+                                    </div>
                                     <div className="w-full lg:w-12/12 px-4">
                                         <div className="relative w-full mb-5">
                                             <label className="block uppercase text-blueGray-600 text-xs font-bold mb-2" htmlFor="address">
@@ -467,9 +544,12 @@ export default function Profile() {
                                 </div>
 
                                 <hr className="mt-6 border-b-1 border-blueGray-300" />
+                                <button
+                                    className=" bg-yellow-500 text-zinc-900 font-semibold py-2 mt-10 px-6 rounded-2xl hover:bg-yellow-600"
+                                    onClick={onUpdate}>Update Profile</button>
 
 
-                            </form>
+                            </div>
                         </div>
                     </div>
 

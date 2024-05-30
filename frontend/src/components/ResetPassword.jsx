@@ -70,7 +70,6 @@ export default function ResetPassword() {
             //     navigate('/admin-dashboard')
             // }
             toast.success("Password has been set")
-            
         } catch (error) {
             setError(true);
             console.log(error.response)

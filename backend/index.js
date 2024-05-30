@@ -11,6 +11,8 @@ const anonymousRouter= require("./routes/anonymous");
 const { Server } = require("socket.io");
 const cookieParser = require('cookie-parser');
 
+//multer
+const cloudinary = require('cloudinary').v2
 // Middleware
 app.use(express.json()); // Parse JSON bodies
 const { query } = require('./dbconfig/dbconfig');
@@ -24,6 +26,7 @@ app.use(cors(
         credentials: true,
     }
 ));
+
 
 // Routes
 app.use("/api/admin", adminRouter);
@@ -50,6 +53,12 @@ app.get('/', async (req, res) => {
     }
 });
 
+cloudinary.config({
+    cloud_name : process.env.CLOUD_NAME,
+    api_key : process.env.CLOUD_API_KEY,
+    api_secret : process.env.CLOUD_API_SECRET 
+
+})
 const server = app.listen(process.env.PORT, () => {
     console.log("connected to db & listening on port", process.env.PORT);
 });

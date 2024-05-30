@@ -1,7 +1,9 @@
 const mysql = require("mysql2/promise");
 const {createStudentUserTable} = require("../models/student/user");
 const {createAdminUserTable} = require("../models/admin/user");
-const {createMessageTable}= require("../models/messages/structure")
+const {createMessageTable}= require("../models/messages/structure");
+const { createStudentProfileTable } = require("../models/student/profile");
+const { studentProfileViewTable } = require("../models/student/profileView");
 async function query({ query, values = [] }) {
     console.log("hello database")
     const dbconnection = await mysql.createConnection({
@@ -26,6 +28,15 @@ async function query({ query, values = [] }) {
             console.log("Creating message table");
             await createMessageTable(dbconnection);
         }
+        if (query.toLowerCase().includes('profiles_student')) {
+            console.log("Updating Profile")
+            await createStudentProfileTable(dbconnection)
+        }
+        if (query.toLowerCase().includes('profiles_student_view')) {
+            console.log("Seeing Profile View Table")
+            await studentProfileViewTable(dbconnection)
+        }
+
         // Execute the original query
         console.log("This is line 30 in dbconfig");
         const [results] = await dbconnection.execute(query, values);

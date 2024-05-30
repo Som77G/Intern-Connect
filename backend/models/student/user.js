@@ -9,6 +9,7 @@ const createStudentUserTable = async(dbconnection) => {
                 password VARCHAR(255) NOT NULL,
                 email VARCHAR(50) UNIQUE NOT NULL,
                 resetpassword BOOLEAN DEFAULT FALSE,
+                profilecreated BOOLEAN DEFAULT FALSE,
                 userid VARCHAR(100) PRIMARY KEY,
                 verifytoken VARCHAR(100)
             )

@@ -25,6 +25,15 @@ export default function Login() {
     const [buttonDisabled, setButtonDisabled] = useState(false);
     const [loading, setLoading] = useState(false);
 
+    const createProfile = async(userid) => {
+        try {
+            const response = await axios.post(`${PORT}/api/student/createProfile`, {userid});
+            console.log("Profile created successfully: ", response.data.user)
+        } catch (error) {
+            console.log("Error in creating Profile: ", error)
+        }
+    }
+
     const onLogin = async () => {
         try {
 
@@ -47,7 +56,7 @@ export default function Login() {
             
             if (message.resetpassword != 0) {
                 toast.success("Login Successful")
-                dispatch({ type: "LOGIN", payload: loginUser })
+                await dispatch({ type: "LOGIN", payload: loginUser })
                 if (type == 'student') {
                     console.log("Redirecting....")
                     navigate('/student-dashboard')
@@ -55,6 +64,10 @@ export default function Login() {
             }
             if (message.resetpassword == 0) {
                 toast.success("Mail has been sent")
+                if (message.profilecreated == 0) {
+                    //create profile
+                    createProfile(loginUser.userid);
+                }
             }
         } catch (error) {
             toast.error(error.response.data.message)
