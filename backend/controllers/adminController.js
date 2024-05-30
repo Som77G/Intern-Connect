@@ -2,6 +2,7 @@ const express = require('express');
 const { query } = require("../dbconfig/dbconfig");
 const { v4: uuidv4 } = require('uuid');
 const { decodejwt } = require("../helpers/decodejwt")
+const {MailDeductInCredits} = require('../helpers/MailDeductInCredits')
 const addStudent = async (req, res) => {
     try {
         const { username, password, email } = req.body;
@@ -55,4 +56,36 @@ const addStudent = async (req, res) => {
     }
 };
 
-module.exports = { addStudent }
+const deductCredit = async(req, res) => {
+    try {
+        const {first_name, last_name, email, userid, credit, message} = req.body;
+        console.log(userid, ':', credit, ":", message)
+        const deduct_credit = `
+            UPDATE profiles_student
+            SET credit = ?
+            WHERE userid = ?
+        `
+
+        const updatedUser = await query({
+            query : deduct_credit,
+            values : [credit, userid]
+        })
+        if (updatedUser.affectedRows == 1) {
+            //send mail to student
+            await MailDeductInCredits({email : email, first_name : first_name, last_name: last_name, message: message})
+        }
+
+        console.log("User whose credit is deducted: ",updatedUser)
+        return res.status(200).json({
+            message : "Credits deducted successfully"
+        })
+    } catch (error) {
+        console.error("Error deducting credits:", error);
+        return res.status(500).json({
+            status: 500,
+            error: "Internal Server Error"
+        });
+    }
+}
+
+module.exports = { addStudent, deductCredit }

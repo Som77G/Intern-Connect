@@ -254,4 +254,34 @@ const updatePassword = async (req, res) => {
         })
     }
 }
-module.exports = { verifyEmail, login, resetPassword, logout, getAdmin, validUser, updatePassword};
+const searchStudent = async(req, res) => {
+    try {
+        const username = req.query.username
+        if (username == '') {
+            return res.status(200).json({
+                users: []
+            })
+        }
+        const search = `
+            SELECT username, userid FROM users_student
+            WHERE username LIKE ?
+            LIMIT 10
+        `
+ 
+        const users = await query({
+            query : search,
+            values : [`${username}%`]
+        })
+
+        return res.status(200).json({
+            users : users
+        })
+
+    } catch (error) {
+        console.log(error)
+        return res.json(404).json({
+            message : "Error searching students"
+        })
+    } 
+}
+module.exports = { verifyEmail, login, resetPassword, logout, getAdmin, validUser, updatePassword, searchStudent};

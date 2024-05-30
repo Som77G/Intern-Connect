@@ -8,7 +8,7 @@ import React from 'react';
 import { FaHome, FaRedo, FaMoneyCheckAlt } from 'react-icons/fa';
 
 export default function StudentDashboard() {
-  const { dispatch } = useAdminContext();
+  const { user: loginUser , dispatch } = useAdminContext();
   const [user, setUser] = useState({
     firstName: '',
     lastName: '',
@@ -46,7 +46,8 @@ export default function StudentDashboard() {
 
   const getStudentProfile = async () => {
     try {
-      const response = await axios.get(`${PORT}/api/student/dashboard`);
+      const userid = loginUser.userid
+      const response = await axios.get(`${PORT}/api/student/dashboard?userid=${encodeURIComponent(userid)}`);
       const student = response.data.message
       console.log(student)
       setUser({

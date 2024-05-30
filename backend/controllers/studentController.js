@@ -12,7 +12,7 @@ cloudinary.config({
 const dashboard = async (req, res) => {
   try {
     console.log("REquest accepted")
-    const { userid } = await decodejwt(req);
+    const userid = req.query.userid
 
     const findStudentQuery = `
             SELECT * FROM profiles_student_view

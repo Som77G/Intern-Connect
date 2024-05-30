@@ -5,6 +5,7 @@ import { useMessageContext } from "../../hooks/useMessageContext";
 import AdminNavbar from "./AdminNavbar";
 import { useNewMessageContext } from "../../hooks/useNewMessageContext";
 import { useAdminContext } from "../../hooks/useAdminContext";
+import SearchStudent from "./SearchStudent";
 // export const HasNewMessageContext= createContext();
 export default function AdminHomePage() {
     const navigate = useNavigate()
@@ -59,6 +60,7 @@ export default function AdminHomePage() {
                 </div>
             )}
             {/* </HasNewMessageContext.Provider> */}
+            <SearchStudent />
         </>
     )
 }
