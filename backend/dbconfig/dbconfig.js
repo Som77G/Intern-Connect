@@ -2,6 +2,8 @@ const mysql = require("mysql2/promise");
 const {createStudentUserTable} = require("../models/student/user");
 const {createAdminUserTable} = require("../models/admin/user");
 const {createMessageTable}= require("../models/messages/structure")
+const {createJobTable}= require('../models/job/job')
+const {createApplicationTable}= require("../models/application/application")
 async function query({ query, values = [] }) {
     console.log("hello database")
     const dbconnection = await mysql.createConnection({
@@ -25,6 +27,15 @@ async function query({ query, values = [] }) {
         if (query.toLowerCase().includes('messages')) {
             console.log("Creating message table");
             await createMessageTable(dbconnection);
+        }
+        if (query.toLowerCase().includes('jobs')) {
+            console.log("Creating jobs table");
+            await createJobTable(dbconnection);
+        }
+
+        if (query.toLowerCase().includes('applications')) {
+            console.log("Creating applications table");
+            await createApplicationTable(dbconnection);
         }
         // Execute the original query
         console.log("This is line 30 in dbconfig");

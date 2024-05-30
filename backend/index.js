@@ -7,10 +7,21 @@ const userRouter = require("./routes/user");
 const cors = require("cors");
 const studentRouter = require("./routes/student");
 const anonymousRouter= require("./routes/anonymous");
+
 //socket
 const { Server } = require("socket.io");
 const cookieParser = require('cookie-parser');
-
+const fileUpload= require('express-fileupload');
+//cloudinary
+const cloudinary= require('cloudinary').v2;
+const jobRouter= require("./routes/jobRoutes");
+const applicationRouter= require('./routes/applicationRoutes');
+//configure cloudinary with account credentials
+cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLIENT_NAME,
+    api_key: process.env.CLOUDINARY_CLIENT_API,
+    api_secret: process.env.CLOUDINARY_CLIENT_SECRET
+});
 // Middleware
 app.use(express.json()); // Parse JSON bodies
 const { query } = require('./dbconfig/dbconfig');
@@ -25,11 +36,21 @@ app.use(cors(
     }
 ));
 
+//file upload
+app.use(
+    fileUpload({
+        useTempFiles: true,
+        tempFileDir:'/tmp/',
+    })
+)
+
 // Routes
 app.use("/api/admin", adminRouter);
 app.use("/api/user", userRouter);
 app.use("/api/student", studentRouter);
 app.use("/api/anonymous", anonymousRouter);
+app.use("/api/job", jobRouter);
+app.use("/api/application", applicationRouter);
 app.get('/', async (req, res) => {
     // res.send('Hello, World!');
 
