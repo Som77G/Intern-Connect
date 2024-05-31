@@ -1,19 +1,21 @@
 require('dotenv').config();
 const express = require('express');
-const adminRouter = require("./routes/admin")
 const app = express();
 const PORT = 3000;
 const userRouter = require("./routes/user");
 const cors = require("cors");
+
+const adminRouter = require("./routes/admin")
 const studentRouter = require("./routes/student");
 const anonymousRouter= require("./routes/anonymous");
+const jobRouter= require("./routes/jobRoutes");
+const applicationRouter= require('./routes/applicationRoutes');
 
 //socket
 const { Server } = require("socket.io");
 const cookieParser = require('cookie-parser');
 const fileUpload= require('express-fileupload');
-const jobRouter= require("./routes/jobRoutes");
-const applicationRouter= require('./routes/applicationRoutes');
+
 
 // Middleware
 app.use(express.json()); // Parse JSON bodies
@@ -30,12 +32,12 @@ app.use(cors(
 ));
 
 //file upload
-app.use(
-    fileUpload({
-        useTempFiles: true,
-        tempFileDir:'/tmp/',
-    })
-)
+// app.use(
+//     fileUpload({
+//         useTempFiles: true,
+//         tempFileDir:'/tmp/',
+//     })
+// )
 
 
 // Routes

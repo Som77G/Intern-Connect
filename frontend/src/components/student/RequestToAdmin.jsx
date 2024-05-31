@@ -91,7 +91,7 @@ export default function RequestToAdmin() {
                     <div className="text-3xl font-bold text-purple-600">SIP Portal</div>
                         <a href="/" className="bg-yellow-500 text-black py-2 px-6 rounded-2xl hover:bg-yellow-600">Home</a>
                     </nav>
-                <div className="flex justify-center items-center bg-zinc-900">
+                <div className="flex justify-center items-center">
                     
                     <div className="container mx-auto my-28 px-4 lg:px-20">
                         <div className="p-8 my-4 md:px-12 lg:w-9/12 lg:pl-20 lg:pr-40 mr-auto rounded-2xl shadow-2xl shadow-zinc-950">
@@ -155,17 +155,17 @@ export default function RequestToAdmin() {
                         <div className="w-full lg:-mt-96 lg:w-2/6 px-8 py-12 ml-auto bg-blue-900 rounded-2xl">
                             <div className="flex flex-col text-white">
                                 <h1 className="font-bold uppercase text-4xl my-4">Drop in our office</h1>
-                                <p className="text-gray-400">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam tincidunt arcu diam,
+                                {/* <p className="text-gray-400">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam tincidunt arcu diam,
                                     eu feugiat felis fermentum id. Curabitur vitae nibh viverra, auctor turpis sed, scelerisque ex.
-                                </p>
+                                </p> */}
 
                                 <div className="flex my-4 w-2/3 lg:w-1/2">
                                     <div className="flex flex-col">
                                         <FaMapMarkerAlt className="pt-2 pr-2" />
                                     </div>
                                     <div className="flex flex-col">
-                                        <h2 className="text-2xl">Main Office</h2>
-                                        <p className="text-gray-400">5555 Tailwind RD, Pleasant Grove, UT 73533</p>
+                                        <h2 className="text-2xl">TPO Office</h2>
+                                        <p className="text-gray-400">Tpo Department, Admininstraation Building, MNNIT Allahabad</p>
                                     </div>
                                 </div>
 
@@ -175,16 +175,16 @@ export default function RequestToAdmin() {
                                     </div>
                                     <div className="flex flex-col">
                                         <h2 className="text-2xl">Call Us</h2>
-                                        <p className="text-gray-400">Tel: xxx-xxx-xxx</p>
-                                        <p className="text-gray-400">Fax: xxx-xxx-xxx</p>
+                                        <p className="text-gray-400">Tel: 6387-530</p>
+                                        <p className="text-gray-400">Fax: 9026-699</p>
                                     </div>
                                 </div>
 
                                 <div className="flex my-4 w-2/3 lg:w-1/2">
-                                    <a href="https://www.facebook.com/ENLIGHTENEERING/" target="_blank" rel="noreferrer" className="rounded-full bg-white h-8 w-8 inline-block mx-1 text-center pt-1">
+                                    <a href="https://www.facebook.com/" target="_blank" rel="noreferrer" className="rounded-full bg-white h-8 w-8 inline-block mx-1 text-center pt-1">
                                         <FaFacebookF className="text-blue-900" />
                                     </a>
-                                    <a href="https://www.linkedin.com/company/enlighteneering-inc-" target="_blank" rel="noreferrer" className="rounded-full bg-white h-8 w-8 inline-block mx-1 text-center pt-1">
+                                    <a href="https://www.linkedin.com/in/somesh-gupta-sg74/" target="_blank" rel="noreferrer" className="rounded-full bg-white h-8 w-8 inline-block mx-1 text-center pt-1">
                                         <FaLinkedinIn className="text-blue-900" />
                                     </a>
                                 </div>
@@ -200,51 +200,3 @@ export default function RequestToAdmin() {
     )
 }
 
-{/*<div className="flex justify-center items-center h-screen">
-            <div
-                className="w-full max-w-md p-4 bg-gray-100 shadow-md rounded-lg"
-            >
-                <div className="mb-4">
-                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="username">
-                        Username
-                    </label>
-                    <input
-                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        id="username"
-                        type="text"
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
-                    //   placeholder="Registration Number"
-                    />
-                    {errors && errors.username && <p className="text-red-500 text-xs italic">{errors.username.message}</p>}
-                </div>
-                <div className="mb-4">
-                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="message">
-                        Message
-                    </label>
-                    <textarea
-                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline min-h-[100px]"
-                        id="message"
-                        rows="4"
-                        value={message}
-                        onChange={(e) => setMessage(e.target.value)}
-                        placeholder="Type your message here"
-                    />
-                    {errors && errors.message && (
-                        <p className="text-red-500 text-xs italic">{errors.message.message}</p>
-                    )}
-                </div>
-
-
-                <div className="flex items-center justify-center">
-                    <button
-                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                        onClick={onSubmit}
-                        disabled={submitting}
-                    >
-                        Submit
-                    </button>
-                </div>
-            </div>
-
-                </div>} */}

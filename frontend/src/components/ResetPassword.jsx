@@ -1,8 +1,9 @@
 import axios from 'axios';
-import {useEffect, useState} from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAdminContext } from "../hooks/useAdminContext";
 import { toast } from 'react-toastify';
+import { MdError } from "react-icons/md";
 
 const PORT = import.meta.env.VITE_DOMAIN;
 
@@ -11,7 +12,7 @@ export default function ResetPassword() {
 
     const navigate = useNavigate();
     const [token, setToken] = useState("");
-    const [verified, setVerified] = useState(false)
+    const [verifying, setVerifying] = useState(false)
     const [error, setError] = useState(false)
     const [userType, setUserType] = useState("")
     const [username, setUsername] = useState('');
@@ -28,7 +29,7 @@ export default function ResetPassword() {
             console.log(data);
             setUsername(data.user.username);
 
-            setVerified(true)
+            // setVerified(true)
         } catch (error) {
             setError(true)
             console.log(error.response.data)
@@ -58,6 +59,7 @@ export default function ResetPassword() {
 
     const onReset = async () => {
         try {
+            setVerifying(true)
             const response = await axios.put(`${PORT}/api/user/resetPassword`, { username, password, userType });
             const message = response.data.message;
             console.log("updated password", response)
@@ -74,6 +76,7 @@ export default function ResetPassword() {
             setError(true);
             console.log(error.response)
         } finally {
+            setVerifying(false)
             setButtonDisabled(false)
 
         }
@@ -90,49 +93,82 @@ export default function ResetPassword() {
     return (
         <>
             {!loading && (
-                <h1>processing</h1>
+                <div className='flex flex-col justify-center items-center bg-zinc-900 h-screen'>
+                    <div className='flex flex-row space-x-2'>
+                        <span className='sr-only'>Loading...</span>
+                        <div className='h-8 w-8 bg-white rounded-full animate-bounce [animation-delay:-0.3s]'></div>
+                        <div className='h-8 w-8 bg-white rounded-full animate-bounce [animation-delay:-0.15s]'></div>
+                        <div className='h-8 w-8 bg-white rounded-full animate-bounce'></div>
+                        <div className='h-8 w-8 bg-white rounded-full animate-bounce'></div>
+                        <div className='h-8 w-8 bg-white rounded-full animate-bounce'></div>
+                    </div>
+                    <br />
+                    <div className='text-xl font-mono font-semibold text-gray-200'>Verifying Token ...</div>
+                </div>
             )}
             {loading && !error && (
-                <div className="flex flex-col items-center justify-center min-h-screen py-2">
-                    <h1>{loading ? "Processing" : "Reset Password"}</h1>
-                    <hr />
 
-                    {/* reset password form */}
-                    <label htmlFor="password">Code</label>
-                    <input
-                        className="p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600 text-black"
-                        id="password"
-                        type="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        placeholder="password"
-                    />
+                <div className='bg-zinc-900 h-screen w-screen'>
+                    <nav className="flex justify-between py-4 px-10 shadow-2xl" >
+                        <div className="text-3xl font-bold text-purple-600">SIP Portal</div>
+                    </nav>
 
-                    <label htmlFor="confirmPassword">Confirm Code</label>
-                    <input
-                        className="p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600 text-black"
-                        id="confirmPassword"
-                        type="password"
-                        value={confirmPassword}
-                        onChange={(e) => setConfirmPassword(e.target.value)}
-                        placeholder="confirm password"
-                    />
+                    <div className="flex justify-center items-center">
 
-                    <button
-                        disabled={!buttonDisabled}
-                        onClick={onReset}
-                        className="p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600"
-                    >
-                        Reset
-                    </button>
+                        <div className="mx-auto my-20">
+                            <div className="px-20 md:px-20 py-10 my-4 rounded-lg md:shadow-xl shadow-zinc-950">
+                                <div className="flex flex-col">
+                                    <h1 className="font-bold uppercase text-3xl text-center">Reset Password</h1>
+                                    <h1 className='text-center'>{verifying ? "Processing..." : ""}</h1>
+                                </div>
+                                <div className="flex flex-col mt-6">
+                                    <label htmlFor="password" className='font-light my-4'>New Password :</label>
+                                    <input className="w-full bg-gray-100 text-gray-900 p-3 rounded-lg focus:outline-none focus:shadow-outline"
+                                        id="password"
+                                        value={password}
+                                        onChange={(e) => setPassword(e.target.value)}
+                                        type="password"
+                                        required
+                                        placeholder="New Password" />
+
+                                    <label htmlFor="confirmPassword" className='font-light my-4'>Confirm Password :</label>
+                                    <input className="w-full bg-gray-100 text-gray-900 p-3 rounded-lg focus:outline-none focus:shadow-outline"
+                                        id="confirmPassword"
+                                        value={confirmPassword}
+                                        onChange={(e) => setConfirmPassword(e.target.value)}
+                                        type="password"
+                                        required
+                                        placeholder="consfirm Password" />
+
+                                </div>
+
+
+                                <div className="mt-10 w-4/6 mx-auto">
+                                    <button className="uppercase text-sm font-bold tracking-wide bg-blue-900 text-gray-100 p-3 rounded-lg w-full 
+                          focus:outline-none focus:shadow-outline"
+                                        disabled={!buttonDisabled}
+                                        onClick={onReset}>
+                                        Reset Password
+                                    </button>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
                 </div>
             )}
 
             {loading && error && (
-                <div className="flex flex-col items-center justify-center min-h-screen py-2">
-                    <h1>Error</h1>
-                    {/* You can also display additional error details here if needed */}
-                </div>
+                <>
+                    <div className='flex flex-col justify-center items-center bg-zinc-900 h-screen'>
+                        <MdError className='text-7xl' />
+                        <br />
+                        <div className='text-2xl font-mono font-semibold text-gray-200'>Token Expired :(</div>
+                    </div>
+
+
+                </>
             )}
         </>
     )

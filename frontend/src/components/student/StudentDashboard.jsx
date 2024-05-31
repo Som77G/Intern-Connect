@@ -6,9 +6,12 @@ const PORT = import.meta.env.VITE_DOMAIN;
 
 import React from 'react';
 import { FaHome, FaRedo, FaMoneyCheckAlt } from 'react-icons/fa';
+import { MdDashboard } from "react-icons/md";
+import { GrUpdate } from "react-icons/gr";
+import { BiSolidNotification } from "react-icons/bi";
 
 export default function StudentDashboard() {
-  const { user: loginUser , dispatch } = useAdminContext();
+  const { user: loginUser, dispatch } = useAdminContext();
   const [user, setUser] = useState({
     firstName: '',
     lastName: '',
@@ -113,99 +116,148 @@ export default function StudentDashboard() {
           onClick={(e) => onLogout()}>Log Out</button>
 
       </nav>
-      <section className="flex flex-col lg:flex-row py-1 bg-blueGray-50">
+      <section className="flex flex-col lg:flex-row py-1 bg-zinc-900">
         <div className='shadow-lg shadow-zinc-950'>
           <aside className="w-20 lg:w-60 text-white p-6 flex flex-col">
-            <nav className="flex flex-row justify-between lg:flex-col">
+            <nav className="flex flex-row justify-between md:flex-col">
               <div className="flex items-center mb-4 ml-5 lg:ml-10 cursor-pointer hover:text-blue-400">
-                <FaHome size={20} />
+                <MdDashboard size={20} />
                 <button className="mr-4 ml-1 lg:mx-3"
                   onClick={(e) => navigate('/student-dashboard')}
                 >Dashboard</button>
               </div>
               <div className="flex items-center mb-4 ml-5 lg:ml-10 cursor-pointer hover:text-blue-400">
-                <FaRedo size={20} />
+                <GrUpdate size={20} />
                 <button className="mr-4 ml-1 lg:mx-3"
                   onClick={(e) => navigate('/student-dashboard/profile')}
                 >Profile</button>
               </div>
               <div className="flex items-center mb-4 ml-5 lg:ml-10 cursor-pointer hover:text-blue-400">
-                <FaMoneyCheckAlt size={20} />
+                <BiSolidNotification size={20} />
                 <span className="mr-4 ml-1 lg:mx-3">Notifications</span>
               </div>
 
             </nav>
           </aside>
         </div>
-        <div className="w-full p-6 lg:w-2/4 mx-auto bg-zinc-900 text-white">
-          <div className="flex flex-col lg:flex-row">
-            <div className="w-full lg:w-2/5 my-auto flex justify-center bg-cover bg-center">
-              <img src={user.profilePicturePath} alt="Profile Picture" className="w-1/2 md:w-1/3 lg:w-full object-cover" />
-            </div>
-            <div className="w-2/3 p-6">
-              <div className="flex items-center justify-between">
-                <h3 className="text-white text-lg font-semibold">WELCOME</h3>
+        
+        <div className="w-full m-2 border border-zinc-700 rounded">
+        <link rel="stylesheet" href="https://demos.creative-tim.com/notus-js/assets/styles/tailwind.css" />
+        <link rel="stylesheet" href="https://demos.creative-tim.com/notus-js/assets/vendor/@fortawesome/fontawesome-free/css/all.min.css" />
 
-                <div>
-                  <h2 className="text-2xl font-semibold text-white">{user ? user.firstName + " " + user.lastName : ""}</h2>
-                  <p className="text-sm text-white">{user ? user.username : ""}</p>
+        <main className="profile-page p-3">
+          <section className="relative block h-500-px">
+            <div className="absolute top-0 w-full h-screen flex items-center justify-center bg-center bg-cover" 
+            style={{backgroundImage:"url('https://cdn.hackernoon.com/images/77fdrPu4ybMLx0OjzBBTzNBhT1f2-4qc3e1d.jpeg')", height:"50%"}}>
+              <span id="blackOverlay" className="w-full h-full absolute opacity-35 bg-black"></span>
+            </div>
+            <div className="top-auto bottom-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden h-70-px" style={{ transform: "translateZ(0px)" }}>
+
+              <svg className="absolute bottom-0 overflow-hidden" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" version="1.1" viewBox="0 0 2560 100" x="0" y="0">
+                <polygon className="text-blueGray-200 fill-current" points="2560 0 2560 100 0 100"></polygon>
+              </svg>
+            </div>
+          </section>
+          <section className="relative py-2 bg-gray-300">
+            <div className="container mx-auto px-4">
+              <div className="relative flex flex-col min-w-0 break-words bg-zinc-900 w-full mb-6 shadow-xl rounded-lg -mt-64">
+                <div className="px-6">
+                  <div className="flex flex-wrap justify-center">
+                    <div className="w-full lg:w-3/12 px-4 lg:order-2 flex justify-center">
+                      <div className="relative">
+                        <img alt="..." src={user.profilePicturePath}  className="shadow-xl rounded-full h-40 w-40 align-middle object-cover border-none absolute -m-16 max-w-150-px" />
+                      </div>
+                    </div>
+                    <div className="w-full text-center lg:w-4/12 lg:order-3 lg:text-right lg:self-center">
+                      <div className="mt-32 sm:mt-0">
+                        <div className="md:mt-32 lg:mt-0 tracking-widest leading-normal text-blueGray-400 font-bold uppercase">
+                          Student Id : {user.username}
+                        </div>
+                      </div>
+                    </div>
+                    <div className="w-full lg:w-4/12 px-4 lg:order-1">
+                      <div className="flex justify-center py-4 lg:pt-4 pt-8">
+                        
+                        <div className="lg:mr-4 p-3 text-center">
+                          <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">{user.credit}</span>
+                          <span className="text-sm text-blueGray-400">SIP Credis</span>
+                        </div>
+                        <div className="mr-4 p-3 text-center">
+                          <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">{user.cpi}</span>
+                          <span className="text-sm text-blueGray-400">Current CPI</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="text-center mt-12">
+                    <h3 className="text-4xl font-semibold leading-normal mb-2 text-blueGray-200">
+                      {user.firstName + " " + user.lastName}
+                    </h3>
+                    <div className="text-sm tracking-widest leading-normal mt-0 mb-2 text-blueGray-400 font-bold uppercase">
+                      {user.course + " in " + user.branch}
+                    </div>
+                    <div className="text-sm tracking-widest leading-normal mt-0 mb-2 text-blueGray-400 font-bold uppercase">
+                      from
+                    </div>
+                    <div className="text-sm tracking-widest leading-normal mt-0 mb-2 text-blueGray-400 font-bold uppercase">
+                      {user.college}
+                    </div>
+                    <div className="mb-2 text-blueGray-400 mt-10">
+                      <i className="fas fa-briefcase mr-2 text-lg text-blueGray-400"></i>
+                      Batch of : {user.year}
+                    </div>
+                    
+                  </div>
+                  <div className="mt-10 py-10 border-t border-blueGray-200 text-center">
+                    <div className="flex flex-wrap justify-center">
+                      <div className="w-full lg:w-9/12 px-4">
+                        
+                        Projects
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="mt-10 py-10 border-t border-blueGray-200 text-center">
+                  <div className="w-full lg:w-3/4 px-4">
+                      <div className="flex justify-center py-4 lg:pt-4 pt-8">
+                        
+                        <div className="lg:mr-4 p-3 text-center">
+                          <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">{user.phoneNumber}</span>
+                          <span className="text-sm text-blueGray-400">Phone Number</span>
+                        </div>
+                        <div className="mr-4 p-3 text-center">
+                          <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">{user.email}</span>
+                          <span className="text-sm text-blueGray-400">email</span>
+                        </div>
+                        <div className="lg:mr-4 p-3 text-center">
+                          <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">{user.gitHub}</span>
+                          <span className="text-sm text-blueGray-400">GitHub</span>
+                        </div>
+                        <div className="mr-4 p-3 text-center">
+                          <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">{user.linkedIn}</span>
+                          <span className="text-sm text-blueGray-400">LinkedIn</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-
               </div>
-              <div className="mt-4">
-                <h3 className="text-white text-lg font-semibold">Education</h3>
-                <div className="mt-2">
-                  <p className="text-white">{user ? user.course + " " : ""} in</p>
-                  <p className="text-white">{user ? user.branch : ""}</p>
-                  <p className="text-white">{user ? user.college : ""}</p>
-                  <p className="text-white">Batch of {user ? user.year : ""}</p>
-
-
+            </div>
+            <footer className="relative bg-gray-300 pt-8 pb-6 mt-8">
+              <div className="container mx-auto px-4">
+                <div className="flex flex-wrap items-center md:justify-between justify-center">
+                  <div className="w-full md:w-6/12 px-4 mx-auto text-center">
+                    <div className="text-sm text-blueGray-500 font-semibold py-1">
+                      All rights reserverd.
+                    </div>
+                  </div>
                 </div>
               </div>
-
-            </div>
-          </div>
-          <div className="p-6 my-6 border-t border-gray-200">
-            <div className="flex justify-between">
-              <div>
-                <h3 className="text-gray-800 text-lg font-semibold">Social Profiles</h3>
-                <p className="mt-2 text-gray-600"><strong>Email: </strong>{user ? user.email : ""}</p>
-                <p className="mt-2 text-gray-600"><strong>GitHub: </strong>{user ? user.gitHub : ""}</p>
-                <p className="mt-2 text-gray-600"><strong>LinkedIn: </strong>{user ? user.linkedIn : ""}</p>
-              </div>
-              <div>
-                <h3 className="text-gray-800 text-lg font-semibold">Scores</h3>
-                <p className="mt-2 text-gray-600"><strong>CPI: </strong>{user ? user.cpi : ""}</p>
-                <p className="mt-2 text-gray-600"><strong>SIP Credits: </strong>{user ? user.credit : ""}</p>
-              </div>
-            </div>
-            <hr className="my-10"></hr>
-            <div className="pdf-viewer">
-              {user.resumePath ? (
-                <iframe
-                  src={user.resumePath}
-                  width="100%"
-                  height="300px"
-                  title="PDF Viewer"
-                />
-              ) : (
-                <p>Loading PDF...</p>
-              )}
-            </div>
-            <hr className="my-10"></hr>
-            <div>
-              <h3 className="text-gray-800 text-lg font-semibold">Contact Information</h3>
-              <p className="mt-2 text-gray-600"><strong>Phone Number: </strong>{user ? user.phoneNumber : ""}</p>
-              <p className="mt-2 text-gray-600"><strong>Address: </strong>{user ? user.address : ""}</p>
-              <p className="mt-2 text-gray-600"><strong>City: </strong>{user ? user.city : ""}</p>
-              <p className="mt-2 text-gray-600"><strong>Country: </strong>{user ? user.country : ""}</p>
-              <p className="mt-2 text-gray-600"><strong>Postal Code: </strong>{user ? user.postalCode : ""}</p>
-
-            </div>
-
-          </div>
+            </footer>
+          </section>
+        </main>
         </div>
+
       </section>
     </>
   );
