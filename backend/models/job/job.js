@@ -9,6 +9,7 @@ const createJobTable = async (dbconnection) => {
                 description VARCHAR(500) NOT NULL,
                 category VARCHAR(255) NOT NULL,
                 country VARCHAR(255) NOT NULL,
+                state VARCHAR(255) NOT NULL,
                 city VARCHAR(255) NOT NULL,
                 location VARCHAR(255) NOT NULL,
                 fixedSalary DECIMAL(15, 2),

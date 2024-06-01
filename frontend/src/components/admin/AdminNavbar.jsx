@@ -1,7 +1,12 @@
 import { Link, NavLink } from "react-router-dom";
 import { useContext, useEffect } from "react";
 import Notifications from "./Notifications";
+import { useAdminContext } from "../../hooks/useAdminContext";
 export default function AdminNavbar() {
+    const {user}= useAdminContext();
+    useEffect(()=>{
+       
+    }, [user])
     return (
         <>
             <nav>
@@ -71,7 +76,13 @@ export default function AdminNavbar() {
                                 </svg>Analysis
                             </NavLink>
                         </li>
-
+                        <li className="me-2">
+                            <NavLink to="/user/job/getAll" className="inline-flex items-center justify-center p-4 border-b-2 border-transparent rounded-t-lg text-white hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 group">
+                                <svg className="w-4 h-4 me-2 text-white group-hover:text-gray-600 dark:text-white dark:group-hover:text-gray-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
+                                    <path d="M16 1h-3.278A1.992 1.992 0 0 0 11 0H7a1.993 1.993 0 0 0-1.722 1H2a2 2 0 0 0-2 2v15a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2Zm-3 14H5a1 1 0 0 1 0-2h8a1 1 0 0 1 0 2Zm0-4H5a1 1 0 0 1 0-2h8a1 1 0 1 1 0 2Zm0-5H5a1 1 0 0 1 0-2h2V2h4v2h2a1 1 0 1 1 0 2Z" />
+                                </svg>All Jobs
+                            </NavLink>
+                        </li>
                         <li className="me-2">
                             <NavLink
                                 to="/admin-home-page/notifications"
@@ -89,7 +100,44 @@ export default function AdminNavbar() {
                                 Notifications
                             </NavLink>
                         </li>
-
+                        <li className="me-2">
+                            <NavLink to="/user/job/getAll" className="inline-flex items-center justify-center p-4 border-b-2 border-transparent rounded-t-lg text-white hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 group">
+                                <svg className="w-4 h-4 me-2 text-white group-hover:text-gray-600 dark:text-white dark:group-hover:text-gray-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
+                                    <path d="M16 1h-3.278A1.992 1.992 0 0 0 11 0H7a1.993 1.993 0 0 0-1.722 1H2a2 2 0 0 0-2 2v15a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2Zm-3 14H5a1 1 0 0 1 0-2h8a1 1 0 0 1 0 2Zm0-4H5a1 1 0 0 1 0-2h8a1 1 0 1 1 0 2Zm0-5H5a1 1 0 0 1 0-2h2V2h4v2h2a1 1 0 1 1 0 2Z" />
+                                </svg>All Jobs
+                            </NavLink>
+                        </li>
+                        <li className="me-2">
+                            <NavLink to="/user/applications/me" className="inline-flex items-center justify-center p-4 border-b-2 border-transparent rounded-t-lg text-white hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 group">
+                                <svg className="w-4 h-4 me-2 text-white group-hover:text-gray-600 dark:text-white dark:group-hover:text-gray-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
+                                    <path d="M16 1h-3.278A1.992 1.992 0 0 0 11 0H7a1.993 1.993 0 0 0-1.722 1H2a2 2 0 0 0-2 2v15a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2Zm-3 14H5a1 1 0 0 1 0-2h8a1 1 0 0 1 0 2Zm0-4H5a1 1 0 0 1 0-2h8a1 1 0 1 1 0 2Zm0-5H5a1 1 0 0 1 0-2h2V2h4v2h2a1 1 0 1 1 0 2Z" />
+                                </svg>
+                                {user && user.userType==="admin" ?
+                                `Applicant's Applications`
+                                : `My Applications`}
+                            </NavLink>
+                        </li>
+                        {user && user.userType=== "admin" ? (
+                        <>
+                        <li className="me-2">
+                            <NavLink to="/admin-home-page/job/post" className="inline-flex items-center justify-center p-4 border-b-2 border-transparent rounded-t-lg text-white hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 group">
+                                <svg className="w-4 h-4 me-2 text-white group-hover:text-gray-600 dark:text-white dark:group-hover:text-gray-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
+                                    <path d="M16 1h-3.278A1.992 1.992 0 0 0 11 0H7a1.993 1.993 0 0 0-1.722 1H2a2 2 0 0 0-2 2v15a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2Zm-3 14H5a1 1 0 0 1 0-2h8a1 1 0 0 1 0 2Zm0-4H5a1 1 0 0 1 0-2h8a1 1 0 1 1 0 2Zm0-5H5a1 1 0 0 1 0-2h2V2h4v2h2a1 1 0 1 1 0 2Z" />
+                                </svg>Post New Job
+                            </NavLink>
+                        </li>
+                        <li className="me-2">
+                            <NavLink to="/admin-home-page/job/me" className="inline-flex items-center justify-center p-4 border-b-2 border-transparent rounded-t-lg text-white hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 group">
+                                <svg className="w-4 h-4 me-2 text-white group-hover:text-gray-600 dark:text-white dark:group-hover:text-gray-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
+                                    <path d="M16 1h-3.278A1.992 1.992 0 0 0 11 0H7a1.993 1.993 0 0 0-1.722 1H2a2 2 0 0 0-2 2v15a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2Zm-3 14H5a1 1 0 0 1 0-2h8a1 1 0 0 1 0 2Zm0-4H5a1 1 0 0 1 0-2h8a1 1 0 1 1 0 2Zm0-5H5a1 1 0 0 1 0-2h2V2h4v2h2a1 1 0 1 1 0 2Z" />
+                                </svg>View Your Jobs
+                            </NavLink>
+                        </li>
+                        </>
+                        ):(
+                          <></>
+                        )
+                        }
                     </ul>
                 </div>
             </nav>

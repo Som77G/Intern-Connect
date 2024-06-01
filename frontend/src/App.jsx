@@ -15,6 +15,13 @@ import Notifications from './components/admin/Notifications'
 import Profile from './components/student/Profile'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import NotFound from './components/NotFound'
+import Jobs from './components/job/Jobs'
+import JobDetails from './components/job/JobDetails'
+import Application from './components/application/Application'
+import MyApplications from './components/application/MyApplications'
+import PostJob from './components/job/PostJob'
+import MyJobs from './components/job/MyJobs'
 function App() {
   const {user} = useAdminContext();
   return (
@@ -69,6 +76,41 @@ function App() {
           <Route
              path='/admin-home-page/notifications'
              element={user && user.userType == 'admin'? <Notifications/> : <Navigate to = '/'/>}
+          >
+          </Route>
+          <Route
+             path='/user/job/getAll'
+             element={<Jobs />}
+          >
+          </Route>
+          <Route
+          path='/user/job/:id'
+          element= {<JobDetails />}
+          >
+          </Route>
+          <Route
+          path='/user/application/:id'
+          element={<Application />}
+          >
+          </Route>
+          <Route
+          path='/user/application/me'
+          element= {<MyApplications />}
+          >  
+          </Route>
+           <Route
+           path='/admin-home-page/job/post'
+           element={<PostJob />}
+           >
+           </Route>
+           <Route
+           path='/admin-home-page/job/me'
+           element= {<MyJobs />}
+           >
+           </Route>
+          <Route
+           path= '*'
+           element= {<NotFound />}
           >
           </Route>
         </Routes>

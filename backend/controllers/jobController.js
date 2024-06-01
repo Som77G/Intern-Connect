@@ -12,10 +12,10 @@ const getAllJobs = async (req, res) => {
             values: [false]
         })
 
-        console.log("received jobs");
+        // console.log("received jobs", jobsObj);
         return res.status(200).json({
             success: true,
-            jobs
+            jobs:jobsObj
         })
     } catch (error) {
         console.log("Error at fetching jobs from database");
@@ -37,17 +37,38 @@ const postJob = async (req, res) => {
             title,
             description,
             category,
-            country,
-            city,
+            country:countryObj,
+            state:stateObj,
+            city:cityObj,
             location,
-            fixedSalary,
-            salaryFrom,
-            salaryTo,
+            fixedSalary: receivedFixedSalary,
+            salaryFrom: receivedSalaryFrom,
+            salaryTo: receivedSalaryTo,
             companyName,
             postedBy
         } = await req.body;
 
-        if (!title || !description || !category || !country || !city || !location) {
+        const fixedSalary = receivedFixedSalary === "" ? null : receivedFixedSalary;
+        const salaryFrom= receivedSalaryFrom === "" ? null: receivedSalaryFrom;
+        const salaryTo= receivedSalaryTo=== "" ? null: receivedSalaryTo;
+        const country= countryObj.label;
+        const state= stateObj.label;
+        const city= cityObj.label;
+        console.log("title", title);
+        console.log("description", description);
+        console.log("category", category);
+        console.log("country", country);
+        console.log("state", state);
+        console.log("city", city);
+        console.log("location", location);
+        console.log("fixedfixedSalary",fixedSalary);
+        console.log("salaryFrom", salaryFrom);
+      console.log("salaryTo", salaryTo);
+        console.log("companyName", companyName);
+        console.log("postedBy", postedBy);
+
+
+        if (!title || !description || !category || !country || !state || !city || !location) {
             throw new Error("Please Provide full job details");
         }
 
@@ -58,13 +79,14 @@ const postJob = async (req, res) => {
         if (salaryFrom && salaryTo && fixedSalary) {
             throw new Error("Cannot Enter fixed and ranged salary together");
         }
-
+        
         const createJob = `
           INSERT INTO jobs(
           title,
           description,
           category,
           country,
+          state,
           city,
           location,
           fixedSalary,
@@ -72,11 +94,11 @@ const postJob = async (req, res) => {
           salaryTo,
           companyName,
           postedBy
-          ) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+          ) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
           `;
           const jobObj= await query({
             query: createJob,
-            values:[title, description, category, country, city, location, fixedSalary, salaryFrom, salaryTo, companyName, postedBy]
+            values:[title, description, category, country, state, city, location, fixedSalary, salaryFrom, salaryTo, companyName, postedBy]
           })
           console.log("job added successfully")
           res.status(200).json({
@@ -224,6 +246,35 @@ const updateJob = async (req, res) => {
     }
   };
   
- 
+ const getSingleJob= async(req, res)=>{
+    try {
+      
+      const {id}= req.params;
+      const findJobQuery= `
+      SELECT * FROM jobs
+      WHERE id= ?
+      `;
+
+      const [jobObj]= await query({
+        query: findJobQuery,
+        values: [id]
+      });
+
+      if(jobObj.length ===0){
+         throw new Error("Job not found");
+      }
+      console.log("Found Job", jobObj);
+      res.status(200).json({
+        success: true,
+        job: jobObj
+      })
+    } catch (error) {
+      console.log("Error at fetching single job", error);
+      res.status(400).json({
+        success: false,
+        message: error.message,
+      });
+    }
+ };
   
-module.exports = { getAllJobs, postJob, updateJob, deleteJob};
+module.exports = { getAllJobs, postJob, updateJob, deleteJob, getSingleJob};

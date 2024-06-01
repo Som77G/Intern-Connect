@@ -8,10 +8,11 @@ export default function Notifications() {
     const {hasNewMessage, dispatch}= useNewMessageContext();
     useEffect(() => {
         // Perform any side effects here if needed when messages change
-        if(hasNewMessage=="new_message"){
+        if(hasNewMessage=="new_message" || hasNewMessage=="default"){
          dispatch({type: "SEEN_MESSAGE"});
          
         }
+       
         console.log("inside notifications", hasNewMessage)
     }, [hasNewMessage]);
     UseSocketSetup()
