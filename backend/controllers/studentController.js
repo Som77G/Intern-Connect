@@ -77,6 +77,7 @@ const updateProfile = async (req, res) => {
   console.log("Inside update Profile")
   try {
     const {
+      userid,
       firstName,
       lastName,
       college,
@@ -100,7 +101,6 @@ const updateProfile = async (req, res) => {
     const { githubLink: project1_githubLink, projectLink: project1_projectLink, demoLink: project1_demoLink } = project1 || {};
     const { githubLink: project2_githubLink, projectLink: project2_projectLink, demoLink: project2_demoLink } = project2 || {};
 
-    const { userid } = await decodejwt(req);
 
     // Initialize query parts
     const queryParts = [];

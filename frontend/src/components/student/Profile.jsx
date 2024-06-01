@@ -1,8 +1,10 @@
 import { useNavigate } from 'react-router-dom';
-import { FaHome, FaRedo, FaMoneyCheckAlt } from 'react-icons/fa';
 import { useState } from 'react';
 import axios from "axios";
 import { toast } from 'react-toastify';
+import AsideBar from './AsideBar';
+import { useLogout } from '../../hooks/useLogout';
+import { useAdminContext } from "../../hooks/useAdminContext";
 
 const PORT = import.meta.env.VITE_DOMAIN;
 axios.defaults.withCredentials = true;
@@ -10,12 +12,17 @@ axios.defaults.withCredentials = true;
 
 export default function Profile() {
     const navigate = useNavigate();
+    const {logout} = useLogout();
+    const { user: loginUser, dispatch } = useAdminContext();
+
     const [docs, setDocs] = useState({
         profilePicture: null,
         resume: null
     })
-    const [picture, setPicture] = useState('')
+    
+    const [submitting, setSubmitting] = useState(false)
     const [studentProfile, setStudentProfile] = useState({
+        userid : loginUser.userid,
         firstName: '',
         lastName: '',
         college: '',
@@ -49,6 +56,7 @@ export default function Profile() {
 
     const uploadPicture = async () => {
         try {
+            setSubmitting(true)
             const formData = new FormData()
 
             formData.append('profilePicture', docs.profilePicture);
@@ -67,11 +75,14 @@ export default function Profile() {
         } catch (error) {
             toast.error("Error in uploading Profile Picture")
             console.log('Error in uploading files', error)
+        } finally {
+            setSubmitting(false)
         }
     }
 
     const uploadResume = async () => {
         try {
+            setSubmitting(true)
             console.log(docs.resume)
             const formData = new FormData()
 
@@ -90,18 +101,25 @@ export default function Profile() {
         } catch (error) {
             toast.error("Error in uploading Resume")
             console.log('Error in uploading files', error)
+        } finally {
+            setSubmitting(false)
         }
     }
     const onUpdate = async () => {
         try {
+            setSubmitting(true)
             const response = await axios.put(`${PORT}/api/student/updateProfile`, studentProfile)
             console.log("Profile Updated", response)
             toast.success(response.data.message)
         } catch (error) {
             toast.error("Error in Updating Profile")
             console.log("error in updating profile", error)
+        } finally {
+            setSubmitting(false)
         }
-
+    }
+    const onLogout = async() => {
+        logout()
     }
     return (
         <>
@@ -113,29 +131,7 @@ export default function Profile() {
 
             </nav>
             <section className="flex flex-col lg:flex-row py-1 bg-blueGray-50">
-                <div className='shadow-lg shadow-zinc-950'>
-                    <aside className="w-20 lg:w-60 text-white p-6 flex flex-col">
-                        <nav className="flex flex-row justify-between lg:flex-col">
-                            <div className="flex items-center mb-4 ml-5 lg:ml-10 cursor-pointer hover:text-blue-400">
-                                <FaHome size={20} />
-                                <button className="mr-4 ml-1 lg:mx-3"
-                                    onClick={(e) => navigate('/student-dashboard')}
-                                >Dashboard</button>
-                            </div>
-                            <div className="flex items-center mb-4 ml-5 lg:ml-10 cursor-pointer hover:text-blue-400">
-                                <FaRedo size={20} />
-                                <button className="mr-4 ml-1 lg:mx-3"
-                                    onClick={(e) => navigate('/student-dashboard/profile')}
-                                >Profile</button>
-                            </div>
-                            <div className="flex items-center mb-4 ml-5 lg:ml-10 cursor-pointer hover:text-blue-400">
-                                <FaMoneyCheckAlt size={20} />
-                                <span className="mr-4 ml-1 lg:mx-3">Notifications</span>
-                            </div>
-
-                        </nav>
-                    </aside>
-                </div>
+                <AsideBar/>
                 <div className="w-full lg:w-7/12 px-4 mt-6 mx-auto">
                     <div className="relative flex flex-col min-w-0 break-words w-full mb-6 rounded-lg bg-blueGray-100 border-0">
                         <p className='mb-5 lg:mb-0'><i>*Fill only those fields you want to update</i></p>
@@ -273,10 +269,12 @@ export default function Profile() {
                                     {/* button to upload file */}
 
                                 </div>
+                                <h3 className="mb-2 text-gray-400">{submitting? <i>Processing...</i> : ""}</h3>
 
                                 <button
                                     className=" bg-yellow-500 text-zinc-900 font-semibold py-2 mt-2 ml-4 px-6 rounded-2xl hover:bg-yellow-600"
-                                    onClick={uploadPicture}>Upload</button>
+                                    onClick={uploadPicture}
+                                    disabled={submitting}>Upload</button>
                                 <hr className="mt-6 border-b-1 border-blueGray-300" />
 
                                 <h6 className="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase">Academic Information</h6>
@@ -307,10 +305,13 @@ export default function Profile() {
                                             </div>
                                         </div>
                                     </div>
+                                    <h3 className="mb-2 text-gray-400">{submitting? <i>Processing...</i> : ""}</h3>
+
                                     <div className='w-full'>
                                         <button
                                             className=" bg-yellow-500 text-zinc-900 font-semibold py-2 mt-2 mb-10 ml-4 px-6 rounded-2xl hover:bg-yellow-600"
-                                            onClick={uploadResume}>Upload</button>
+                                            onClick={uploadResume}
+                                            disabled={submitting}>Upload</button>
                                     </div>
 
 
@@ -544,9 +545,12 @@ export default function Profile() {
                                 </div>
 
                                 <hr className="mt-6 border-b-1 border-blueGray-300" />
+                                <h3 className="mb-2 text-gray-400">{submitting? <i>Processing...</i> : ""}</h3>
+
                                 <button
                                     className=" bg-yellow-500 text-zinc-900 font-semibold py-2 mt-10 px-6 rounded-2xl hover:bg-yellow-600"
-                                    onClick={onUpdate}>Update Profile</button>
+                                    onClick={onUpdate}
+                                    disabled = {submitting}>Update Profile</button>
 
 
                             </div>

@@ -23,7 +23,7 @@ const getAllJobs = async (req, res) => {
             status: 500,
             error: "Error at fetching jobs from database"
         })
-    }
+    }  
 };
 
 const postJob = async (req, res) => {

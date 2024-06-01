@@ -7,10 +7,12 @@ export default function SearchStudent() {
     const [result, setResult] = useState('')
     const [input, setInput] = useState('')
     const [fetched, setFetched] = useState('')
+    const [loading, setLoading] = useState(false);
     const loadProfile = async (student) => {
         try {
             console.log("Profile loaded")
             setResult('')
+            setLoading(true)
 
             const response = await axios.get(`${PORT}/api/student/dashboard?userid=${encodeURIComponent(student.userid)}`)
             const profile = response.data.message
@@ -19,6 +21,8 @@ export default function SearchStudent() {
 
         } catch (error) {
             console.log("Error in fetching profile", error)
+        } finally {
+            setLoading(false)
         }
     }
 
@@ -49,7 +53,7 @@ export default function SearchStudent() {
     }
     return (
         <>
-            <div className="mx-auto flex flex-col w-2/5 mt-10">
+            <div className="mx-auto flex flex-col w-4/5 mt-10">
                 <input
                     type='text'
                     placeholder='Search Student by username'
@@ -72,9 +76,32 @@ export default function SearchStudent() {
                         })}
                     </div>
                 )}
-
-                {fetched && (
-                    <StudentProfile profile={fetched}/>
+                {loading && (
+                    <div className='flex flex-col justify-center items-center bg-zinc-900 h-screen'>
+                        <div className='flex flex-row space-x-2'>
+                            <span className='sr-only'>Loading...</span>
+                            <div className='h-8 w-8 bg-white rounded-full animate-bounce [animation-delay:-0.3s]'></div>
+                            <div className='h-8 w-8 bg-white rounded-full animate-bounce [animation-delay:-0.15s]'></div>
+                            <div className='h-8 w-8 bg-white rounded-full animate-bounce'></div>
+                        </div>
+                        <br />
+                        <div className='text-xl font-mono font-semibold text-gray-200'>Loading Profile ...</div>
+                    </div>
+                )}
+                {fetched && !loading && (
+                    <StudentProfile profile={fetched} />
+                )}
+                {!fetched && !loading && (
+                    <div className='flex flex-col justify-center items-center h-screen'>
+                    <div className='flex flex-row space-x-2'>
+                        <span className='sr-only'>Loading...</span>
+                        <div className='h-8 w-8 bg-white rounded-full animate-none [animation-delay:-1s]'></div>
+                        <div className='h-8 w-8 bg-white rounded-full animate-none [animation-delay:-1s]'></div>
+                        <div className='h-8 w-8 bg-white rounded-full animate-none'></div>
+                    </div>
+                    <br />
+                    <div className='text-xl font-mono font-semibold text-gray-200'>Search to see Profile</div>
+                </div>
                 )}
             </div>
 

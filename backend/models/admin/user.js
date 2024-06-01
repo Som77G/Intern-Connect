@@ -8,7 +8,8 @@ const createAdminUserTable = async(dbconnection) => {
             email VARCHAR(50) UNIQUE NOT NULL,
             resetpassword BOOLEAN DEFAULT FALSE,
             userid VARCHAR(100) PRIMARY KEY,
-            verifytoken VARCHAR(100)
+            verifytoken VARCHAR(100),
+            profilecreated BOOLEAN DEFAULT FALSE
         )
            `);
     } catch (error) {

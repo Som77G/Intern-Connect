@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { Navigate } from "react-router-dom";
 import getSocketInstance from "../socket";
 import { useAdminContext } from "./useAdminContext";
-import AdminDashboard from "../components/admin/AdminDashboard"
+import AdminDashboard from "../components/admin/AdminHeader"
 import RequestToAdmin from "../components/student/RequestToAdmin";
 import MessageSent from "../components/Home";
 import { useMessageContext } from "./useMessageContext";

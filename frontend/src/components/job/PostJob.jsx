@@ -5,6 +5,8 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { useAdminContext } from "../../hooks/useAdminContext";
 import { useNavigate } from "react-router-dom";
+import AdminHeader from "../admin/AdminHeader";
+import AdminNavbar from "../admin/AdminNavbar";
 axios.defaults.withCredentials = true;
 const PORT = import.meta.env.VITE_DOMAIN;
 // const PORT= import.meta.env.VITE_DOMAIN;
@@ -142,7 +144,11 @@ export default function PostJob() {
         }
     }, [user])
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gray-900 py-12 px-4 sm:px-6 lg:px-8">
+        <>
+        <AdminHeader/>
+        <section className="flex flex-col md:flex-row lg:flex-row py-1 bg-blueGray-50">
+        <AdminNavbar/>
+        <div className=" min-h-screen flex items-center flex-wrap w-full justify-center bg-zinc-900 py-12 px-4 sm:px-6 lg:px-8">
             <div className="max-w-md w-full space-y-8">
                 <h3 className="text-center text-3xl font-extrabold text-white">
                     POST NEW JOB
@@ -313,5 +319,7 @@ export default function PostJob() {
                 </h3>
             </div>
         </div>
+        </section>
+        </>
     );
 }

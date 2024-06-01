@@ -6,6 +6,7 @@ const { createStudentProfileTable } = require("../models/student/profile");
 const { studentProfileViewTable } = require("../models/student/profileView");
 const {createJobTable}= require('../models/job/job')
 const {createApplicationTable}= require("../models/application/application")
+const {createAdminProfileTable} = require("../models/admin/profile")
 async function query({ query, values = [] }) {
     console.log("hello database")
     const dbconnection = await mysql.createConnection({
@@ -46,6 +47,10 @@ async function query({ query, values = [] }) {
         if (query.toLowerCase().includes('profiles_student_view')) {
             console.log("Seeing Profile View Table")
             await studentProfileViewTable(dbconnection)
+        }
+        if (query.toLowerCase().includes('profiles_admin')) {
+            console.log("Creating admin Profile")
+            await createAdminProfileTable(dbconnection)
         }
 
         // Execute the original query
