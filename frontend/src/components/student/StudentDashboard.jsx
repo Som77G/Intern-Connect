@@ -114,59 +114,20 @@ export default function StudentDashboard() {
 
       </nav>
       <section className="flex flex-col lg:flex-row py-1 bg-zinc-900">
-        <div className='shadow-lg shadow-zinc-950'>
-          <aside className="w-20 lg:w-60 text-white p-6 flex flex-col">
-            <nav className="flex flex-row justify-between md:flex-col">
-              <div className="flex items-center mb-4 ml-5 lg:ml-10 cursor-pointer hover:text-blue-400">
-                <MdDashboard size={20} />
-                <button className="mr-4 ml-1 lg:mx-3"
-                  onClick={(e) => navigate('/student-dashboard')}
-                >Dashboard</button>
-              </div>
-              <div className="flex items-center mb-4 ml-5 lg:ml-10 cursor-pointer hover:text-blue-400">
-                <GrUpdate size={20} />
-                <button className="mr-4 ml-1 lg:mx-3"
-                  onClick={(e) => navigate('/student-dashboard/profile')}
-                >Profile</button>
-              </div>
-              {/* <div className="flex items-center mb-4 ml-5 lg:ml-10 cursor-pointer hover:text-blue-400">
-                <BiSolidNotification size={20} />
-                <span className="mr-4 ml-1 lg:mx-3">Notifications</span>
-              </div> */}
-               <div className="flex items-center mb-4 ml-5 lg:ml-10 cursor-pointer hover:text-blue-400">
-                <GrUpdate size={20} />
-                <button className="mr-4 ml-1 lg:mx-3"
-                  onClick={(e) => navigate('/user/job/getAll')}
-                >All Jobs</button>
-              </div>
-              <div className="flex items-center mb-4 ml-5 lg:ml-10 cursor-pointer hover:text-blue-400">
-                <GrUpdate size={20} />
-                <button className="mr-4 ml-1 lg:mx-3"
-                  onClick={(e) => navigate('/user/application/me')}
-                >Applications</button>
-              </div>
-            </nav>
-          </aside>
-        </div>
+        <AsideBar/>
         
-        <div className="w-full m-2 border border-zinc-700 rounded">
-        <link rel="stylesheet" href="https://demos.creative-tim.com/notus-js/assets/styles/tailwind.css" />
-        <link rel="stylesheet" href="https://demos.creative-tim.com/notus-js/assets/vendor/@fortawesome/fontawesome-free/css/all.min.css" />
-
-        <main className="profile-page p-3">
-          <section className="relative block h-500-px">
-            <div className="absolute top-0 w-full h-screen flex items-center justify-center bg-center bg-cover" 
-            style={{backgroundImage:"url('https://cdn.hackernoon.com/images/77fdrPu4ybMLx0OjzBBTzNBhT1f2-4qc3e1d.jpeg')", height:"50%"}}>
-              <span id="blackOverlay" className="w-full h-full absolute opacity-35 bg-black"></span>
+        <div className="mx-10 my-4 border rounded border-spacing-4 border-zinc-600 flex flex-col w-full lg:flex-row">
+          <div className="w-3/5"><ProfileCard profile={user} /></div>
+          <div className="border-l my-4 border-stone-500"></div>
+          <div className="w-2/5 mt-8 ">
+            
+            <div className="w-full"><ShowProjects project={user.project1} /></div>
+            <div className="w-full"><ShowProjects project={user.project2} /></div>
+            <div class="mx-4 mt-8 flex justify-center items-center h-96">
+              <iframe class="w-full h-full border-none" src={user.resumePath}></iframe>
             </div>
-            <div className="top-auto bottom-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden h-70-px" style={{ transform: "translateZ(0px)" }}>
+          </div>
 
-              <svg className="absolute bottom-0 overflow-hidden" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" version="1.1" viewBox="0 0 2560 100" x="0" y="0">
-                <polygon className="text-blueGray-200 fill-current" points="2560 0 2560 100 0 100"></polygon>
-              </svg>
-            </div>
-          </section>
-        </main>
         </div>
       </section>
     </>

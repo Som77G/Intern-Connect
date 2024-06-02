@@ -23,9 +23,19 @@ export default function AsideBar() {
                 >Profile</button>
               </div>
               <hr/>
+
               <div className="flex items-center my-4 ml-5 lg:ml-10 cursor-pointer hover:text-blue-400">
-                <BiSolidNotification size={20} />
-                <span className="mr-4 ml-1 lg:mx-3">Notifications</span>
+                <GrUpdate size={20} />
+                <button className="mr-4 ml-1 lg:mx-3"
+                  onClick={(e) => navigate('/user/job/getAll')}
+                >All Jobs</button>
+              </div>
+              <hr/>
+              <div className="flex items-center my-4 ml-5 lg:ml-10 cursor-pointer hover:text-blue-400">
+                <GrUpdate size={20} />
+                <button className="mr-4 ml-1 lg:mx-3"
+                  onClick={(e) => navigate('/user/application/me')}
+                >Applications</button>
               </div>
 
             </nav>

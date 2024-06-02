@@ -22,6 +22,7 @@ import Application from './components/application/Application'
 import MyApplications from './components/application/MyApplications'
 import PostJob from './components/job/PostJob'
 import MyJobs from './components/job/MyJobs'
+import AdminProfile from './components/admin/AdminProfile'
 function App() {
   const {user} = useAdminContext();
   return (
@@ -78,6 +79,10 @@ function App() {
              element={user && user.userType == 'admin'? <Notifications/> : <Navigate to = '/'/>}
           >
           </Route>
+          <Route
+             path='/admin-home-page/profile'
+             element={user && user.userType == 'admin'? <AdminProfile/> : <Navigate to = '/'/>}
+          ></Route>
           <Route
              path='/user/job/getAll'
              element={<Jobs/>}
