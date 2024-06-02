@@ -34,10 +34,10 @@ export default function Jobs() {
     console.log("Jobs array:", jobs);
     return (
         <>
-            <AdminHeader/>
+            {/* <AdminHeader/> */}
 
             <section className="flex flex-col md:flex-row lg:flex-row py-1 bg-blueGray-50">
-            <AdminNavbar/>
+            {/* <AdminNavbar/> */}
             {(!user || jobs.length === 0) ?
                 (<h3 className="text-center text-3xl font-extrabold text-white">Processing...</h3>)
                 : (<section className="py-8">

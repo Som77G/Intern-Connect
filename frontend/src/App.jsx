@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import Home from './components/Home'
 import Login from './components/Login'
 import StudentDashboard from './components/student/StudentDashboard'
+// import AdminDashboard from './components/admin/AdminDashboard'
 import AddStudent from './components/admin/AddStudent'
 import AdminNavbar from './components/admin/AdminNavbar'
 import ResetPassword from './components/ResetPassword'
@@ -21,7 +22,6 @@ import Application from './components/application/Application'
 import MyApplications from './components/application/MyApplications'
 import PostJob from './components/job/PostJob'
 import MyJobs from './components/job/MyJobs'
-import AdminProfile from './components/admin/AdminProfile'
 function App() {
   const {user} = useAdminContext();
   return (
@@ -65,6 +65,10 @@ function App() {
             element={user && user.userType == 'admin'? <AddStudent/> : <Navigate to = '/'/>}
           />
           <Route
+            path = '/admin-home-page/update-password'
+            element = {user && user.userType == 'admin'? <UpdatePassword/> : <Navigate to = '/'/>}
+          />
+          <Route
             path= '/admin-home-page'
             element={user && user.userType == 'admin'? <AdminHomePage/> : <Navigate to = '/'/>}
             >
@@ -76,43 +80,38 @@ function App() {
           </Route>
           <Route
              path='/user/job/getAll'
-             element={user && user.userType == 'admin'? <Jobs/> : <Navigate to = '/'/>}
+             element={<Jobs/>}
           >
           </Route>
           <Route
           path='/user/job/:id'
-          element={user && user.userType == 'admin'? <JobDetails/> : <Navigate to = '/'/>}
+          element= {<JobDetails />}
           >
           </Route>
           <Route
           path='/user/application/:id'
-          element={user && user.userType == 'admin'? <Application/> : <Navigate to = '/'/>}
+          element={<Application />}
           >
           </Route>
           <Route
           path='/user/application/me'
-          element={user && user.userType == 'admin'? <MyApplications/> : <Navigate to = '/'/>}
+          element= {<MyApplications />}
           >  
           </Route>
            <Route
            path='/admin-home-page/job/post'
-           element={user && user.userType == 'admin'? <PostJob/> : <Navigate to = '/'/>}
+           element={<PostJob />}
            >
            </Route>
            <Route
            path='/admin-home-page/job/me'
-           element={user && user.userType == 'admin'? <MyJobs/> : <Navigate to = '/'/>}
+           element= {<MyJobs />}
            >
            </Route>
-           <Route
-           path= '/admin-home-page/profile'
-           element={user && user.userType == 'admin'? <AdminProfile/> : <Navigate to = '/'/>}
-          ></Route>
           <Route
            path= '*'
            element= {<NotFound />}
           >
-          
           </Route>
         </Routes>
       </BrowserRouter>

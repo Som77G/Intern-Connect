@@ -39,10 +39,10 @@ export default function JobDetails() {
 
     return (
         <>
-        <AdminHeader/>
-
+        {/* <AdminHeader/> */}
+        
         <section className="flex flex-col md:flex-row lg:flex-row py-1 bg-blueGray-50">
-        <AdminNavbar/>
+        {/* <AdminNavbar/> */}
         {user && job && (
               <section className="py-8 bg-black min-h-screen">
               <div className="container mx-auto px-4">

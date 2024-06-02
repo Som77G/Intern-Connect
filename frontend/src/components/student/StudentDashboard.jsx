@@ -165,8 +165,8 @@ export default function StudentDashboard() {
                 <polygon className="text-blueGray-200 fill-current" points="2560 0 2560 100 0 100"></polygon>
               </svg>
             </div>
-          </div>
-
+          </section>
+        </main>
         </div>
       </section>
     </>

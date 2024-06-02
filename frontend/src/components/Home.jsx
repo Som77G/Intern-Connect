@@ -2,6 +2,7 @@ import { IoHomeSharp, IoTabletPortraitSharp, IoClose  } from "react-icons/io5";
 import { BsFillInfoCircleFill } from "react-icons/bs";
 import { useState } from "react";
 import { BiSolidLogInCircle, BiMenu } from 'react-icons/bi';
+import { NavLink } from "react-router-dom";
 
 
 export default function Home() {
@@ -28,21 +29,21 @@ export default function Home() {
                     <div className={`flex-grow flex-col md:flex-row md:flex ${isOpen ? 'flex' : 'hidden'} md:space-x-8 lg:space-x-10 xl:space-x-12 justify-center`}>
                         <div className="flex items-center py-1 md:py-0 text-lg cursor-pointer  hover:text-yellow-500 mx-2 md:mx-4">
                             <IoHomeSharp size={20}/>
-                            <a className="ml-1 lg:mx-3" href="/">Home</a>
+                            <NavLink className="ml-1 lg:mx-3" to="/">Home</NavLink>
                         </div>
                         {isOpen && (
                             <hr className="my-1"></hr>
                         )}
                         <div className="flex items-center py-1 md:py-0 text-lg cursor-pointe hover:text-yellow-500 mx-2 md:mx-4">
                             <IoTabletPortraitSharp size={20} />
-                            <a className="ml-1 lg:mx-3" href="/about">About Portal</a>
+                            <NavLink className="ml-1 lg:mx-3" to="/about">About Portal</NavLink>
                         </div>
                         {isOpen && (
                             <hr className="my-1"></hr>
                         )}
                         <div className="flex items-center py-1 md:py-0 text-lg cursor-pointer hover:text-yellow-500 mx-2 md:mx-4">
                             <BsFillInfoCircleFill size={20} />
-                            <a className="ml-1 lg:mx-3" href="/info">Info</a>
+                            <NavLink className="ml-1 lg:mx-3" to="/info">Info</NavLink>
                         </div>
                         {isOpen && (
                             <hr className="my-1"></hr>
@@ -51,7 +52,7 @@ export default function Home() {
                             
                             <BiSolidLogInCircle size={25} />
                             
-                            <a className="ml-1 lg:mx-3" href="/login">Login</a>
+                            <NavLink className="ml-1 lg:mx-3" to="/login">Login</NavLink>
                         </div>
                     </div>
 

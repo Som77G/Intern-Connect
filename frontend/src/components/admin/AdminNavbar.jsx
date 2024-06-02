@@ -20,27 +20,27 @@ export default function AdminNavbar() {
     return (
         <>
             {/* <nav>
-                <div classNameName="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div classNameName="flex justify-between">
-                    <div classNameName="flex space-x-4">
-                        <NavLink to="/admin-home-page">
-                           Home
-                        </NavLink>
-                        <NavLink to="/admin-home-page/add-student">
-                            Add Student
-                        </NavLink>
-                        <NavLink to="/admin-home-page/update-password">
-                          Update Credentials
-                        </NavLink>
-                        <NavLink to="/admin-home-page/analysis">
-                            Analysis
-                        </NavLink>
-                        <NavLink to="/admin-home-page/notifications">
-                            Notifications
-                        </NavLink>
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="flex justify-between">
+                        <div className="flex space-x-4">
+                            <NavLink to="/admin-home-page">
+                                Home
+                            </NavLink>
+                            <NavLink to="/admin-home-page/add-student">
+                                Add Student
+                            </NavLink>
+                            <NavLink to="/admin-home-page/update-password">
+                                Update Credentials
+                            </NavLink>
+                            <NavLink to="/admin-home-page/analysis">
+                                Analysis
+                            </NavLink>
+                            <NavLink to="/admin-home-page/notifications">
+                                Notifications
+                            </NavLink>
+                        </div>
                     </div>
                 </div>
-            </div>
 
                 <div className="border-b border-gray-200 dark:border-gray-700">
                     <ul className="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 dark:text-gray-400">
@@ -110,42 +110,42 @@ export default function AdminNavbar() {
                                 Notifications
                             </NavLink>
                         </li>
-                        {/* <li className="me-2">
+                        <li className="me-2">
                             <NavLink to="/user/job/getAll" className="inline-flex items-center justify-center p-4 border-b-2 border-transparent rounded-t-lg text-white hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 group">
                                 <svg className="w-4 h-4 me-2 text-white group-hover:text-gray-600 dark:text-white dark:group-hover:text-gray-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
                                     <path d="M16 1h-3.278A1.992 1.992 0 0 0 11 0H7a1.993 1.993 0 0 0-1.722 1H2a2 2 0 0 0-2 2v15a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2Zm-3 14H5a1 1 0 0 1 0-2h8a1 1 0 0 1 0 2Zm0-4H5a1 1 0 0 1 0-2h8a1 1 0 1 1 0 2Zm0-5H5a1 1 0 0 1 0-2h2V2h4v2h2a1 1 0 1 1 0 2Z" />
                                 </svg>All Jobs
                             </NavLink>
-                        </li> */}
+                        </li>
                         <li className="me-2">
                             <NavLink to="/user/applications/me" className="inline-flex items-center justify-center p-4 border-b-2 border-transparent rounded-t-lg text-white hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 group">
                                 <svg className="w-4 h-4 me-2 text-white group-hover:text-gray-600 dark:text-white dark:group-hover:text-gray-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
                                     <path d="M16 1h-3.278A1.992 1.992 0 0 0 11 0H7a1.993 1.993 0 0 0-1.722 1H2a2 2 0 0 0-2 2v15a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2Zm-3 14H5a1 1 0 0 1 0-2h8a1 1 0 0 1 0 2Zm0-4H5a1 1 0 0 1 0-2h8a1 1 0 1 1 0 2Zm0-5H5a1 1 0 0 1 0-2h2V2h4v2h2a1 1 0 1 1 0 2Z" />
                                 </svg>
-                                {user && user.userType==="admin" ?
-                                `Applicant's Applications`
-                                : `My Applications`}
+                                {user && user.userType === "admin" ?
+                                    `Applicant's Applications`
+                                    : `My Applications`}
                             </NavLink>
                         </li>
-                        {user && user.userType=== "admin" ? (
-                        <>
-                        <li className="me-2">
-                            <NavLink to="/admin-home-page/job/post" className="inline-flex items-center justify-center p-4 border-b-2 border-transparent rounded-t-lg text-white hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 group">
-                                <svg className="w-4 h-4 me-2 text-white group-hover:text-gray-600 dark:text-white dark:group-hover:text-gray-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
-                                    <path d="M16 1h-3.278A1.992 1.992 0 0 0 11 0H7a1.993 1.993 0 0 0-1.722 1H2a2 2 0 0 0-2 2v15a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2Zm-3 14H5a1 1 0 0 1 0-2h8a1 1 0 0 1 0 2Zm0-4H5a1 1 0 0 1 0-2h8a1 1 0 1 1 0 2Zm0-5H5a1 1 0 0 1 0-2h2V2h4v2h2a1 1 0 1 1 0 2Z" />
-                                </svg>Post New Job
-                            </NavLink>
-                        </li>
-                        <li className="me-2">
-                            <NavLink to="/admin-home-page/job/me" className="inline-flex items-center justify-center p-4 border-b-2 border-transparent rounded-t-lg text-white hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 group">
-                                <svg className="w-4 h-4 me-2 text-white group-hover:text-gray-600 dark:text-white dark:group-hover:text-gray-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
-                                    <path d="M16 1h-3.278A1.992 1.992 0 0 0 11 0H7a1.993 1.993 0 0 0-1.722 1H2a2 2 0 0 0-2 2v15a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2Zm-3 14H5a1 1 0 0 1 0-2h8a1 1 0 0 1 0 2Zm0-4H5a1 1 0 0 1 0-2h8a1 1 0 1 1 0 2Zm0-5H5a1 1 0 0 1 0-2h2V2h4v2h2a1 1 0 1 1 0 2Z" />
-                                </svg>View Your Jobs
-                            </NavLink>
-                        </li>
-                        </>
-                        ):(
-                          <></>
+                        {user && user.userType === "admin" ? (
+                            <>
+                                <li className="me-2">
+                                    <NavLink to="/admin-home-page/job/post" className="inline-flex items-center justify-center p-4 border-b-2 border-transparent rounded-t-lg text-white hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 group">
+                                        <svg className="w-4 h-4 me-2 text-white group-hover:text-gray-600 dark:text-white dark:group-hover:text-gray-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
+                                            <path d="M16 1h-3.278A1.992 1.992 0 0 0 11 0H7a1.993 1.993 0 0 0-1.722 1H2a2 2 0 0 0-2 2v15a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2Zm-3 14H5a1 1 0 0 1 0-2h8a1 1 0 0 1 0 2Zm0-4H5a1 1 0 0 1 0-2h8a1 1 0 1 1 0 2Zm0-5H5a1 1 0 0 1 0-2h2V2h4v2h2a1 1 0 1 1 0 2Z" />
+                                        </svg>Post New Job
+                                    </NavLink>
+                                </li>
+                                <li className="me-2">
+                                    <NavLink to="/admin-home-page/job/me" className="inline-flex items-center justify-center p-4 border-b-2 border-transparent rounded-t-lg text-white hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 group">
+                                        <svg className="w-4 h-4 me-2 text-white group-hover:text-gray-600 dark:text-white dark:group-hover:text-gray-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
+                                            <path d="M16 1h-3.278A1.992 1.992 0 0 0 11 0H7a1.993 1.993 0 0 0-1.722 1H2a2 2 0 0 0-2 2v15a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2Zm-3 14H5a1 1 0 0 1 0-2h8a1 1 0 0 1 0 2Zm0-4H5a1 1 0 0 1 0-2h8a1 1 0 1 1 0 2Zm0-5H5a1 1 0 0 1 0-2h2V2h4v2h2a1 1 0 1 1 0 2Z" />
+                                        </svg>View Your Jobs
+                                    </NavLink>
+                                </li>
+                            </>
+                        ) : (
+                            <></>
                         )
                         }
                     </ul>
@@ -157,56 +157,60 @@ export default function AdminNavbar() {
                     <nav className="flex flex-row justify-between md:flex-col">
                         <div className="flex items-center my-4 ml-5 lg:ml-10 cursor-pointer hover:text-blue-400">
                             <MdDashboard size={20} />
-                            <button className="mr-4 ml-1 lg:mx-3"
-                                onClick={(e) => navigate('/admin-home-page')}
-                            >Home</button>
+                            <button className="mr-4 ml-1 lg:mx-3" onClick={(e) => navigate('/admin-home-page')}>
+                                Home
+                            </button>
                         </div>
                         <hr />
                         <div className="flex items-center my-4 ml-5 lg:ml-10 cursor-pointer hover:text-blue-400">
                             <GrUpdate size={20} />
-                            <button className="mr-4 ml-1 lg:mx-3"
-                                onClick={(e) => navigate('/admin-home-page/profile')}
-                            >Profile</button>
+                            <button className="mr-4 ml-1 lg:mx-3" onClick={(e) => navigate('/admin-home-page/profile')}>
+                                Profile
+                            </button>
                         </div>
                         <hr />
                         <div className="flex items-center my-4 ml-5 lg:ml-10 cursor-pointer hover:text-blue-400">
                             <BiSolidNotification size={20} />
-                            <button className="mr-4 ml-1 lg:mx-3"
-                                onClick={(e) => navigate('/admin-home-page/notifications')}
-                            >Notifications</button>
+                            <button className="mr-4 ml-1 lg:mx-3" onClick={(e) => navigate('/admin-home-page/notifications')}>
+                                Notifications
+                            </button>
                         </div>
                         <hr />
                         <div className="flex items-center my-4 ml-5 lg:ml-10 cursor-pointer hover:text-blue-400">
                             <MdAlignHorizontalLeft size={20} />
-                            <button className="mr-4 ml-1 lg:mx-3"
-                                onClick={(e) => navigate('/user/job/getAll')}
-                            >All Jobs</button>
+                            <button className="mr-4 ml-1 lg:mx-3" onClick={(e) => navigate('/user/job/getAll')}>
+                                All Jobs
+                            </button>
                         </div>
                         <hr />
                         <div className="flex items-center my-4 ml-5 lg:ml-10 cursor-pointer hover:text-blue-400">
                             <MdOutlineStreetview size={20} />
-                            <button className="mr-4 ml-1 lg:mx-3"
-                                onClick={(e) => navigate('/admin-home-page/job/me')}
-                            >View Your Jobs</button>
+                            <button className="mr-4 ml-1 lg:mx-3" onClick={(e) => navigate('/admin-home-page/job/me')}>
+                                View Your Jobs
+                            </button>
                         </div>
                         <hr />
                         <div className="flex items-center my-4 ml-5 lg:ml-10 cursor-pointer hover:text-blue-400">
                             <BsFillSignpostSplitFill size={20} />
-                            <button className="mr-4 ml-1 lg:mx-3"
-                                onClick={(e) => navigate('/admin-home-page/job/post')}
-                            >Post New Job</button>
+                            <button className="mr-4 ml-1 lg:mx-3" onClick={(e) => navigate('/admin-home-page/job/post')}>
+                                Post New Job
+                            </button>
                         </div>
                         <hr />
                         <div className="flex my-4 ml-5 lg:ml-10 cursor-pointer hover:text-blue-400">
                             <AiOutlineForm size={20} />
-                            <button className="mr-4 ml-1 lg:mx-3"
-                                onClick={(e) => navigate('/user/applications/me')}
-                            >Applicant's Applications</button>
+                            <button className="mr-4 ml-1 lg:mx-3" onClick={(e) => navigate('/user/applications/me')}>
+                                Applicant's Applications
+                            </button>
                         </div>
-
                     </nav>
                 </aside>
             </div>
+
         </>
-    );
+    )
 }
+
+
+
+
