@@ -28,7 +28,8 @@ export default function RequestToAdmin() {
     const [submitting, setSubmitting] = useState(false);
     const [username, setUsername] = useState("");
     const [message, setMessage] = useState("");
-    const [name, setName] = useState("")
+    const [first_name, setFirstName] = useState("")
+    const [last_name, setLastName] = useState("")
     const [email, setEmail] = useState("")
 
     const { register, handleSubmit, setError, formState: { errors } } = useForm({
@@ -101,15 +102,15 @@ export default function RequestToAdmin() {
                             <div className="grid grid-cols-1 gap-5 md:grid-cols-2 mt-5">
                                 <input className="w-full bg-gray-100 text-gray-900 mt-2 p-3 rounded-lg focus:outline-none focus:shadow-outline"
                                     id="name"
-                                    value={name}
-                                    onChange={(e) => setName(e.target.value)}
+                                    value={first_name}
+                                    onChange={(e) => setFirstName(e.target.value)}
                                     type="text"
                                     required
                                     placeholder="First Name*" />
                                 <input className="w-full bg-gray-100 text-gray-900 mt-2 p-3 rounded-lg focus:outline-none focus:shadow-outline"
                                     id="name"
-                                    value={name}
-                                    onChange={(e) => setName(e.target.value)}
+                                    value={last_name}
+                                    onChange={(e) => setLastName(e.target.value)}
                                     type="text"
                                     required
                                     placeholder="Last Name*" />

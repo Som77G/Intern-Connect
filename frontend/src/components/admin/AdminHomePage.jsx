@@ -6,61 +6,29 @@ import AdminNavbar from "./AdminNavbar";
 import { useNewMessageContext } from "../../hooks/useNewMessageContext";
 import { useAdminContext } from "../../hooks/useAdminContext";
 import SearchStudent from "./SearchStudent";
+import AdminHeader from "./AdminHeader";
+import AddStudent from "./AddStudent";
 // export const HasNewMessageContext= createContext();
 export default function AdminHomePage() {
-    const navigate = useNavigate()
-    const {messages}= useMessageContext();
-    const {hasNewMessage, dispatch}= useNewMessageContext();
-    const {user}= useAdminContext();
-    const [last, setLast]=  useState(false);
-    // const [hasNewMessage, setHasNewMessage]= useState(false);
-    // useEffect(() => {
-    //     navigate('/admin-dashboard')
-    // }, [])
-    console.log("first time: ", hasNewMessage);
-    useEffect(()=>{
-        console.log("hello buddy message");
-         if(messages && messages.length > 0 && hasNewMessage=="default"){
-            console.log("Hello inside messages default")
-            dispatch({type: "GOT_MESSAGE"});
-         }
-         
-        
-        console.log("inside the main context");
-        //  if(messages && messages.length > 0 && hasNewMessage=='none'){
-        //     console.log("hello messages inside last useEffect");
-        //     dispatch({type: 'RESET'});
-           
-        // }
-         console.log("hasNewMessages", hasNewMessage);
-    },[messages])
-   
-    useEffect(()=>{
-          console.log("admin page render again");
-          console.log("hasNewMessage: ", hasNewMessage);
-          if((hasNewMessage=="seen_message")){
-           dispatch({type: "NONE"});
-          }
-    }, [hasNewMessage])
-
-    UseSocketSetup()
-    // console.log("message aya tha: ", messages);
-    console.log("state aya tha: ", messages);
-    console.log("hasNewMessage: ", hasNewMessage);
-    return(
+    return (
         <>
             {/* <HasNewMessageContext.Provider value= {{hasNewMessage, setHasNewMessage}}> */}
-            <div className="mt-10">
-                <h1 className="text-xl text-center">Admin Home Page</h1>
-            </div>
-            <AdminNavbar />
-            {hasNewMessage == "new_message" && (
-                <div className="fixed top-0 right-0 m-4 bg-yellow-500 text-white px-4 py-2 rounded">
-                    New Message!
+            <AdminHeader/>
+
+            <section className=" flex flex-col md:flex-row lg:flex-row py-1 bg-blueGray-50">
+                <AdminNavbar />
+
+                <div className="mx-10 my-4 border rounded border-spacing-4 border-zinc-600 flex flex-col w-full lg:flex-row">
+                <div className="w-3/5"><SearchStudent /></div>
+                <div className="border-l my-4 border-stone-500"></div>
+                <div className="w-2/5"><AddStudent/></div>
+                
                 </div>
-            )}
+                
+            </section>
+
             {/* </HasNewMessageContext.Provider> */}
-            <SearchStudent />
+            
         </>
     )
 }

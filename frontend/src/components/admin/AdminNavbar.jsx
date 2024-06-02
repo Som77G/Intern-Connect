@@ -2,15 +2,25 @@ import { Link, NavLink } from "react-router-dom";
 import { useContext, useEffect } from "react";
 import Notifications from "./Notifications";
 import { useAdminContext } from "../../hooks/useAdminContext";
+import { useNavigate } from 'react-router-dom';
+import { MdDashboard } from "react-icons/md";
+import { GrUpdate } from "react-icons/gr";
+import { BiSolidNotification } from "react-icons/bi";
+import { AiOutlineForm } from "react-icons/ai";
+import { MdOutlineStreetview } from "react-icons/md";
+import { BsFillSignpostSplitFill } from "react-icons/bs";
+import { MdAlignHorizontalLeft } from "react-icons/md";
+
 export default function AdminNavbar() {
-    const {user}= useAdminContext();
-    useEffect(()=>{
-       
+    const { user } = useAdminContext();
+    const navigate = useNavigate()
+    useEffect(() => {
+
     }, [user])
     return (
         <>
-            <nav>
-                {/* <div classNameName="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            {/* <nav>
+                <div classNameName="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div classNameName="flex justify-between">
                     <div classNameName="flex space-x-4">
                         <NavLink to="/admin-home-page">
@@ -30,7 +40,7 @@ export default function AdminNavbar() {
                         </NavLink>
                     </div>
                 </div>
-            </div> */}
+            </div>
 
                 <div className="border-b border-gray-200 dark:border-gray-700">
                     <ul className="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 dark:text-gray-400">
@@ -140,7 +150,63 @@ export default function AdminNavbar() {
                         }
                     </ul>
                 </div>
-            </nav>
+            </nav> */}
+
+            <div className='shadow-lg shadow-zinc-950'>
+                <aside className="w-20 md:w-60 lg:w-72 text-white p-6 flex flex-col">
+                    <nav className="flex flex-row justify-between md:flex-col">
+                        <div className="flex items-center my-4 ml-5 lg:ml-10 cursor-pointer hover:text-blue-400">
+                            <MdDashboard size={20} />
+                            <button className="mr-4 ml-1 lg:mx-3"
+                                onClick={(e) => navigate('/admin-home-page')}
+                            >Home</button>
+                        </div>
+                        <hr />
+                        <div className="flex items-center my-4 ml-5 lg:ml-10 cursor-pointer hover:text-blue-400">
+                            <GrUpdate size={20} />
+                            <button className="mr-4 ml-1 lg:mx-3"
+                                onClick={(e) => navigate('/admin-home-page/profile')}
+                            >Profile</button>
+                        </div>
+                        <hr />
+                        <div className="flex items-center my-4 ml-5 lg:ml-10 cursor-pointer hover:text-blue-400">
+                            <BiSolidNotification size={20} />
+                            <button className="mr-4 ml-1 lg:mx-3"
+                                onClick={(e) => navigate('/admin-home-page/notifications')}
+                            >Notifications</button>
+                        </div>
+                        <hr />
+                        <div className="flex items-center my-4 ml-5 lg:ml-10 cursor-pointer hover:text-blue-400">
+                            <MdAlignHorizontalLeft size={20} />
+                            <button className="mr-4 ml-1 lg:mx-3"
+                                onClick={(e) => navigate('/user/job/getAll')}
+                            >All Jobs</button>
+                        </div>
+                        <hr />
+                        <div className="flex items-center my-4 ml-5 lg:ml-10 cursor-pointer hover:text-blue-400">
+                            <MdOutlineStreetview size={20} />
+                            <button className="mr-4 ml-1 lg:mx-3"
+                                onClick={(e) => navigate('/admin-home-page/job/me')}
+                            >View Your Jobs</button>
+                        </div>
+                        <hr />
+                        <div className="flex items-center my-4 ml-5 lg:ml-10 cursor-pointer hover:text-blue-400">
+                            <BsFillSignpostSplitFill size={20} />
+                            <button className="mr-4 ml-1 lg:mx-3"
+                                onClick={(e) => navigate('/admin-home-page/job/post')}
+                            >Post New Job</button>
+                        </div>
+                        <hr />
+                        <div className="flex my-4 ml-5 lg:ml-10 cursor-pointer hover:text-blue-400">
+                            <AiOutlineForm size={20} />
+                            <button className="mr-4 ml-1 lg:mx-3"
+                                onClick={(e) => navigate('/user/applications/me')}
+                            >Applicant's Applications</button>
+                        </div>
+
+                    </nav>
+                </aside>
+            </div>
         </>
     );
 }

@@ -25,9 +25,17 @@ export default function Login() {
     const [buttonDisabled, setButtonDisabled] = useState(false);
     const [loading, setLoading] = useState(false);
 
-    const createProfile = async(userid) => {
+    const createStudentProfile = async(userid) => {
         try {
             const response = await axios.post(`${PORT}/api/student/createProfile`, {userid});
+            console.log("Profile created successfully: ", response.data.user)
+        } catch (error) {
+            console.log("Error in creating Profile: ", error)
+        }
+    }
+    const createAdminProfile = async(userid) => {
+        try {
+            const response = await axios.post(`${PORT}/api/admin/createProfile`, {userid});
             console.log("Profile created successfully: ", response.data.user)
         } catch (error) {
             console.log("Error in creating Profile: ", error)
@@ -66,7 +74,12 @@ export default function Login() {
                 toast.success("Mail has been sent")
                 if (message.profilecreated == 0) {
                     //create profile
-                    createProfile(loginUser.userid);
+                    if (type == 'student') {
+                        createStudentProfile(loginUser.userid);
+                    }
+                    if (type == 'admin') {
+                        createAdminProfile(loginUser.userid);
+                    }
                 }
             }
         } catch (error) {

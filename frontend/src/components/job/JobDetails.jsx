@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { NavLink, useNavigate, useParams } from "react-router-dom";
 import { useAdminContext } from "../../hooks/useAdminContext";
 import axios from "axios";
+import AdminHeader from "../admin/AdminHeader";
+import AdminNavbar from "../admin/AdminNavbar";
 axios.defaults.withCredentials = true;
 const PORT = import.meta.env.VITE_DOMAIN;
 
@@ -37,6 +39,10 @@ export default function JobDetails() {
 
     return (
         <>
+        <AdminHeader/>
+
+        <section className="flex flex-col md:flex-row lg:flex-row py-1 bg-blueGray-50">
+        <AdminNavbar/>
         {user && job && (
               <section className="py-8 bg-black min-h-screen">
               <div className="container mx-auto px-4">
@@ -86,6 +92,7 @@ export default function JobDetails() {
           </section>
         )}
         {(!user || !job) && <h3 className="text-center text-3xl font-extrabold text-white">Processing...</h3>}
+        </section>
         </>
     );
 }
