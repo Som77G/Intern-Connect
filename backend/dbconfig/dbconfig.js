@@ -10,7 +10,7 @@ const {createAdminProfileTable} = require("../models/admin/profile")
 async function query({ query, values = [] }) {
     console.log("hello database")
     const dbconnection = await mysql.createConnection({
-        host: process.env.MYSQL_HOST,
+        host: process.env.MYSQL_HOST,  
         port: process.env.MYSQL_PORT,
         database: process.env.MYSQL_DATABASE,
         user: process.env.MYSQL_USER,

@@ -190,6 +190,8 @@ import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { useNavigate, useParams } from "react-router-dom";
 import { useAdminContext } from "../../hooks/useAdminContext";
+import StudentHeader from "../student/StudentHeader";
+import AsideBar from "../student/AsideBar";
 axios.defaults.withCredentials = true;
 const PORT = import.meta.env.VITE_DOMAIN;
 
@@ -286,7 +288,11 @@ export default function Application() {
   }, [user]);
 
   return (
-    <section className="application bg-gray-900 min-h-screen flex items-center justify-center text-white">
+    <>
+    <StudentHeader/>
+    <section className="flex flex-col lg:flex-row py-1 bg-blueGray-50">
+      <AsideBar/>
+    <section className="application min-h-screen flex items-center justify-center text-white">
       <div className="container mx-auto p-6">
         <h3 className="text-2xl font-bold mb-6 text-center">Application Form</h3>
         <form onSubmit={handleApplication} className="bg-gray-800 p-6 rounded-lg shadow-lg space-y-4">
@@ -373,6 +379,8 @@ export default function Application() {
         </form>
       </div>
     </section>
+    </section>
+    </>
   );
 }
 

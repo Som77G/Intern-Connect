@@ -5,14 +5,17 @@ import './index.css'
 import { AdminContextProvider } from './context/AdminContext.jsx'
 import { MessageContextProvider } from './context/MessageContext.jsx'
 import { NewMessageContextProvider } from './context/NewMessageContext.jsx'
+import { ProfileContextProvider } from './context/ProfileContext.jsx'
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <AdminContextProvider>
-      <MessageContextProvider>
-        <NewMessageContextProvider>
-       <App />
-       </NewMessageContextProvider>
-       </MessageContextProvider>
+      <ProfileContextProvider>
+        <MessageContextProvider>
+          <NewMessageContextProvider>
+            <App />
+          </NewMessageContextProvider>
+        </MessageContextProvider>
+      </ProfileContextProvider>
     </AdminContextProvider>
   </React.StrictMode>,
 )

@@ -157,51 +157,51 @@ export default function AdminNavbar() {
                     <nav className="flex flex-row justify-between md:flex-col">
                         <div className="flex items-center my-4 ml-5 lg:ml-10 cursor-pointer hover:text-blue-400">
                             <MdDashboard size={20} />
-                            <button className="mr-4 ml-1 lg:mx-3" onClick={(e) => navigate('/admin-home-page')}>
+                            <NavLink className="mr-4 ml-1 lg:mx-3" to = '/admin-home-page'>
                                 Home
-                            </button>
+                            </NavLink>
                         </div>
                         <hr />
                         <div className="flex items-center my-4 ml-5 lg:ml-10 cursor-pointer hover:text-blue-400">
                             <GrUpdate size={20} />
-                            <button className="mr-4 ml-1 lg:mx-3" onClick={(e) => navigate('/admin-home-page/profile')}>
+                            <NavLink className="mr-4 ml-1 lg:mx-3" to ='/admin-home-page/profile'>
                                 Profile
-                            </button>
+                            </NavLink>
                         </div>
                         <hr />
                         <div className="flex items-center my-4 ml-5 lg:ml-10 cursor-pointer hover:text-blue-400">
                             <BiSolidNotification size={20} />
-                            <button className="mr-4 ml-1 lg:mx-3" onClick={(e) => navigate('/admin-home-page/notifications')}>
+                            <NavLink className="mr-4 ml-1 lg:mx-3" to = '/admin-home-page/notifications'>
                                 Notifications
-                            </button>
+                            </NavLink>
                         </div>
                         <hr />
                         <div className="flex items-center my-4 ml-5 lg:ml-10 cursor-pointer hover:text-blue-400">
                             <MdAlignHorizontalLeft size={20} />
-                            <button className="mr-4 ml-1 lg:mx-3" onClick={(e) => navigate('/user/job/getAll')}>
+                            <NavLink className="mr-4 ml-1 lg:mx-3" to = '/user/job/getAll'>
                                 All Jobs
-                            </button>
+                            </NavLink>
                         </div>
                         <hr />
                         <div className="flex items-center my-4 ml-5 lg:ml-10 cursor-pointer hover:text-blue-400">
                             <MdOutlineStreetview size={20} />
-                            <button className="mr-4 ml-1 lg:mx-3" onClick={(e) => navigate('/admin-home-page/job/me')}>
+                            <NavLink className="mr-4 ml-1 lg:mx-3" to ='/admin-home-page/job/me'>
                                 View Your Jobs
-                            </button>
+                            </NavLink>
                         </div>
                         <hr />
                         <div className="flex items-center my-4 ml-5 lg:ml-10 cursor-pointer hover:text-blue-400">
                             <BsFillSignpostSplitFill size={20} />
-                            <button className="mr-4 ml-1 lg:mx-3" onClick={(e) => navigate('/admin-home-page/job/post')}>
+                            <NavLink className="mr-4 ml-1 lg:mx-3" to = '/admin-home-page/job/post'>
                                 Post New Job
-                            </button>
+                            </NavLink>
                         </div>
                         <hr />
                         <div className="flex my-4 ml-5 lg:ml-10 cursor-pointer hover:text-blue-400">
                             <AiOutlineForm size={20} />
-                            <button className="mr-4 ml-1 lg:mx-3" onClick={(e) => navigate('/user/applications/me')}>
+                            <NavLink className="mr-4 ml-1 lg:mx-3" to ='/user/applications/me'>
                                 Applicant's Applications
-                            </button>
+                            </NavLink>
                         </div>
                     </nav>
                 </aside>

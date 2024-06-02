@@ -4,9 +4,11 @@ import axios from "axios";
 const PORT = import.meta.env.VITE_DOMAIN;
 axios.defaults.withCredentials = true;
 import { useAdminContext } from "../../hooks/useAdminContext";
+import { useProfileContext } from "../../hooks/useProfileContext";
 
 export default function UpdateProfile() {
     const {user, dispatch} = useAdminContext();
+    const {profile : AdminProfile, dispatch : profileDispatch} = useProfileContext()
     const [profile, setProfile] = useState({
         userid : user.userid,
         first_name : '',
@@ -55,6 +57,8 @@ export default function UpdateProfile() {
             const response = await axios.put(`${PORT}/api/admin/updateProfile`, profile)
             console.log("Profile Updated", response)
             toast.success(response.data.message)
+
+            profileDispatch({type : 'UPDATE', payload : response.data.info})
         } catch (error) {
             toast.error("Error in Updating Profile")
             console.log("error in updating profile", error)

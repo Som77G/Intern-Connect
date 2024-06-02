@@ -4,6 +4,8 @@ import { useAdminContext } from "../../hooks/useAdminContext";
 import axios from "axios";
 import AdminHeader from "../admin/AdminHeader";
 import AdminNavbar from "../admin/AdminNavbar";
+import StudentHeader from "../student/StudentHeader";
+import AsideBar from "../student/AsideBar";
 axios.defaults.withCredentials = true;
 const PORT = import.meta.env.VITE_DOMAIN;
 
@@ -40,9 +42,10 @@ export default function JobDetails() {
     return (
         <>
         {/* <AdminHeader/> */}
+        {user.userType == 'admin'? <AdminHeader/> : <StudentHeader/>}
         
         <section className="flex flex-col md:flex-row lg:flex-row py-1 bg-blueGray-50">
-        {/* <AdminNavbar/> */}
+        {user.userType == 'admin' ? <AdminNavbar/> : <AsideBar/>}
         {user && job && (
               <section className="py-8 bg-black min-h-screen">
               <div className="container mx-auto px-4">

@@ -63,12 +63,11 @@ export default function SearchStudent() {
 
                 {result && result.length > 0 && (
                     <div className="bg-white rounded">
-                        {result.map((student) => {
+                        {result.map((student, index) => {
                             return (
-                                <div>
+                                <div key={student.userid || index}>
                                     <button
                                         className='my-2 ml-3 text-black'
-                                        key={student.userid}
                                         onClick={(e) => loadProfile(student)}
                                     >{student.username}</button>
                                 </div>

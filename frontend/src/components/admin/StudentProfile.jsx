@@ -124,7 +124,7 @@ export default function StudentProfile({ profile }) {
                 <div className="p-4 border-t mx-auto mt-2">
                     <button className=" block mx-auto rounded-full bg-gray-900 hover:shadow-lg font-semibold text-white px-6 py-2"
                         onClick={(e) => setDeduct(!deduct)}
-                    >Deduct Credits</button>
+                    >{deduct ? "Close" : "Deduct Credits"}</button>
                 </div>
 
                 {deduct && (

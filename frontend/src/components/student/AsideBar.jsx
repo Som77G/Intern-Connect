@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { MdDashboard } from "react-icons/md";
 import { GrUpdate } from "react-icons/gr";
 import { BiSolidNotification } from "react-icons/bi";
@@ -11,31 +11,31 @@ export default function AsideBar() {
             <nav className="flex flex-row justify-between md:flex-col">
               <div className="flex items-center my-4 ml-5 lg:ml-10 cursor-pointer hover:text-blue-400">
                 <MdDashboard size={20} />
-                <button className="mr-4 ml-1 lg:mx-3"
-                  onClick={(e) => navigate('/student-dashboard')}
-                >Dashboard</button>
+                <NavLink className="mr-4 ml-1 lg:mx-3"
+                  to = '/student-dashboard'
+                >Dashboard</NavLink>
               </div>
               <hr/>
               <div className="flex items-center my-4 ml-5 lg:ml-10 cursor-pointer hover:text-blue-400">
                 <GrUpdate size={20} />
-                <button className="mr-4 ml-1 lg:mx-3"
-                  onClick={(e) => navigate('/student-dashboard/profile')}
-                >Profile</button>
+                <NavLink className="mr-4 ml-1 lg:mx-3"
+                  to = '/student-dashboard/profile'
+                >Profile</NavLink>
               </div>
               <hr/>
 
               <div className="flex items-center my-4 ml-5 lg:ml-10 cursor-pointer hover:text-blue-400">
                 <GrUpdate size={20} />
-                <button className="mr-4 ml-1 lg:mx-3"
-                  onClick={(e) => navigate('/user/job/getAll')}
-                >All Jobs</button>
+                <NavLink className="mr-4 ml-1 lg:mx-3"
+                 to = '/user/job/getAll'
+                >All Jobs</NavLink>
               </div>
               <hr/>
               <div className="flex items-center my-4 ml-5 lg:ml-10 cursor-pointer hover:text-blue-400">
                 <GrUpdate size={20} />
-                <button className="mr-4 ml-1 lg:mx-3"
-                  onClick={(e) => navigate('/user/application/me')}
-                >Applications</button>
+                <NavLink className="mr-4 ml-1 lg:mx-3"
+                  to = '/user/application/me'
+                >Applications</NavLink>
               </div>
 
             </nav>

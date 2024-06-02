@@ -9,7 +9,6 @@ import ResetPassword from './components/ResetPassword'
 import RequestToAdmin from './components/student/RequestToAdmin'
 import { AdminContext } from './context/AdminContext'
 import { useAdminContext } from './hooks/useAdminContext'
-import UpdatePassword from './components/admin/UpdatePasswrod'
 import AdminHomePage from './components/admin/AdminHomePage'
 import Notifications from './components/admin/Notifications'
 import Profile from './components/student/Profile'
@@ -65,10 +64,7 @@ function App() {
             path='/admin-home-page/add-student'
             element={user && user.userType == 'admin'? <AddStudent/> : <Navigate to = '/'/>}
           />
-          <Route
-            path = '/admin-home-page/update-password'
-            element = {user && user.userType == 'admin'? <UpdatePassword/> : <Navigate to = '/'/>}
-          />
+          
           <Route
             path= '/admin-home-page'
             element={user && user.userType == 'admin'? <AdminHomePage/> : <Navigate to = '/'/>}

@@ -3,7 +3,7 @@ import { useState } from "react"
 import { toast } from "react-toastify";
 const PORT = import.meta.env.VITE_DOMAIN;
 
-export default function MessageBox({message, key}) {
+export default function MessageBox({message}) {
     const [submitting, setSubmitting] = useState(false)
     const onSubmit = async() => {
         try {
@@ -23,6 +23,7 @@ export default function MessageBox({message, key}) {
     return (
         <>
             <div
+                
                 className="lg:w-5/12 mb-10 rounded-lg bg-zinc-900 p-6 text-white border border-gray-600">
                 <h5 className="mb-2 text-xl font-medium leading-relaxed"><i>From</i> : {message.from_username}</h5>
                 <h5 className="mb-2 text-xl font-medium leading-relaxed"><i>To</i> : {message.to_username}</h5>

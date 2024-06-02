@@ -116,7 +116,7 @@ export default function ResetPassword() {
                     <div className="flex justify-center items-center">
 
                         <div className="mx-auto my-20">
-                            <div className="px-20 md:px-20 py-10 my-4 rounded-lg md:shadow-xl shadow-zinc-950">
+                            <div className="px-20 md:px-20 py-10 my-4 rounded-lg shadow-xl shadow-zinc-950">
                                 <div className="flex flex-col">
                                     <h1 className="font-bold uppercase text-3xl text-center">Reset Password</h1>
                                     <h1 className='text-center'>{verifying ? "Processing..." : ""}</h1>
