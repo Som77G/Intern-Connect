@@ -101,11 +101,13 @@ export default function PostJob() {
 
             console.log("Job Posted Successfully");
             toast.success(response.data.message);
-
+            setSalaryFrom("");
+            setSalaryTo("");
+            setFixedSalary("");
         } catch (error) {
             console.error("Error at posting job", error);
             toast.error(error.response.data.message);
-        }finally{
+        } finally {
             setLoading(false);
             setButtonDisabled(false);
         }
@@ -299,6 +301,9 @@ export default function PostJob() {
                         />
                     </div>
                     <div>
+                        <h3 className="text-center text-3xl font-extrabold text-white mb-2">
+                            {loading ? "Processing..." : ""}
+                        </h3>
                         <button
                             type="submit"
                             className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
@@ -308,9 +313,6 @@ export default function PostJob() {
                         </button>
                     </div>
                 </form>
-                <h3 className="text-center text-3xl font-extrabold text-white">
-                    {loading? "Processing...":""}
-                </h3>
             </div>
         </div>
     );

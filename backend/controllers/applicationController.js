@@ -65,153 +65,261 @@ const jobseekerGetAllApplications= async(req, res)=>{
 };
 
 //post an application
-const postApplication= async(req, res)=>{
-    try {
-        const {userType, userid}= req.user;
-        if(userType=== "admin"){
-            throw new Error("Admin is not allowed to post an application");
-        }
+// const postApplication= async(req, res)=>{
+//     try {
+//         const {userType, userid}= req.user;
+//         if(userType=== "admin"){
+//             throw new Error("Admin is not allowed to post an application");
+//         }
         
-        if(!req.files || Object.keys(req.files).length ===0){
-            throw new Error("Resume File is Required");
-        }
+//         if(!req.files || Object.keys(req.files).length ===0){
+//             throw new Error("Resume File is Required");
+//         }
 
-        const { resume } = req.files;
-        const allowedFormats = ["image/png", "image/jpeg", "image/webp"];
-        if (!allowedFormats.includes(resume.mimetype)) {
-          throw new Error("Invalid file type. Please upload a PNG file.");
-        }
-        const cloudinaryResponse = await cloudinary.uploader.upload(
-          resume.tempFilePath
-        );
+//         const { resume } = req.files;
+//         const allowedFormats = ["image/png", "image/jpeg", "image/webp"];
+//         if (!allowedFormats.includes(resume.mimetype)) {
+//           throw new Error("Invalid file type. Please upload a PNG file.");
+//         }
+//         const cloudinaryResponse = await cloudinary.uploader.upload(
+//           resume.tempFilePath
+//         );
       
-        if (!cloudinaryResponse || cloudinaryResponse.error) {
-          console.error(
-            "Cloudinary Error:",
-            cloudinaryResponse.error || "Unknown Cloudinary error"
-          );
-          throw new Error("Failed to upload Resume to Cloudinary")
-        }
-        const {name, email, coverLetter, phone, address, jobId}= await req.body;
-        const applicantID= userid;
-        if(!jobId){
-            throw new Error("Job not found");
-        }
+//         if (!cloudinaryResponse || cloudinaryResponse.error) {
+//           console.error(
+//             "Cloudinary Error:",
+//             cloudinaryResponse.error || "Unknown Cloudinary error"
+//           );
+//           throw new Error("Failed to upload Resume to Cloudinary")
+//         }
+//         const {name, email, coverLetter, phone, address, jobId}= await req.body;
+//         const applicantID= userid;
+//         if(!jobId){
+//             throw new Error("Job not found");
+//         }
 
-        //search the job 
-        console.log("Searching for the job student wishes to apply");
-        const searchJobQuery= `
-          SELECT * FROM jobs
-          WHERE id= ?
-        `;
+//         //search the job 
+//         console.log("Searching for the job student wishes to apply");
+//         const searchJobQuery= `
+//           SELECT * FROM jobs
+//           WHERE id= ?
+//         `;
 
-        const jobDetails= await query({
-            query: searchJobQuery,
-            values: [jobId]
-        })
-        console.log("Job found in the database");
-        if(jobDetails.length===0){
-            throw new Error("Job not found");
-        }
-        console.log("job details", jobDetails);
-        const postedBy=await jobDetails[0].postedBy;
-        //fetch company id 
-        const companyName= await jobDetails[0].companyName;
-        console.log("Searching for the company", companyName);
-        const searchCompanyQuery= `
-        SELECT * FROM company_list
-        WHERE name= ?
-        `;
-        const companyDetails= await query({
-            query: searchCompanyQuery,
-            values: [companyName]
-        })
-        if(companyDetails.length===0){
-            throw new Error("company not found");
-        }
-        console.log("Company found");
+//         const jobDetails= await query({
+//             query: searchJobQuery,
+//             values: [jobId]
+//         })
+//         console.log("Job found in the database");
+//         if(jobDetails.length===0){
+//             throw new Error("Job not found");
+//         }
+//         console.log("job details", jobDetails);
+//         const postedBy=await jobDetails[0].postedBy;
+//         //fetch company id 
+//         const companyName= await jobDetails[0].companyName;
+//         console.log("Searching for the company", companyName);
+//         const searchCompanyQuery= `
+//         SELECT * FROM company_list
+//         WHERE name= ?
+//         `;
+//         const companyDetails= await query({
+//             query: searchCompanyQuery,
+//             values: [companyName]
+//         })
+//         if(companyDetails.length===0){
+//             throw new Error("company not found");
+//         }
+//         console.log("Company found");
 
-        const employerID= await companyDetails[0].cid;
-        console.log("name: ", name);
-        console.log("email: ", email);
-        console.log("coverLetter: ", coverLetter);
-        console.log("phone: ", phone);
-        console.log("address: ", address);
-        console.log("applicantID: ", applicantID);
-        console.log("employerID: ", employerID);
-        console.log("resume: ", resume);
+//         const employerID= await companyDetails[0].cid;
+//         console.log("name: ", name);
+//         console.log("email: ", email);
+//         console.log("coverLetter: ", coverLetter);
+//         console.log("phone: ", phone);
+//         console.log("address: ", address);
+//         console.log("applicantID: ", applicantID);
+//         console.log("employerID: ", employerID);
+//         console.log("resume: ", resume);
         
         
-        if (
-            !name ||
-            !email ||
-            !coverLetter ||
-            !phone ||
-            !address ||
-            !applicantID ||
-            !employerID ||
-            !resume
-          ) {
-            throw new Error("Please fill all the fields");
-          }
+//         if (
+//             !name ||
+//             !email ||
+//             !coverLetter ||
+//             !phone ||
+//             !address ||
+//             !applicantID ||
+//             !employerID ||
+//             !resume
+//           ) {
+//             throw new Error("Please fill all the fields");
+//           }
           
-          //insert application
-          console.log('saving application to database');
-          const insertApplicationQuery= `
-          INSERT INTO applications
-          (
-            name,
-            email,
-            coverLetter,
-            phone,
-            address,
-            applicantID,
-            employerID,
-            resume_public_id,
-            resume_url, 
-            postedBy
-          )VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-          `;
+//           //insert application
+//           console.log('saving application to database');
+//           const insertApplicationQuery= `
+//           INSERT INTO applications
+//           (
+//             name,
+//             email,
+//             coverLetter,
+//             phone,
+//             address,
+//             applicantID,
+//             employerID,
+//             resume_public_id,
+//             resume_url, 
+//             postedBy
+//           )VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+//           `;
 
-        //   const application= await query({
-        //     query: insertApplicationQuery,
-        //     values: [name, email, coverLetter, phone, address, applicantID, employerID, cloudinaryResponse.public_id, cloudinaryResponse.secure_url, postedBy]
-        //   });
-        //   console.log("Application Submitted Successfully");
-        //   res.status(200).json({
-        //     success: true,
-        //     message: "Application Submitted Successfully!",
-        //     application
-        //   });
+//         //   const application= await query({
+//         //     query: insertApplicationQuery,
+//         //     values: [name, email, coverLetter, phone, address, applicantID, employerID, cloudinaryResponse.public_id, cloudinaryResponse.secure_url, postedBy]
+//         //   });
+//         //   console.log("Application Submitted Successfully");
+//         //   res.status(200).json({
+//         //     success: true,
+//         //     message: "Application Submitted Successfully!",
+//         //     application
+//         //   });
 
-        const result = await query({
-            query: insertApplicationQuery,
-            values: [name, email, coverLetter, phone, address, applicantID, employerID, cloudinaryResponse.public_id, cloudinaryResponse.secure_url, postedBy]
-          });
+//         const result = await query({
+//             query: insertApplicationQuery,
+//             values: [name, email, coverLetter, phone, address, applicantID, employerID, cloudinaryResponse.public_id, cloudinaryResponse.secure_url, postedBy]
+//           });
       
-          // Fetch the newly inserted application
-          const getApplicationQuery = `
-            SELECT * FROM applications WHERE id = ?
-          `;
-          const [application] = await query({
-            query: getApplicationQuery,
-            values: [result.insertId]
-          });
+//           // Fetch the newly inserted application
+//           const getApplicationQuery = `
+//             SELECT * FROM applications WHERE id = ?
+//           `;
+//           const [application] = await query({
+//             query: getApplicationQuery,
+//             values: [result.insertId]
+//           });
       
-          res.status(200).json({
-            success: true,
-            message: "Application Submitted Successfully!",
-            application,
-          });
+//           res.status(200).json({
+//             success: true,
+//             message: "Application Submitted Successfully!",
+//             application,
+//           });
+//     } catch (error) {
+//         console.log("Error at posting application: ", error);
+//         res.status(401).json({
+//             success: false,
+//             message: error.message
+//         })
+//     }
+// };
+
+
+
+const postApplication = async (req, res) => {
+    try {
+      // console.log("request", req);
+      const { userType, userid } = req.user;
+      if (userType === "admin") {
+        throw new Error("Admin is not allowed to post an application");
+      }
+  
+      const { name, email, coverLetter, phone, address, resume_public_id, resume_url, jobId} = req.body;
+      console.log("inside post application", resume_public_id);
+      console.log("inside post application", resume_url);
+      console.log("name",name);
+      if (!resume_url) {
+        throw new Error("Resume URL is required");
+      }
+  
+      if (!name || !email || !coverLetter || !phone || !address || !jobId) {
+        throw new Error("Please fill all the fields");
+      }
+  
+      const applicantID = userid;
+  
+      // Search for the job
+      console.log("Searching for the job student wishes to apply");
+      const searchJobQuery = `SELECT * FROM jobs WHERE id = ?`;
+      const jobDetails = await query({
+        query: searchJobQuery,
+        values: [jobId]
+      });
+  
+      if (jobDetails.length === 0) {
+        throw new Error("Job not found");
+      }
+  
+      const postedBy = jobDetails[0].postedBy;
+      const companyName = jobDetails[0].companyName;
+  
+      // Fetch company ID
+      console.log("Searching for the company", companyName);
+      const searchCompanyQuery = `SELECT * FROM company_list WHERE name = ?`;
+      const companyDetails = await query({
+        query: searchCompanyQuery,
+        values: [companyName]
+      });
+  
+      if (companyDetails.length === 0) {
+        throw new Error("Company not found");
+      }
+  
+      const employerID = companyDetails[0].cid;
+  
+      // Insert application
+      console.log('Saving application to database');
+      const insertApplicationQuery = `
+        INSERT INTO applications (
+          name,
+          email,
+          coverLetter,
+          phone,
+          address,
+          applicantID,
+          employerID,
+          resume_public_id,
+          resume_url,
+          postedBy
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+      `;
+      const result = await query({
+        query: insertApplicationQuery,
+        values: [
+          name,
+          email,
+          coverLetter,
+          phone,
+          address,
+          applicantID,
+          employerID,
+          resume_public_id,
+          resume_url,
+          postedBy
+        ]
+      });
+  
+      // Fetch the newly inserted application
+      const getApplicationQuery = `SELECT * FROM applications WHERE id = ?`;
+      const [application] = await query({
+        query: getApplicationQuery,
+        values: [result.insertId]
+      });
+  
+      res.status(200).json({
+        success: true,
+        message: "Application Submitted Successfully!",
+        application,
+      });
     } catch (error) {
-        console.log("Error at posting application: ", error);
-        res.status(401).json({
-            success: false,
-            message: error.message
-        })
+      console.log("Error at posting application: ", error);
+      res.status(401).json({
+        success: false,
+        message: error.message
+      });
     }
-};
+  };
+  
 
+  
 const  jobseekerDeleteApplication= async(req, res)=>{
     try {
         const {userType}= req.user;

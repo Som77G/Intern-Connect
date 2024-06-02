@@ -3,10 +3,18 @@ const { decodejwt } = require('../helpers/decodejwt');
 const cloudinary = require('cloudinary').v2
 const stream = require('stream');
 
+//SOMESH
+// cloudinary.config({
+//   cloud_name: process.env.CLOUD_NAME,
+//   api_key: process.env.CLOUD_API_KEY,
+//   api_secret: process.env.CLOUD_API_SECRET
+// })
+
+//SUMIT
 cloudinary.config({
-  cloud_name: process.env.CLOUD_NAME,
-  api_key: process.env.CLOUD_API_KEY,
-  api_secret: process.env.CLOUD_API_SECRET
+  cloud_name: process.env.CLOUDINARY_CLIENT_NAME,
+  api_key: process.env.CLOUDINARY_CLIENT_API,
+  api_secret: process.env.CLOUDINARY_CLIENT_SECRET
 })
 
 const dashboard = async (req, res) => {
@@ -228,6 +236,7 @@ const uploadResume = async (req, res) => {
 
     res.send({
       resumeUrl: resumeResult.secure_url,
+      resumePublicId: resumeResult.public_id
     });
 
   } catch (error) {

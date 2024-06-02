@@ -115,6 +115,37 @@ const postJob = async (req, res) => {
     }
 };
 
+
+const getMyJobs= async(req, res)=>{
+   try {
+    const {userType, userid}= req.user;
+    if(userType==="student"){
+      throw new Error("Student is not allowed to access this resource");
+    }
+    const findMyJobsQuery= `
+    SELECT * FROM jobs
+    WHERE postedBy= ?
+    `;
+    console.log("finding jobs of particular admin")
+    const myJobs= await query({
+      query: findMyJobsQuery,
+      values: [userid]
+    });
+    console.log("Jobs of particular admin found");
+    res.status(200).json({
+      success: true,
+      myJobs
+    });
+
+   } catch (error) {
+    console.error('Error at finding jobs of admin ', error);
+    res.status(400).json({
+      success: false,
+      message: error.message,
+    });
+   }
+};
+
 const updateJob = async (req, res) => {
     try {
       const { userType } = req.user;
@@ -146,7 +177,7 @@ const updateJob = async (req, res) => {
         location, fixedSalary, salaryFrom, salaryTo,
         companyName, expired
       } = req.body;
-  
+      console.log("inside update expired", expired);
       // Create an object with the existing job data and override it with the new data
       const updatedJobData = {
         title: title || jobObj.title,
@@ -161,7 +192,7 @@ const updateJob = async (req, res) => {
         companyName: companyName || jobObj.companyName,
         expired: expired ?? jobObj.expired,
       };
-  
+      // expired === "false" ? false : expired === "true" ? true : jobObj.expired
       // Dynamically build the update query and values
       const fields = [];
       const values = [];
@@ -176,7 +207,7 @@ const updateJob = async (req, res) => {
         SET ${fields.join(', ')}
         WHERE id = ?
       `;
-      
+      console.log("values", values)
       const updatedJob= await query({
         query: updateJobQuery,
         values,
@@ -277,4 +308,4 @@ const updateJob = async (req, res) => {
     }
  };
   
-module.exports = { getAllJobs, postJob, updateJob, deleteJob, getSingleJob};
+module.exports = { getAllJobs, postJob, updateJob, deleteJob, getSingleJob, getMyJobs};

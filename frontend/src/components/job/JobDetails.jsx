@@ -75,7 +75,7 @@ export default function JobDetails() {
                       </p>
                       {user && user.userType !== "admin" && (
                           <NavLink
-                              to={`/user/application/${job._id}`} 
+                              to={`/user/application/${job.id}`} 
                               className="inline-block mt-6 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700 transition duration-200"
                           >
                               Apply Now
