@@ -9,6 +9,7 @@ const createMessageTable = async (dbconnection) => {
             to_username VARCHAR(50) NOT NULL,
             from_username VARCHAR(50) NOT NULL,
             message VARCHAR(255) NOT NULL,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             CONSTRAINT fk_to_user FOREIGN KEY (from_username) REFERENCES users_student(username) ON DELETE CASCADE,
             CONSTRAINT fk_from_user FOREIGN KEY (to_username) REFERENCES users_admin(username) ON DELETE CASCADE
         );
