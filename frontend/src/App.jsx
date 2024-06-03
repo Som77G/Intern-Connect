@@ -86,18 +86,18 @@ function App() {
           </Route>
           <Route
           path='/user/job/:id'
-          element= {user ? <JobDetails /> : <Navigate to="/" />}
+          element= {user ? <JobDetails/>: <Navigate to='/' />}
           >
           </Route>
           <Route
           path='/user/application/:id'
-          element={user ? <Application />: <Navigate to='/' />}
+          element={user ? <Application/>: <Navigate to='/' />}
           >
           </Route>
           <Route
           path='/user/application/me'
-          element= {user ? <MyApplications /> : <Navigate to='/' />}
-          >  
+          element= {user ? <MyApplications/>: <Navigate to='/' />}
+          >
           </Route>
            <Route
            path='/admin-home-page/job/post'

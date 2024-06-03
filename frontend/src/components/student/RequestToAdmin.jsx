@@ -3,7 +3,7 @@ import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { useAdminContext } from '../../hooks/useAdminContext';
 import UseSocketSetup from '../../hooks/UseSocketSetup';
 import getSocketInstance from '../../socket';
@@ -44,7 +44,7 @@ export default function RequestToAdmin() {
             const socket= getSocketInstance();
          socket.connect();
          socket.emit("message_sent", messageObject);
-         
+         toast.success("Message sent")
          // console.log(state);
          console.log("Running")
 
@@ -54,6 +54,7 @@ export default function RequestToAdmin() {
          console.log("Message is being saved");
          }
         }catch(error){
+            toast.error("Failed to send Message");
             console.log("message failed to save");
             toast.error("Failed to send message");
         }
@@ -92,7 +93,7 @@ export default function RequestToAdmin() {
                 <div>
                     <nav  className="flex justify-between py-4 px-10 shadow-2xl shadow-zinc-950" >
                     <div className="text-3xl font-bold text-purple-600">SIP Portal</div>
-                        <a href="/" className="bg-yellow-500 text-black py-2 px-6 rounded-2xl hover:bg-yellow-600">Home</a>
+                        <NavLink to="/" className="bg-yellow-500 text-black py-2 px-6 rounded-2xl hover:bg-yellow-600">Home</NavLink>
                     </nav>
                 <div className="flex justify-center items-center">
                     

@@ -46,7 +46,7 @@ export const MessageContextProvider=  ({children})=>{
                 console.log("getting error in message context");
                }
         }
-        if(user){
+        if(user && (user.userType == 'admin' || user.message != undefined)){
             getMessages();
         }
      },[user]);

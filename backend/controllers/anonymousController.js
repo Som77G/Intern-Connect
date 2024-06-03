@@ -38,7 +38,7 @@ const get_messages= async(req, res)=>{
       SELECT * FROM messages
       WHERE to_username= ? OR from_username= ?
       ORDER BY created_at DESC
-      LIMIT 14
+      LIMIT 14 
       `;
 
       console.log("getting messages from database");
