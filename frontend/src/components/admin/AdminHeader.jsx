@@ -42,15 +42,15 @@ export default function AdminHeader() {
             dispatch({ type: "NONE" });
         }
     }, [hasNewMessage])
-
-    UseSocketSetup()
-
+   
+    
     const onLogout = async() => {
         logout();
     }
-    
+    UseSocketSetup();
     return (
         <>
+           
             <nav className="flex justify-between py-4 px-10 lg:px-16 shadow-2xl rounded" >
                 <div className="text-3xl font-bold text-purple-600">SIP Portal</div>
                 <button

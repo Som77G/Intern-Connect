@@ -105,7 +105,7 @@ function App() {
           </Route>
            <Route
            path='/admin-home-page/job/post'
-           element={<PostJob />}
+           element={user && user.userType == 'admin'? <PostJob/> : <Navigate to = '/'/>}
            >
            </Route>
            <Route

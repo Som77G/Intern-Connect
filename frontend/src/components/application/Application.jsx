@@ -190,6 +190,7 @@ import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { useNavigate, useParams } from "react-router-dom";
 import { useAdminContext } from "../../hooks/useAdminContext";
+import { useMyApplicationsContext } from "../../hooks/useMyApplicationsContext";
 axios.defaults.withCredentials = true;
 const PORT = import.meta.env.VITE_DOMAIN;
 
@@ -204,6 +205,7 @@ export default function Application() {
   const [isUploading, setIsUploading] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { user } = useAdminContext();
+  const {myApplications, dispatch}= useMyApplicationsContext();
   const navigateTo = useNavigate();
   const { id } = useParams();
 
@@ -262,8 +264,8 @@ export default function Application() {
         }
       );
       setIsSubmitting(false);
-      console.log("Application posted successfully");
-
+      console.log("Application posted successfully", response.data.application);
+      await dispatch({type:'ADD_APPICATION', payload: response.data.application});
       setName("");
       setEmail("");
       setCoverLetter("");

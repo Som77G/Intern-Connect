@@ -123,8 +123,8 @@ export default function StudentDashboard() {
             
             <div className="w-full"><ShowProjects project={user.project1} /></div>
             <div className="w-full"><ShowProjects project={user.project2} /></div>
-            <div class="mx-4 mt-8 flex justify-center items-center h-96">
-              <iframe class="w-full h-full border-none" src={user.resumePath}></iframe>
+            <div className="mx-4 mt-8 flex justify-center items-center h-96">
+              <iframe className="w-full h-full border-none" src={user.resumePath}></iframe>
             </div>
           </div>
 

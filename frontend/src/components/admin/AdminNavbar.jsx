@@ -199,7 +199,7 @@ export default function AdminNavbar() {
                         <hr />
                         <div className="flex my-4 ml-5 lg:ml-10 cursor-pointer hover:text-blue-400">
                             <AiOutlineForm size={20} />
-                            <button className="mr-4 ml-1 lg:mx-3" onClick={(e) => navigate('/user/applications/me')}>
+                            <button className="mr-4 ml-1 lg:mx-3" onClick={(e) => navigate('/user/application/me')}>
                                 Applicant's Applications
                             </button>
                         </div>
