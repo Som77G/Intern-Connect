@@ -44,7 +44,7 @@ export default function RequestToAdmin() {
             const socket= getSocketInstance();
          socket.connect();
          socket.emit("message_sent", messageObject);
-         
+         toast.success("Message sent")
          // console.log(state);
          console.log("Running")
 
@@ -53,6 +53,7 @@ export default function RequestToAdmin() {
          console.log("Message is being saved");
          }
         }catch(error){
+            toast.error("Failed to send Message");
             console.log("message failed to save");
         }
     }, [user])

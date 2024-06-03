@@ -223,6 +223,7 @@ export default function MyJobs() {
     };
     
     const handleInputChange = (jobId, field, value) => {
+        
         setTempJobData((prevData) => ({
             ...prevData,
             [field]: field === 'expired' ? (value === 'true' ? true : false) : value
@@ -383,8 +384,14 @@ export default function MyJobs() {
                                                         onChange={(e) => handleInputChange(element.id, "expired", e.target.value)}
                                                         className="mt-1 block w-full rounded-md bg-gray-800 border border-gray-600 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm text-white"
                                                     >
-                                                        <option value={false}>FALSE</option>
+                                                        {tempJobData.expired == true? (<>
+                                                            <option value={false}>FALSE</option>
                                                         <option value={true}>TRUE</option>
+                                                        </>) : (<>
+                                                            <option value={false}>FALSE</option>
+                                                        <option value={true}>TRUE</option>
+                                                        </>)}
+                                                        
                                                     </select>
                                                 ) : (
                                                     <p className="mt-1 block w-full sm:text-sm text-white bg-gray-800 p-2 rounded-md border border-gray-600">
