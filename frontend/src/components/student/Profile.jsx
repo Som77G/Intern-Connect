@@ -3,8 +3,9 @@ import { useState } from 'react';
 import axios from "axios";
 import { toast } from 'react-toastify';
 import AsideBar from './AsideBar';
-import { useLogout } from '../../hooks/useLogout';
 import { useAdminContext } from "../../hooks/useAdminContext";
+import StudentHeader from './StudentHeader';
+import { useProfileContext } from '../../hooks/useProfileContext';
 
 const PORT = import.meta.env.VITE_DOMAIN;
 axios.defaults.withCredentials = true;
@@ -12,8 +13,9 @@ axios.defaults.withCredentials = true;
 
 export default function Profile() {
     const navigate = useNavigate();
-    const {logout} = useLogout();
     const { user: loginUser, dispatch } = useAdminContext();
+    const {profile, dispatch: profileDispatch} = useProfileContext();
+    
 
     const [docs, setDocs] = useState({
         profilePicture: null,
@@ -22,6 +24,7 @@ export default function Profile() {
     
     const [submitting, setSubmitting] = useState(false)
     const [studentProfile, setStudentProfile] = useState({
+        profilecreated : loginUser.profileCreated,
         userid : loginUser.userid,
         firstName: '',
         lastName: '',
@@ -111,6 +114,12 @@ export default function Profile() {
             const response = await axios.put(`${PORT}/api/student/updateProfile`, studentProfile)
             console.log("Profile Updated", response)
             toast.success(response.data.message)
+
+            if (studentProfile.profilecreated == 0) {
+                loginUser.profileCreated = 1;
+                dispatch({type : 'LOGIN', payload : loginUser})
+            }
+            profileDispatch({type : 'UPDATE', payload : response.data.info})
         } catch (error) {
             toast.error("Error in Updating Profile")
             console.log("error in updating profile", error)
@@ -118,18 +127,10 @@ export default function Profile() {
             setSubmitting(false)
         }
     }
-    const onLogout = async() => {
-        logout()
-    }
+    
     return (
         <>
-            <nav className="flex justify-between py-4 px-10 lg:px-16 shadow-2xl rounded" >
-                <div className="text-3xl font-bold text-purple-600">SIP Portal</div>
-                <button
-                    className="bg-yellow-500 text-black py-2 px-6 rounded-2xl hover:bg-yellow-600"
-                    onClick={(e) => onLogout()}>Log Out</button>
-
-            </nav>
+            <StudentHeader/>
             <section className="flex flex-col lg:flex-row py-1 bg-blueGray-50">
                 <AsideBar/>
                 <div className="w-full lg:w-7/12 px-4 mt-6 mx-auto">

@@ -51,10 +51,9 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 const PORT = import.meta.env.VITE_DOMAIN;
 
-export default function MessageBox({ message, messageId }) {
-    const [submitting, setSubmitting] = useState(false);
-
-    const onSubmit = async () => {
+export default function MessageBox({message}) {
+    const [submitting, setSubmitting] = useState(false)
+    const onSubmit = async() => {
         try {
             setSubmitting(true);
             const username = message.from_username;
@@ -71,31 +70,27 @@ export default function MessageBox({ message, messageId }) {
     };
 
     return (
-        <div className="lg:w-5/12 mb-10 rounded-lg bg-zinc-900 p-6 text-white border border-gray-600">
-            <h5 className="mb-2 text-xl font-medium leading-relaxed">
-                <i>From</i>: {message.from_username}
-            </h5>
-            <h5 className="mb-2 text-xl font-medium leading-relaxed">
-                <i>To</i>: {message.to_username}
-            </h5>
-            <hr />
-            <p className="my-4 text-base">
-                {message.message}
-            </p>
-            <p className="my-4 font-extralight text-gray-400">
-                <i>*Click below to allow student to reset their password</i>
-            </p>
-            <h3 className="mb-2 text-gray-400">
-                {submitting ? <i>Processing...</i> : ""}
-            </h3>
-            <button
-                type="button"
-                className="rounded bg-yellow-500 px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-black"
-                onClick={onSubmit}
-                disabled={submitting}
-            >
-                Update Password
-            </button>
-        </div>
-    );
+        <>
+            <div
+                
+                className="lg:w-5/12 mb-10 rounded-lg bg-zinc-900 p-6 text-white border border-gray-600">
+                <h5 className="mb-2 text-xl font-medium leading-relaxed"><i>From</i> : {message.from_username}</h5>
+                <h5 className="mb-2 text-xl font-medium leading-relaxed"><i>To</i> : {message.to_username}</h5>
+                <hr/>
+                <p className="my-4 text-base">
+                    {message.message}
+                </p>
+                <p className="my-4 font-extralight text-gray-400"><i>*Click below to allow student to reset their password</i></p>
+                <h3 className="mb-2 text-gray-400">{submitting? <i>Processing...</i> : ""}</h3>
+                <button
+                    type="button"
+                    className="rounded bg-yellow-500 px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-black"
+                    onClick={(e) => onSubmit()}
+                    disabled = {submitting}
+                    >
+                    Update Password
+                </button>
+            </div>
+        </>
+    )
 }

@@ -13,13 +13,13 @@ export default function ProfileCard({ profile }) {
                     <img className=" bg-cover bg-center w-full " src='https://cdn.hackernoon.com/images/77fdrPu4ybMLx0OjzBBTzNBhT1f2-4qc3e1d.jpeg' alt='FAANG' />
                 </div>
                 <div className="mx-auto w-32 h-32 relative -mt-16 border-4 border-white rounded-full overflow-hidden">
-                    <img className="object-cover h-32 w-32" src={profile.profilePicturePath} alt='Student Profile' />
+                    <img className="object-cover h-32 w-32" src={profile.profile_picture} alt='Student Profile' />
                 </div>
                 <div className="text-center mt-2">
                     <div className="flex flex-wrap justify-center ">
-                        <div className="font-semibold text-gray-50 text-2xl">{profile.firstName + " " + profile.lastName}</div>
-                        <div><a href={profile.linkedIn} target="_blank"><FaLinkedin className="text-white text-2xl mt-1 mx-2" /></a></div>
-                        <div><a href={profile.gitHub} target="_blank"><FaGithub className="text-white text-2xl mt-1 mx-2" /></a></div>
+                        <div className="font-semibold text-gray-50 text-2xl">{profile.first_name + " " + profile.last_name}</div>
+                        <div><a href={profile.linkedin} target="_blank"><FaLinkedin className="text-white text-2xl mt-1 mx-2" /></a></div>
+                        <div><a href={profile.github} target="_blank"><FaGithub className="text-white text-2xl mt-1 mx-2" /></a></div>
                     </div>
                     <p className="text-gray-400 mt-2">Student ID: {profile.username}</p>
                     <p className="text-gray-300 mt-8">{profile.course + " in " + profile.branch}</p>
@@ -73,7 +73,7 @@ export default function ProfileCard({ profile }) {
                                 <div className="text-gray-400 text-sm">Country</div>
                             </li>
                             <li className="flex flex-col items-center justify-around">
-                                <div className="text-gray-300">{profile.postalCode}</div>
+                                <div className="text-gray-300">{profile.postal_code}</div>
                                 <div className="text-gray-400 text-sm">Postal Code</div>
                             </li>
                         </ul>

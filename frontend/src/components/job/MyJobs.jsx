@@ -121,6 +121,8 @@ import { useAdminContext } from "../../hooks/useAdminContext";
 import { useNavigate } from "react-router-dom";
 import { FaCheck } from 'react-icons/fa';
 import { RxCross2 } from 'react-icons/rx';
+import AdminHeader from "../admin/AdminHeader";
+import AdminNavbar from "../admin/AdminNavbar";
 import { useMyJobsContext } from "../../hooks/useMyJobsContext";
 
 axios.defaults.withCredentials = true;
@@ -229,8 +231,13 @@ export default function MyJobs() {
 
     return (
         <>
-            <div className="myJobs page bg-gray-900 min-h-screen py-8">
-                <div className="container mx-auto px-4">
+            <AdminHeader />
+            <section className="flex flex-col md:flex-row lg:flex-row py-1 bg-blueGray-50">
+                <AdminNavbar />
+                
+            
+            <div className=" bg-zinc-900 py-8">
+                <div className="w-full mx-auto px-4">
                     <h1 className="text-3xl font-bold mb-8 text-white">Your Posted Jobs</h1>
                     {isUpdating && (
                         <p className="text-yellow-500 mb-4">Updating job, please wait...</p>
@@ -450,6 +457,7 @@ export default function MyJobs() {
                     )}
                 </div>
             </div>
+            </section>
         </>
     );
 }

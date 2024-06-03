@@ -209,7 +209,20 @@ const updateProfile = async (req, res) => {
             values: values
         });
 
-        res.status(200).json({ message: 'Profile Updated Successfully' });
+        const getQuery = `
+            SELECT u.username, u.email, p.*
+            FROM users_admin u
+            INNER JOIN profiles_admin p
+            ON u.userid = p.userid
+            WHERE u.userid = ?
+        `
+
+        const user = await query({
+            query : getQuery,
+            values : [userid]
+        })
+
+        res.status(200).json({ message: 'Profile Updated Successfully', info : user[0] });
     } catch (error) {
         console.error('Error in updating profile', error);
         res.status(500).json({

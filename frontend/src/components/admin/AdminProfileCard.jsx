@@ -2,52 +2,29 @@ import { useEffect, useState } from "react"
 import axios from "axios"
 import { useAdminContext } from "../../hooks/useAdminContext"
 import { FaLinkedin } from "react-icons/fa";
+import { useProfileContext } from "../../hooks/useProfileContext";
 
 const PORT = import.meta.env.VITE_DOMAIN;
 
 
 export default function AdminProfileCard() {
     const {user:loginUser, dispatch} = useAdminContext();
-    const [profile, setProfile] = useState({
-        first_name : '',
-        last_name : '',
-        designation : '',
-        phone_number : '',
-        linkedin : '',
-        profile_picture_path : '',
-        email : '',
-        username : '',
-    });
-    const getAdminProfile = async () => {
-        try {
-          const userid = loginUser.userid
-          const response = await axios.get(`${PORT}/api/admin/dashboard?userid=${encodeURIComponent(userid)}`);
-          const admin = response.data.message
-          console.log(admin)
-          
-          setProfile({
-            ...profile,
-            first_name : admin.first_name,
-            last_name : admin.last_name,
-            designation : admin.designation,
-            phone_number : admin.phone_number,
-            linkedin : admin.linkedin,
-            profile_picture_path : admin.profile_picture_path,
-            email : admin.email,
-            username : admin.username
-          })
-        } catch (error) {
-          console.log(error.message)
-        }
+    const {profile}= useProfileContext();
     
-      }
-
-      useEffect(() => {
-        getAdminProfile();
-      }, [])
     return (
         <>
-            <div
+            {!profile? (<div className='w-full flex flex-col justify-center items-center h-screen'>
+            <div className='flex flex-row space-x-2'>
+                <span className='sr-only'>Loading...</span>
+                <div className='h-8 w-8 bg-white rounded-full animate-bounce [animation-delay:-0.3s]'></div>
+                <div className='h-8 w-8 bg-white rounded-full animate-bounce [animation-delay:-0.15s]'></div>
+                <div className='h-8 w-8 bg-white rounded-full animate-bounce'></div>
+                <div className='h-8 w-8 bg-white rounded-full animate-bounce'></div>
+                <div className='h-8 w-8 bg-white rounded-full animate-bounce'></div>
+            </div>
+            <br />
+            <div className='text-xl font-mono font-semibold text-gray-200'>Loading Profile ...</div>
+        </div>) : (<div
                 className="max-w-2xl mx-4 sm:max-w-sm md:max-w-sm lg:max-w-sm xl:max-w-sm sm:mx-auto md:mx-auto lg:mx-auto xl:mx-auto mt-16 bg-zinc-900 shadow-xl rounded-lg text-gray-900">
                 <div className="rounded-t-lg h-32 overflow-hidden">
                     <img className=" bg-cover bg-center w-full " src='https://as2.ftcdn.net/v2/jpg/01/25/89/77/1000_F_125897775_QBoZEjLEaoDKZf62lhlFBIDYOniHDwKU.jpg' alt='FAANG'/>
@@ -81,7 +58,8 @@ export default function AdminProfileCard() {
                 
 
                 
-            </div>
+            </div>)}
+            
         </>
     )
 }

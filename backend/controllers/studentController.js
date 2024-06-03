@@ -59,16 +59,16 @@ const createProfile = async (req, res) => {
       values: [userid]
     })
 
-    const query2 = `
-      UPDATE users_student
-      SET profilecreated = 1
-      WHERE userid = ?
-    `
+    // const query2 = `
+    //   UPDATE users_student
+    //   SET profilecreated = 1
+    //   WHERE userid = ?
+    // `
 
-    const updatedUser = await query({
-      query: query2,
-      values: [userid]
-    })
+    // const updatedUser = await query({
+    //   query: query2,
+    //   values: [userid]
+    // })
 
     res.status(200).json({
       user: user[0]
@@ -85,6 +85,7 @@ const updateProfile = async (req, res) => {
   console.log("Inside update Profile")
   try {
     const {
+      profilecreated,
       userid,
       firstName,
       lastName,
@@ -166,8 +167,30 @@ const updateProfile = async (req, res) => {
       query: updateProfileQuery,
       values: values
     });
+    if (profilecreated == 0) {
+      const query2 = `
+      UPDATE users_student
+      SET profilecreated = 1
+      WHERE userid = ?
+    `
 
-    res.status(200).json({ message: 'Profile Updated Successfully' });
+    const updatedUser = await query({
+      query: query2,
+      values: [userid]
+    })
+    }
+
+    const getQuery = `
+      SELECT * FROM profiles_student_view
+      WHERE userid = ?
+    `
+
+    const user = await query({
+      query : getQuery,
+      values : [userid]
+    })
+
+    res.status(200).json({ message: 'Profile Updated Successfully', info : user[0]});
   } catch (error) {
     console.error('Error in updating profile', error);
     res.status(500).json({

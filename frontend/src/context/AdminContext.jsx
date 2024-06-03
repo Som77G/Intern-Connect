@@ -33,6 +33,7 @@ export const AdminContextProvider=  ({children})=>{
             try{
                 const response = await axios.get(`${PORT}/api/user/getAdmin`);
                 const user= await response.data.user;
+                console.log("User: ", user)
                 dispatch({type: "LOGIN", payload: user});
     
             }catch(error){

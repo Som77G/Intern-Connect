@@ -81,7 +81,7 @@ export default function Notifications() {
                 {messages && messages.length > 0 ? (
                     <div className="my-10 mx-10 lg:mx-32 w-full flex flex-wrap flex-col lg:flex-row justify-between">
                         {messages.map((message, index) => (
-                            <MessageBox key={message.id || index} message={message} />
+                            <MessageBox key={message.id || index} message={message}/>
                         ))}
                     </div>
                 ) : (
