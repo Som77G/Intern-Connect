@@ -190,6 +190,7 @@ import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { useNavigate, useParams } from "react-router-dom";
 import { useAdminContext } from "../../hooks/useAdminContext";
+import { useMyApplicationsContext } from "../../hooks/useMyApplicationsContext";
 import StudentHeader from "../student/StudentHeader";
 import AsideBar from "../student/AsideBar";
 axios.defaults.withCredentials = true;
@@ -206,6 +207,7 @@ export default function Application() {
   const [isUploading, setIsUploading] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { user } = useAdminContext();
+  const {myApplications, dispatch}= useMyApplicationsContext();
   const navigateTo = useNavigate();
   const { id } = useParams();
 
@@ -264,8 +266,8 @@ export default function Application() {
         }
       );
       setIsSubmitting(false);
-      console.log("Application posted successfully");
-
+      console.log("Application posted successfully", response.data.application);
+      await dispatch({type:'ADD_APPICATION', payload: response.data.application});
       setName("");
       setEmail("");
       setCoverLetter("");

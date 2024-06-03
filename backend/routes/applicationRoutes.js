@@ -1,6 +1,6 @@
 const express=require("express");
 const router= express.Router();
-const {getAllApplications, jobseekerGetAllApplications, jobseekerDeleteApplication, postApplication}= require("../controllers/applicationController");
+const {getAllApplications, jobseekerGetAllApplications, jobseekerDeleteApplication, postApplication, adminGetAllApplications}= require("../controllers/applicationController");
 const {requireAuth}= require("../middleware/requireAuth");
 
 const multer= require('multer');
@@ -13,9 +13,10 @@ const upload= multer({
 router.use(requireAuth);
 
 router.get("/getAllApplications", getAllApplications);
-router.get("/jobseekerGetAllApplications", jobseekerGetAllApplications);
+router.get("/admin/applications", adminGetAllApplications);
+router.get("/student/applications", jobseekerGetAllApplications);
 router.post("/postApplication", upload.fields([
     {name: 'application', maxCount:1}
 ]),postApplication);
-router.delete("/jobseekerDeleteApplication/:id", jobseekerDeleteApplication);
+router.delete("/student/delete/:id", jobseekerDeleteApplication);
 module.exports= router;

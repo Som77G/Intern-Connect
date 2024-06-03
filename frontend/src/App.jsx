@@ -81,7 +81,7 @@ function App() {
           ></Route>
           <Route
              path='/user/job/getAll'
-             element={<Jobs/>}
+             element={user ? <Jobs/>: <Navigate to='/' />}
           >
           </Route>
           <Route
@@ -101,7 +101,7 @@ function App() {
           </Route>
            <Route
            path='/admin-home-page/job/post'
-           element={<PostJob />}
+           element={user && user.userType == 'admin'? <PostJob/> : <Navigate to = '/'/>}
            >
            </Route>
            <Route

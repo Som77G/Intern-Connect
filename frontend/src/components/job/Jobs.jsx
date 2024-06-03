@@ -6,12 +6,14 @@ import AdminHeader from "../admin/AdminHeader";
 import AdminNavbar from "../admin/AdminNavbar";
 import StudentHeader from "../student/StudentHeader";
 import AsideBar from "../student/AsideBar";
+import { useJobsContext } from "../../hooks/useJobsContext";
 axios.defaults.withCredentials = true;
 const PORT = import.meta.env.VITE_DOMAIN;
 
 export default function Jobs() {
     const { user } = useAdminContext();
-    const [jobs, setJobs] = useState([]);
+    // const [jobs, setJobs] = useState([]);
+    const {jobs, dispatch}= useJobsContext();
 
     useEffect(() => {
         const getAllJobs = async () => {
@@ -21,7 +23,8 @@ export default function Jobs() {
                     .get(`${PORT}/api/job/getAllJobs`, {
                         withCredentials: true,
                     });
-                setJobs(response.data);
+                // setJobs(response.data);
+                await dispatch({type: 'SET_JOBS', payload: response.data});
 
             } catch (error) {
                 console.log(error);
@@ -40,7 +43,7 @@ export default function Jobs() {
         
             <section className="flex flex-col md:flex-row lg:flex-row py-1 bg-blueGray-50">
             {user.userType == 'admin' ? <AdminNavbar/> : <AsideBar/>}
-            {(!user || jobs.length === 0) ?
+            {(!user || !jobs || jobs.length === 0) ?
                 (<h3 className="text-center text-3xl font-extrabold text-white">Processing...</h3>)
                 : (<section className="py-8">
                     <div className="mx-auto px-4">

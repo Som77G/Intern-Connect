@@ -123,17 +123,19 @@ import { FaCheck } from 'react-icons/fa';
 import { RxCross2 } from 'react-icons/rx';
 import AdminHeader from "../admin/AdminHeader";
 import AdminNavbar from "../admin/AdminNavbar";
+import { useMyJobsContext } from "../../hooks/useMyJobsContext";
 
 axios.defaults.withCredentials = true;
 const PORT = import.meta.env.VITE_DOMAIN;
 
 export default function MyJobs() {
-    const [myJobs, setMyJobs] = useState([]);
+    // const [myJobs, setMyJobs] = useState([]);
     const [editingMode, setEditingMode] = useState(null);
     const [tempJobData, setTempJobData] = useState({});
     const [isUpdating, setIsUpdating] = useState(false);
     const [isDeleting, setIsDeleting] = useState(false);
     const { user } = useAdminContext();
+    const {myJobs, dispatch}= useMyJobsContext();
     const navigateTo = useNavigate();
 
     useEffect(() => {
@@ -145,11 +147,12 @@ export default function MyJobs() {
                 });
                 console.log("Received admin jobs");
                 console.log("data of jobs", data.myJobs);
-                setMyJobs(data.myJobs);
+
+                await dispatch({type: 'SET_MYJOBS', payload: data.myJobs});
             } catch (error) {
                 console.log("Error at fetching my jobs", error);
                 toast.error(error.response.data.message);
-                setMyJobs([]);
+                dispatch({type:'default'});
             }
         };
         if (user) {
@@ -181,11 +184,12 @@ export default function MyJobs() {
             });
             console.log("Job updated successfully", response);
 
-            setMyJobs((prevJobs) =>
-                prevJobs.map((job) =>
-                    job.id === jobId ? { ...job, ...tempJobData } : job
-                )
-            );
+            // setMyJobs((prevJobs) =>
+            //     prevJobs.map((job) =>
+            //         job.id === jobId ? { ...job, ...tempJobData } : job
+            //     )
+            // );
+            await dispatch({type:'UPDATE_MYJOB', payload:tempJobData});
 
             toast.success(response.data.message);
             setEditingMode(null);
@@ -206,9 +210,10 @@ export default function MyJobs() {
                 withCredentials: true
             });
             console.log("job deleted successfully", response);
-
+            await dispatch({type:'DELETE_MYJOB', payload: jobId});
             toast.success(response.data.message);
-            setMyJobs((prevJobs) => prevJobs.filter((job) => job.id !== jobId));
+            // setMyJobs((prevJobs) => prevJobs.filter((job) => job.id !== jobId));
+        
         } catch (error) {
             console.log("error at deleting job", error.response);
             toast.error(error.response.data.message);
@@ -216,7 +221,7 @@ export default function MyJobs() {
             setIsDeleting(false);
         }
     };
-
+    
     const handleInputChange = (jobId, field, value) => {
         setTempJobData((prevData) => ({
             ...prevData,
@@ -240,8 +245,8 @@ export default function MyJobs() {
                     {isDeleting && (
                         <p className="text-yellow-500 mb-4">Deleting job, please wait...</p>
                     )}
-                    {myJobs.length > 0 ? (
-                        <div className="">
+                    {myJobs && myJobs.length > 0 ? (
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                             {myJobs.map((element) => (
                                 <div key={element.id} className="card bg-gray-800 shadow-lg rounded-lg p-6 text-white">
                                     <div className="content">

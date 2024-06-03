@@ -7,11 +7,15 @@ import { useAdminContext } from "../../hooks/useAdminContext";
 import { useNavigate } from "react-router-dom";
 import AdminHeader from "../admin/AdminHeader";
 import AdminNavbar from "../admin/AdminNavbar";
+import { useJobsContext } from "../../hooks/useJobsContext";
+import { useMyJobsContext } from "../../hooks/useMyJobsContext";
 axios.defaults.withCredentials = true;
 const PORT = import.meta.env.VITE_DOMAIN;
 // const PORT= import.meta.env.VITE_DOMAIN;
 export default function PostJob() {
     const { user } = useAdminContext();
+    const {jobs, dispatch}= useJobsContext();
+    const {dispatch: distpatchMyJobs}= useMyJobsContext();
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [category, setCategory] = useState("");
@@ -101,7 +105,10 @@ export default function PostJob() {
                 }
             );
 
-            console.log("Job Posted Successfully");
+            console.log("Job Posted Successfully", response.data.job);
+            console.log("Jobs: ", jobs);
+            await dispatch({type:'ADD_JOB', payload:response.data.job});
+            await dispatch({type:'ADD_MYJOB', payload:response.data.job});
             toast.success(response.data.message);
             setSalaryFrom("");
             setSalaryTo("");
@@ -147,6 +154,7 @@ export default function PostJob() {
     }, [user])
     return (
         <>
+        
         <AdminHeader/>
         <section className="flex flex-col md:flex-row lg:flex-row py-1 bg-blueGray-50">
         <AdminNavbar/>
