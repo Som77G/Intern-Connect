@@ -50,10 +50,12 @@ export default function RequestToAdmin() {
 
          //save message within the database
          const response = axios.post(`${PORT}/api/anonymous/reset_password_message`, messageObject);
+         toast.success("Message sent");
          console.log("Message is being saved");
          }
         }catch(error){
             console.log("message failed to save");
+            toast.error("Failed to send message");
         }
     }, [user])
 

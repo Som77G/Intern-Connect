@@ -29,7 +29,6 @@ const UseSocketSetup = () => {
 
   function f() {
     if (user)
-      toast.success("Message sent")
     userDispatch({type : 'LOGOUT'});
     
     return

@@ -86,17 +86,17 @@ function App() {
           </Route>
           <Route
           path='/user/job/:id'
-          element= {<JobDetails />}
+          element= {user ? <JobDetails /> : <Navigate to="/" />}
           >
           </Route>
           <Route
           path='/user/application/:id'
-          element={<Application />}
+          element={user ? <Application />: <Navigate to='/' />}
           >
           </Route>
           <Route
           path='/user/application/me'
-          element= {<MyApplications />}
+          element= {user ? <MyApplications /> : <Navigate to='/' />}
           >  
           </Route>
            <Route
@@ -106,7 +106,7 @@ function App() {
            </Route>
            <Route
            path='/admin-home-page/job/me'
-           element= {<MyJobs />}
+           element= {user && user.userType == 'admin'? <MyJobs/> : <Navigate to = '/'/>}
            >
            </Route>
           <Route
