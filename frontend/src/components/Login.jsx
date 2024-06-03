@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useAdminContext } from "../hooks/useAdminContext";
 import UseSocketSetup from "../hooks/UseSocketSetup";
 import StudentDashboard from "./student/StudentDashboard";
@@ -110,7 +110,7 @@ export default function Login() {
                 <div className="bg-zinc-900 h-screen w-screen">
                     <nav  className="flex justify-between py-4 px-10 shadow-2xl" >
                     <div className="text-3xl font-bold text-purple-600">SIP Portal</div>
-                        <a href="/" className="bg-yellow-500 text-black py-2 px-6 rounded-2xl hover:bg-yellow-600">Home</a>
+                        <NavLink to="/" className="bg-yellow-500 text-black py-2 px-6 rounded-2xl hover:bg-yellow-600">Home</NavLink>
                     </nav>
                     <div className="flex flex-col items-center flex-1 h-full justify-center px-4 sm:px-0">
                         <div
@@ -192,12 +192,12 @@ export default function Login() {
                                             </div>
                                         </div>
                                         <div className="text-center mt-4">
-                                            <a
+                                            <NavLink
                                                 className="no-underline hover:underline text-blue-dark text-xs"
-                                                href='/request-admin'
+                                                to='/request-admin'
                                             >
                                                 Forgot Your Password?
-                                            </a>
+                                            </NavLink>
                                         </div>
                                     </div>
                                 </div>
