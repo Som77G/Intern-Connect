@@ -1,6 +1,5 @@
 import { createContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import UseSocketSetup from "../../hooks/UseSocketSetup";
 import { useMessageContext } from "../../hooks/useMessageContext";
 import AdminNavbar from "./AdminNavbar";
 import { useNewMessageContext } from "../../hooks/useNewMessageContext";

@@ -19,3 +19,10 @@ can do modif to it
 -dec credits
 -block a stud to apply for further internships
 also, inf about how many placed, ... 
+
+adminheader
+notifications
+//admin header --job
+request to admin
+useSocket.jsx
+socket.js
