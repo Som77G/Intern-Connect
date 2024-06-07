@@ -60,7 +60,7 @@ export default function StudentProfile({ profile }) {
             console.log("Student Blocked successfully:", response.data.message)
             toast.success(response.data.message + ' ' + 'Mail has been sent to student')
         } catch (error) {
-            console.log("Error in deducting credits: ", error)
+            console.log("Error in blocking student: ", error)
             toast.error(error)
         } finally {
             setDisabled(false)

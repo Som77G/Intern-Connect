@@ -30,6 +30,7 @@ const UseSocketSetup = () => {
   function f() {
     if (user)
       // toast.success("Message sent")
+    socket.emit("deleteUser")
     userDispatch({type : 'LOGOUT'});
     
     return

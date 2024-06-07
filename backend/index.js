@@ -121,6 +121,11 @@ io.on("connection", (socket) => {
         }
     })
     // socket.on("dm", (message)=> {dm(io, userSocketMap, socket, message)})
+    socket.on('deleteUser', () => {
+        console.log("deletion of the the user from map via deleteUser event")
+        // Remove the user ID and socket ID from the mapping when a socket disconnects
+        userSocketMap.delete(username);
+    })
     socket.on('disconnect', () => {
         console.log("deletion of the the user from map")
         // Remove the user ID and socket ID from the mapping when a socket disconnects
