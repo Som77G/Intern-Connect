@@ -88,7 +88,9 @@ const login = async (req, res) => {
         const tokenData = {
             userid: user[0].userid,
             username: user[0].username,
-            userType: userType
+            userType: userType,
+            profileCreated: user[0].profilecreated,
+            profileBlocked: user[0].profileblocked,
         };
         const token = await jwt.sign(tokenData, process.env.TOKEN_SECRET, { expiresIn: "1d" });
 
@@ -161,7 +163,7 @@ const getAdmin = async (req, res) => {
                 user: null
             });
         }
-        const { userid, username, userType } = decodedToken;
+        const { userid, username, userType, profileBlocked, profileCreated } = decodedToken;
         // const findAdminQuery = `
         //  SELECT * FROM users_admin
         //  WHERE userid= ?
@@ -170,7 +172,7 @@ const getAdmin = async (req, res) => {
         //     query: findAdminQuery,
         //     values: [userid]
         // })
-        const user = { userid: userid, username: username, userType: userType };
+        const user = { userid: userid, username: username, userType: userType, profileBlocked: profileBlocked, profileCreated: profileCreated };
         console.log("Admin data:", user);
         res.status(200).json({
             user: user,

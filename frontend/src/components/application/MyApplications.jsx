@@ -18,6 +18,7 @@ export default function MyApplications() {
     const { myApplications: applications, dispatch } = useMyApplicationsContext();
     const [modalOpen, setModalOpen] = useState(false);
     const [resumePdfUrl, setResumePdfUrl] = useState('');
+    const [loading, setLoading] = useState(true);
     const navigateTo = useNavigate();
     useEffect(() => {
         const fetchApplications = async () => {
@@ -30,6 +31,7 @@ export default function MyApplications() {
                     console.log("student applications received");
                     // setApplications(response.data.applications);
                     await dispatch({ type: 'SET_APPLICATIONS', payload: response.data.applications });
+                    setLoading(false)
                 } else if (user && user.userType === 'admin') {
                     console.log("fetching admin applications");
                     const response = await axios.get(`${PORT}/api/application/admin/applications`, {
@@ -38,6 +40,7 @@ export default function MyApplications() {
                     console.log("Received admin applications");
                     // setApplications(response.data.applications);
                     await dispatch({ type: 'SET_APPLICATIONS', payload: response.data.applications });
+                    setLoading(false)
                 }
             } catch (error) {
                 console.log("Error at fetching applications", error);
@@ -84,41 +87,82 @@ export default function MyApplications() {
                         <div className=" container mx-auto">
                             <h1 className="text-center text-3xl font-bold mb-4 ">My Applications</h1>
                             <hr className="mb-8" />
-                            {!applications || applications.length <= 0 ? (
-                                <div className="flex flex-wrap justify-center mx-4">
-                                    <div className="md:w-1/3 mt-20 ">
-                                        <img src="https://storage.googleapis.com/devitary-image-host.appspot.com/15848031292911696601-undraw_designer_life_w96d.svg" alt="Internship" className="w-full h-auto" />
-                                        <div className="flex flex-wrap justify-center mt-10 text-xl font-extrabold">NO Applications Found</div>
+                            {loading? (
+                                <>
+                                    <div className='w-full flex flex-col justify-center items-center h-screen'>
+                                        <div className='flex flex-row space-x-2'>
+                                            <span className='sr-only'>Loading...</span>
+                                            <div className='h-8 w-8 bg-white rounded-full animate-bounce [animation-delay:-0.3s]'></div>
+                                            <div className='h-8 w-8 bg-white rounded-full animate-bounce [animation-delay:-0.15s]'></div>
+                                            <div className='h-8 w-8 bg-white rounded-full animate-bounce'></div>
+                                            <div className='h-8 w-8 bg-white rounded-full animate-bounce'></div>
+                                            <div className='h-8 w-8 bg-white rounded-full animate-bounce'></div>
+                                        </div>
+                                        <br />
+                                        <div className='text-xl font-mono font-semibold text-gray-200'>Loading Applications ...</div>
                                     </div>
-                                </div>
+                                </>
                             ) : (
-                                applications.map((element) => (
-                                    <JobSeekerCard
-                                        element={element}
-                                        key={element.id}
-                                        deleteApplication={deleteApplication}
-                                        openModal={openModal}
-                                        navigateTo={navigateTo}
-                                    />
-                                ))
+                                !applications || applications.length <= 0 ? (
+                                    <div className="flex flex-wrap justify-center mx-4">
+                                        <div className="md:w-1/3 mt-20 ">
+                                            <img src="https://storage.googleapis.com/devitary-image-host.appspot.com/15848031292911696601-undraw_designer_life_w96d.svg" alt="Internship" className="w-full h-auto" />
+                                            <div className="flex flex-wrap justify-center mt-10 text-xl font-extrabold">NO Applications Found</div>
+                                        </div>
+                                    </div>
+                                ) : (
+                                    applications.map((element) => (
+                                        <JobSeekerCard
+                                            element={element}
+                                            key={element.id}
+                                            deleteApplication={deleteApplication}
+                                            openModal={openModal}
+                                            navigateTo={navigateTo}
+                                        />
+                                    ))
+                                )
                             )}
+                            
                         </div>
                     ) : (
                         <div className="container mx-auto">
                             <h1 className="text-center text-3xl font-bold mb-4 uppercase">Applications from job seekers</h1>
-                            <hr className="mb-8" />                        
-                            {!applications || applications.length <= 0 ? (
-                                <h4 className="text-xl">No Applications Found</h4>
+                            <hr className="mb-8" />
+                            {loading? (
+                                <>
+                                <div className='w-full flex flex-col justify-center items-center h-screen'>
+                                        <div className='flex flex-row space-x-2'>
+                                            <span className='sr-only'>Loading...</span>
+                                            <div className='h-8 w-8 bg-white rounded-full animate-bounce [animation-delay:-0.3s]'></div>
+                                            <div className='h-8 w-8 bg-white rounded-full animate-bounce [animation-delay:-0.15s]'></div>
+                                            <div className='h-8 w-8 bg-white rounded-full animate-bounce'></div>
+                                            <div className='h-8 w-8 bg-white rounded-full animate-bounce'></div>
+                                            <div className='h-8 w-8 bg-white rounded-full animate-bounce'></div>
+                                        </div>
+                                        <br />
+                                        <div className='text-xl font-mono font-semibold text-gray-200'>Loading Applications ...</div>
+                                    </div>
+                                </>
                             ) : (
-                                applications.map((element) => (
-                                    <EmployerCard
-                                        element={element}
-                                        key={element.id}
-                                        openModal={openModal}
-                                        navigateTo={navigateTo}
-                                    />
-                                ))
+                                !applications || applications.length <= 0 ? (
+                                    <div className="flex flex-wrap justify-center mx-4">
+                                        <div className="md:w-1/3 mt-20 ">
+                                            <img src="https://storage.googleapis.com/devitary-image-host.appspot.com/15848031292911696601-undraw_designer_life_w96d.svg" alt="Internship" className="w-full h-auto" />
+                                            <div className="flex flex-wrap justify-center mt-10 text-xl font-extrabold">NO Applications Found</div>
+                                        </div>
+                                    </div>
+                                ) : (
+                                    applications.map((element) => (
+                                        <EmployerCard
+                                            element={element}
+                                            key={element.id}
+                                            openModal={openModal}
+                                            navigateTo={navigateTo}
+                                        />
+                                    ))
+                                )
                             )}
+                            
                         </div>
                     )}
                     {modalOpen && (
@@ -181,22 +225,22 @@ const EmployerCard = ({ element, openModal, navigateTo }) => {
                 <p><span className="font-bold">Cover Letter:</span> {element.coverLetter}</p>
             </div>
             <div className="flex flex-wrap justify-center space-x-4">
-            <div className="mb-4">
-                <button
-                    className="bg-blue-500 text-white px-4 py-2 rounded"
-                    onClick={() => openModal(element.resume_url)}
-                >
-                    View Resume
-                </button>
-            </div>
-            <div className="">
-                <button
-                    className="bg-blue-500 text-white px-4 py-2 rounded"
-                    onClick={() => navigateTo(`/user/job/${element.jobID}`)}
-                >
-                    View Job
-                </button>
-            </div>
+                <div className="mb-4">
+                    <button
+                        className="bg-blue-500 text-white px-4 py-2 rounded"
+                        onClick={() => openModal(element.resume_url)}
+                    >
+                        View Resume
+                    </button>
+                </div>
+                <div className="">
+                    <button
+                        className="bg-blue-500 text-white px-4 py-2 rounded"
+                        onClick={() => navigateTo(`/user/job/${element.jobID}`)}
+                    >
+                        View Job
+                    </button>
+                </div>
             </div>
         </div>
     );

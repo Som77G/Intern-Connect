@@ -12,6 +12,7 @@ export default function StudentProfile({ profile }) {
     const [message, setMessage] = useState('')
     const [verifying, setVerifying] = useState(false)
     const [disabled, setDisabled] = useState(false)
+    const [block, setBlock] = useState(false)
     const onDeduct = async () => {
         try {
             setDisabled(true)
@@ -39,6 +40,32 @@ export default function StudentProfile({ profile }) {
             setVerifying(false)
             setDeduct(false)
             setNewCredits('')
+            setMessage('')
+        }
+    }
+    const onBlock = async() => {
+        try {
+            setDisabled(true)
+            setVerifying(true)
+
+            const data = {
+                first_name: profile.first_name,
+                last_name: profile.last_name,
+                email: profile.email,
+                userid: profile.userid,
+                message: message
+            }
+
+            const response = await axios.put(`${PORT}/api/admin/blockstudent`, data)
+            console.log("Student Blocked successfully:", response.data.message)
+            toast.success(response.data.message + ' ' + 'Mail has been sent to student')
+        } catch (error) {
+            console.log("Error in deducting credits: ", error)
+            toast.error(error)
+        } finally {
+            setDisabled(false)
+            setVerifying(false)
+            setBlock(false)
             setMessage('')
         }
     }
@@ -121,10 +148,13 @@ export default function StudentProfile({ profile }) {
                     </li>
                     
                 </ul>
-                <div className="p-4 border-t mx-auto mt-2">
+                <div className="flex flex-wrap justify-center p-4 border-t mx-auto mt-2">
                     <button className=" block mx-auto rounded-full bg-gray-900 hover:shadow-lg font-semibold text-white px-6 py-2"
                         onClick={(e) => setDeduct(!deduct)}
                     >{deduct ? "Close" : "Deduct Credits"}</button>
+                    <button className=" block mx-auto rounded-full bg-gray-900 hover:shadow-lg font-semibold text-white px-6 py-2"
+                        onClick={(e) => setBlock(!block)}
+                    >{block ? "Close" : "Block Student"}</button>
                 </div>
 
                 {deduct && (
@@ -141,13 +171,29 @@ export default function StudentProfile({ profile }) {
                             onChange={(e) => setMessage(e.target.value)}
                         />
                         <h1 className='text-center text-white mt-1'>{verifying ? "Processing..." : ""}</h1>
-                        <div className="p-4 mx-auto mt-2">
+                        <div className="p-4 mx-auto my-2">
                             <button className=" block mx-auto rounded-lg bg-gray-900 hover:shadow-lg font-semibold text-white px-6 py-2"
                                 onClick={(e) => onDeduct()}
                                 disabled={disabled}
                             >Update</button>
                         </div>
                     </div>
+                )}
+                {block && (
+                    <div className="flex flex-col w-4/5 mx-auto">
+                    <textarea
+                        className="mt-4 pl-2 py-2 rounded text-black"
+                        placeholder="Reason To Block Student on applying further jobs (Will be mailed to student)"
+                        onChange={(e) => setMessage(e.target.value)}
+                    />
+                    <h1 className='text-center text-white mt-1'>{verifying ? "Processing..." : ""}</h1>
+                    <div className="p-4 mx-auto mt-2">
+                        <button className=" block mx-auto rounded-lg bg-gray-900 hover:shadow-lg font-semibold text-white px-6 py-2"
+                            onClick={(e) => onBlock()}
+                            disabled={disabled}
+                        >Block</button>
+                    </div>
+                </div>
                 )}
             </div>
         </>

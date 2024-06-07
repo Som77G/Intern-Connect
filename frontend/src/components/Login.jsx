@@ -60,7 +60,7 @@ export default function Login() {
             //     }
             // }
             console.log("User of login: ", type);
-            const loginUser = { userid: message.userid, username: message.username, userType: type, profileCreated : message.profilecreated }
+            const loginUser = { userid: message.userid, username: message.username, userType: type, profileCreated : message.profilecreated, profileBlocked : message.profileblocked }
             
             if (message.resetpassword != 0) {
                 toast.success("Login Successful")

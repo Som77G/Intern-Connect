@@ -83,7 +83,7 @@ export default function JobDetails() {
                               </span>
                           )}
                       </p>
-                      {user && user.userType !== "admin" && (
+                      {user && user.userType !== "admin" && user.profileBlocked !== 1 && (
                           <NavLink
                               to={`/user/application/${job.id}`} 
                               className="inline-block mt-6 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700 transition duration-200"

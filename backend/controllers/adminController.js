@@ -3,6 +3,7 @@ const { query } = require("../dbconfig/dbconfig");
 const { v4: uuidv4 } = require('uuid');
 const { decodejwt } = require("../helpers/decodejwt")
 const { MailDeductInCredits } = require('../helpers/MailDeductInCredits')
+const {MailStudentBlocked} = require('../helpers/MailStudentBlocked')
 
 const dashboard = async(req, res) => {
     try {
@@ -87,6 +88,38 @@ const addStudent = async (req, res) => {
         });
     }
 };
+
+const blockStudent = async (req, res) => {
+    try {
+        const { first_name, last_name, email, userid, message } = req.body;
+        console.log(userid, ":", message)
+        const block_student = `
+            UPDATE users_student
+            SET profileblocked = 1
+            WHERE userid = ?
+        `
+
+        const updatedUser = await query({
+            query: block_student,
+            values: [ userid]
+        })
+        if (updatedUser.affectedRows == 1) {
+            //send mail to student
+            await MailStudentBlocked({ email: email, first_name: first_name, last_name: last_name, message: message })
+        }
+
+        // console.log("User whose credit is deducted: ", updatedUser)
+        return res.status(200).json({
+            message: "Student Blocked successfully"
+        })
+    } catch (error) {
+        console.error("Error blocking student:", error);
+        return res.status(500).json({
+            status: 500,
+            error: "Internal Server Error"
+        });
+    }
+}
 
 const deductCredit = async (req, res) => {
     try {
@@ -234,4 +267,4 @@ const updateProfile = async (req, res) => {
 
 
 
-module.exports = { dashboard, addStudent, deductCredit, updateProfile, createProfile }
+module.exports = { dashboard, addStudent, deductCredit, updateProfile, createProfile, blockStudent }
