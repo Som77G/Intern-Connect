@@ -44,10 +44,11 @@ export default function Jobs() {
             <section className="flex flex-col md:flex-row lg:flex-row py-1 bg-blueGray-50">
             {user.userType == 'admin' ? <AdminNavbar/> : <AsideBar/>}
             {(!user || !jobs || jobs.length === 0) ?
-                (<h3 className="text-center text-3xl font-extrabold text-white">Processing...</h3>)
-                : (<section className="py-8">
-                    <div className="mx-auto px-4">
+                (<h3 className="mx-auto my-auto text-center text-3xl font-extrabold text-white">Processing...</h3>)
+                : (<section className="py-8 w-full px-4">
+                    <div className="mx-auto px-10">
                         <h1 className="text-3xl font-bold text-center mb-8">ALL AVAILABLE JOBS</h1>
+                        <hr className="mb-8"/>
                         <div className="banner grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                             {jobs.jobs &&
                                 jobs.jobs.map((element) => {
@@ -63,7 +64,7 @@ export default function Jobs() {
                                                 to={`/user/job/${element.id}`}
                                                 className="text-blue-500 hover:text-blue-700 font-medium"
                                             >
-                                                Job Details
+                                                Job Detail
                                             </NavLink>
                                         </div>
                                     );

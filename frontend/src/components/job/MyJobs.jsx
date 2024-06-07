@@ -237,9 +237,10 @@ export default function MyJobs() {
                 <AdminNavbar />
                 
             
-            <div className=" bg-zinc-900 py-8">
+            <div className="w-full px-10 bg-zinc-900 py-8">
                 <div className="w-full mx-auto px-4">
-                    <h1 className="text-3xl font-bold mb-8 text-white">Your Posted Jobs</h1>
+                    <h1 className="text-3xl text-center font-bold text-white">Your Posted Jobs</h1>
+                    <hr className="my-6"/>
                     {isUpdating && (
                         <p className="text-yellow-500 mb-4">Updating job, please wait...</p>
                     )}
@@ -247,9 +248,9 @@ export default function MyJobs() {
                         <p className="text-yellow-500 mb-4">Deleting job, please wait...</p>
                     )}
                     {myJobs && myJobs.length > 0 ? (
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                             {myJobs.map((element) => (
-                                <div key={element.id} className="card bg-gray-800 shadow-lg rounded-lg p-6 text-white">
+                                <div key={element.id} className="card bg-zinc-900 shadow-md shadow-zinc-950 rounded-lg p-6 text-white">
                                     <div className="content">
                                         <div className="short_fields mb-4">
                                             <div className="mb-4">
@@ -260,10 +261,10 @@ export default function MyJobs() {
                                                         disabled={editingMode !== element.id}
                                                         value={tempJobData.title}
                                                         onChange={(e) => handleInputChange(element.id, "title", e.target.value)}
-                                                        className="mt-1 block w-full rounded-md bg-gray-700 border-gray-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm text-white"
+                                                        className="mt-1 block w-full rounded-md bg-zinc-900 border-gray-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm text-white"
                                                     />
                                                 ) : (
-                                                    <p className="mt-1 block w-full sm:text-sm text-white bg-gray-800 p-2 rounded-md border border-gray-600">
+                                                    <p className="mt-1 block w-full sm:text-sm text-white bg-zinc-900 p-2 rounded-md border border-gray-600">
                                                         {element.title}
                                                     </p>
                                                 )}
@@ -276,10 +277,10 @@ export default function MyJobs() {
                                                         disabled={editingMode !== element.id}
                                                         value={tempJobData.country}
                                                         onChange={(e) => handleInputChange(element.id, "country", e.target.value)}
-                                                        className="mt-1 block w-full rounded-md bg-gray-700 border-gray-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm text-white"
+                                                        className="mt-1 block w-full rounded-md bg-zinc-900 border-gray-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm text-white"
                                                     />
                                                 ) : (
-                                                    <p className="mt-1 block w-full sm:text-sm text-white bg-gray-800 p-2 rounded-md border border-gray-600">
+                                                    <p className="mt-1 block w-full sm:text-sm text-white bg-zinc-900 p-2 rounded-md border border-gray-600">
                                                         {element.country}
                                                     </p>
                                                 )}
@@ -292,10 +293,10 @@ export default function MyJobs() {
                                                         disabled={editingMode !== element.id}
                                                         value={tempJobData.city}
                                                         onChange={(e) => handleInputChange(element.id, "city", e.target.value)}
-                                                        className="mt-1 block w-full rounded-md bg-gray-700 border-gray-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm text-white"
+                                                        className="mt-1 block w-full rounded-md bg-zinc-900 border-gray-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm text-white"
                                                     />
                                                 ) : (
-                                                    <p className="mt-1 block w-full sm:text-sm text-white bg-gray-800 p-2 rounded-md border border-gray-600">
+                                                    <p className="mt-1 block w-full sm:text-sm text-white bg-zinc-900 p-2 rounded-md border border-gray-600">
                                                         {element.city}
                                                     </p>
                                                 )}
@@ -307,7 +308,7 @@ export default function MyJobs() {
                                                         value={tempJobData.category}
                                                         onChange={(e) => handleInputChange(element.id, "category", e.target.value)}
                                                         disabled={editingMode !== element.id}
-                                                        className="mt-1 block w-full rounded-md bg-gray-700 border-gray-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm text-white"
+                                                        className="mt-1 block w-full rounded-md bg-zinc-900 border-gray-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm text-white"
                                                     >
                                                         <option value="Graphics & Design">Graphics & Design</option>
                                                         <option value="Mobile App Development">Mobile App Development</option>
@@ -321,7 +322,7 @@ export default function MyJobs() {
                                                         <option value="Data Entry Operator">Data Entry Operator</option>
                                                     </select>
                                                 ) : (
-                                                    <p className="mt-1 block w-full sm:text-sm text-white bg-gray-800 p-2 rounded-md border border-gray-600">
+                                                    <p className="mt-1 block w-full sm:text-sm text-white bg-zinc-900 p-2 rounded-md border border-gray-600">
                                                         {element.category}
                                                     </p>
                                                 )}
@@ -336,7 +337,7 @@ export default function MyJobs() {
                                                                 disabled={editingMode !== element.id}
                                                                 value={tempJobData.fixedSalary}
                                                                 onChange={(e) => handleInputChange(element.id, "fixedSalary", e.target.value)}
-                                                                className="mt-1 block w-full rounded-md bg-gray-700 border-gray-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm text-white"
+                                                                className="mt-1 block w-full rounded-md bg-zinc-900 border-gray-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm text-white"
                                                             />
                                                         ) : (
                                                             <div className="flex space-x-2">
@@ -345,14 +346,14 @@ export default function MyJobs() {
                                                                     disabled={editingMode !== element.id}
                                                                     value={tempJobData.salaryFrom}
                                                                     onChange={(e) => handleInputChange(element.id, "salaryFrom", e.target.value)}
-                                                                    className="mt-1 block w-full rounded-md bg-gray-700 border-gray-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm text-white"
+                                                                    className="mt-1 block w-full rounded-md bg-zinc-900 border-gray-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm text-white"
                                                                 />
                                                                 <input
                                                                     type="number"
                                                                     disabled={editingMode !== element.id}
                                                                     value={tempJobData.salaryTo}
                                                                     onChange={(e) => handleInputChange(element.id, "salaryTo", e.target.value)}
-                                                                    className="mt-1 block w-full rounded-md bg-gray-700 border-gray-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm text-white"
+                                                                    className="mt-1 block w-full rounded-md bg-zinc-900 border-gray-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm text-white"
                                                                 />
                                                             </div>
                                                         )}
@@ -360,15 +361,15 @@ export default function MyJobs() {
                                                 ) : (
                                                     <>
                                                         {element.fixedSalary !== null && element.fixedSalary !== undefined ? (
-                                                            <p className="mt-1 block w-full sm:text-sm text-white bg-gray-800 p-2 rounded-md border border-gray-600">
+                                                            <p className="mt-1 block w-full sm:text-sm text-white bg-zinc-900 p-2 rounded-md border border-gray-600">
                                                                 {element.fixedSalary}
                                                             </p>
                                                         ) : (
                                                             <div className="flex space-x-2">
-                                                                <p className="mt-1 block w-full sm:text-sm text-white bg-gray-800 p-2 rounded-md border border-gray-600">
+                                                                <p className="mt-1 block w-full sm:text-sm text-white bg-zinc-900 p-2 rounded-md border border-gray-600">
                                                                     {element.salaryFrom}
                                                                 </p>
-                                                                <p className="mt-1 block w-full sm:text-sm text-white bg-gray-800 p-2 rounded-md border border-gray-600">
+                                                                <p className="mt-1 block w-full sm:text-sm text-white bg-zinc-900 p-2 rounded-md border border-gray-600">
                                                                     {element.salaryTo}
                                                                 </p>
                                                             </div>
@@ -382,7 +383,7 @@ export default function MyJobs() {
                                                     <select
                                                         value={tempJobData.expired}
                                                         onChange={(e) => handleInputChange(element.id, "expired", e.target.value)}
-                                                        className="mt-1 block w-full rounded-md bg-gray-800 border border-gray-600 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm text-white"
+                                                        className="mt-1 block w-full rounded-md bg-zinc-900 border border-gray-600 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm text-white"
                                                     >
                                                         {tempJobData.expired == true? (<>
                                                             <option value={false}>FALSE</option>
@@ -394,7 +395,7 @@ export default function MyJobs() {
                                                         
                                                     </select>
                                                 ) : (
-                                                    <p className="mt-1 block w-full sm:text-sm text-white bg-gray-800 p-2 rounded-md border border-gray-600">
+                                                    <p className="mt-1 block w-full sm:text-sm text-white bg-zinc-900 p-2 rounded-md border border-gray-600">
                                                         {element.expired ? "TRUE" : "FALSE"}
                                                     </p>
                                                 )}
@@ -408,7 +409,7 @@ export default function MyJobs() {
                                                     value={editingMode === element.id ? tempJobData.description : element.description}
                                                     disabled={editingMode !== element.id}
                                                     onChange={(e) => handleInputChange(element.id, "description", e.target.value)}
-                                                    className="mt-1 block w-full rounded-md bg-gray-700 border-gray-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm text-white"
+                                                    className="mt-1 block w-full rounded-md bg-zinc-900 border-gray-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm text-white"
                                                 />
                                             </div>
                                             <div className="mb-4">
@@ -418,7 +419,7 @@ export default function MyJobs() {
                                                     value={editingMode === element.id ? tempJobData.location : element.location}
                                                     disabled={editingMode !== element.id}
                                                     onChange={(e) => handleInputChange(element.id, "location", e.target.value)}
-                                                    className="mt-1 block w-full rounded-md bg-gray-700 border-gray-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm text-white"
+                                                    className="mt-1 block w-full rounded-md bg-zinc-900 border-gray-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm text-white"
                                                 />
                                             </div>
                                         </div>

@@ -159,13 +159,15 @@ export default function PostJob() {
         <section className="flex flex-col md:flex-row lg:flex-row py-1 bg-blueGray-50">
         <AdminNavbar/>
         <div className=" min-h-screen flex items-center flex-wrap w-full justify-center bg-zinc-900 py-12 px-4 sm:px-6 lg:px-8">
-            <div className="max-w-md w-full space-y-8">
+            <div className=" shadow-xl shadow-zinc-950 px-20 pb-10 w-2/3 space-y-8">
                 <h3 className="text-center text-3xl font-extrabold text-white">
                     POST NEW JOB
                 </h3>
-                <form onSubmit={handleJobPost} className="mt-8 space-y-6">
+                <hr/>
+                <form onSubmit={handleJobPost} className="mt-8 space-y-8">
                     <div className="rounded-md shadow-sm -space-y-px">
-                        <div className="mb-4">
+                        <div className="flex flex-wrap w-full">
+                        <div className="w-1/2 mr-6">
                             <label htmlFor="title" className="sr-only">Job Title</label>
                             <input
                                 type="text"
@@ -173,16 +175,16 @@ export default function PostJob() {
                                 value={title}
                                 onChange={(e) => setTitle(e.target.value)}
                                 placeholder="Job Title"
-                                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                                className="appearance-none rounded-none w-full px-3 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                             />
                         </div>
-                        <div className="mb-4">
+                        <div className=" w-2/5">
                             <label htmlFor="category" className="sr-only">Category</label>
                             <select
                                 id="category"
                                 value={category}
                                 onChange={(e) => setCategory(e.target.value)}
-                                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                                className="appearance-none rounded-md w-full px-3 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                             >
                                 <option value="">Select Category</option>
                                 <option value="Graphics & Design">Graphics & Design</option>
@@ -196,6 +198,7 @@ export default function PostJob() {
                                 <option value="MEVN Stack Development">MEVN STACK Development</option>
                                 <option value="Data Entry Operator">Data Entry Operator</option>
                             </select>
+                        </div>
                         </div>
                     </div>
                     <div className="flex space-x-4 mb-4">
@@ -229,7 +232,8 @@ export default function PostJob() {
                             />
                         </div>
                     </div>
-                    <div className="mb-4">
+                    <div className="flex flex-wrap w-full">
+                    <div className=" w-1/2 mr-6">
                         <label htmlFor="companyName" className="sr-only">Company Name</label>
                         <input
                             type="text"
@@ -237,10 +241,10 @@ export default function PostJob() {
                             value={companyName}
                             onChange={(e) => setCompanyName(e.target.value)}
                             placeholder="Company Name"
-                            className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                            className="appearance-none rounded-none relative block w-full px-3 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                         />
                     </div>
-                    <div className="mb-4">
+                    <div className=" w-2/5">
                         <label htmlFor="location" className="sr-only">Location</label>
                         <input
                             type="text"
@@ -248,16 +252,17 @@ export default function PostJob() {
                             value={location}
                             onChange={(e) => setLocation(e.target.value)}
                             placeholder="Location"
-                            className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                            className="appearance-none rounded-none relative block w-full px-3 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                         />
                     </div>
-                    <div className="mb-4">
+                    </div>
+                    <div className="mb-4 w-4/5">
                         <label htmlFor="salaryType" className="sr-only">Salary Type</label>
                         <select
                             id="salaryType"
                             value={salaryType}
                             onChange={(e) => setSalaryType(e.target.value)}
-                            className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                            className="appearance-none rounded-md relative block w-full px-3 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                         >
                             <option value="default">Select Salary Type</option>
                             <option value="Fixed Salary">Fixed Salary</option>
@@ -273,7 +278,7 @@ export default function PostJob() {
                                 placeholder="Enter Fixed Salary"
                                 value={fixedSalary}
                                 onChange={(e) => setFixedSalary(e.target.value)}
-                                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                                className="appearance-none rounded-none relative block w-full px-3 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                             />
                         </div>
                     )}
@@ -287,7 +292,7 @@ export default function PostJob() {
                                     placeholder="Salary From"
                                     value={salaryFrom}
                                     onChange={(e) => setSalaryFrom(e.target.value)}
-                                    className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                                    className="appearance-none rounded-none relative block w-full px-3 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                                 />
                             </div>
                             <div className="w-1/2">
@@ -298,7 +303,7 @@ export default function PostJob() {
                                     placeholder="Salary To"
                                     value={salaryTo}
                                     onChange={(e) => setSalaryTo(e.target.value)}
-                                    className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                                    className="appearance-none rounded-none relative block w-full px-3 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                                 />
                             </div>
                         </div>
@@ -311,16 +316,16 @@ export default function PostJob() {
                             value={description}
                             onChange={(e) => setDescription(e.target.value)}
                             placeholder="Job Description"
-                            className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                            className="appearance-none rounded-md relative block w-full px-3 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                         />
                     </div>
                     <div>
-                        <h3 className="text-center text-3xl font-extrabold text-white mb-2">
+                        <h3 className="text-center font-extrabold text-white mb-2">
                             {loading ? "Processing..." : ""}
                         </h3>
                         <button
                             type="submit"
-                            className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                            className="mx-auto group relative flex flex-wrap justify-center py-3 px-6 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                             disabled={buttonDisabled}
                         >
                             Create Job
