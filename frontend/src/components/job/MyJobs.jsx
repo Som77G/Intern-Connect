@@ -295,8 +295,8 @@ export default function MyJobs() {
                                                             className="mt-1 block w-full rounded-md bg-zinc-900 border border-gray-600 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm text-white"
                                                         >
                                                             {tempJobData.expired == true? (<>
+                                                                <option value={true}>TRUE</option>
                                                                 <option value={false}>FALSE</option>
-                                                            <option value={true}>TRUE</option>
                                                             </>) : (<>
                                                                 <option value={false}>FALSE</option>
                                                             <option value={true}>TRUE</option>

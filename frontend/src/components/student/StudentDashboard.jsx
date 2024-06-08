@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { useAdminContext } from "../../hooks/useAdminContext";
 import {useProfileContext} from "../../hooks/useProfileContext"
 import AsideBar from "./AsideBar";
+import image from "../../assets/home.svg";
+
 
 const PORT = import.meta.env.VITE_DOMAIN;
 
@@ -43,7 +45,7 @@ export default function StudentDashboard() {
             (<>
                 <div className="flex flex-wrap justify-center m-4 w-full h-screen">
                 <div className="md:w-1/3 mt-36 ">
-                        <img src="https://storage.googleapis.com/devitary-image-host.appspot.com/15848031292911696601-undraw_designer_life_w96d.svg" alt="Internship" className="w-full h-auto" />
+                        <img src={image} alt="Internship" className="w-full h-auto" />
                         <div className="flex flex-wrap justify-center mt-10 text-xl font-extrabold">Complete your profile Now...</div> 
                 </div>
                 </div>

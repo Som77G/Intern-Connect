@@ -2,6 +2,7 @@ import axios from "axios"
 import { useState } from "react"
 const PORT = import.meta.env.VITE_DOMAIN;
 import { FaLinkedin } from "react-icons/fa";
+import image from "../../assets/studentCover.jpeg";
 
 axios.defaults.withCredentials = true
 import { toast } from "react-toastify";
@@ -107,7 +108,7 @@ export default function StudentProfile({ profile }) {
             <div
                 className="max-w-2xl mx-4 sm:max-w-sm md:max-w-sm lg:max-w-sm xl:max-w-sm sm:mx-auto md:mx-auto lg:mx-auto xl:mx-auto mt-16 bg-zinc-900 shadow-xl rounded-lg text-gray-900">
                 <div className="rounded-t-lg h-32 overflow-hidden">
-                    <img className=" bg-cover bg-center w-full " src='https://cdn.hackernoon.com/images/77fdrPu4ybMLx0OjzBBTzNBhT1f2-4qc3e1d.jpeg' alt='FAANG' />
+                    <img className=" bg-cover bg-center w-full " src={image} alt='FAANG' />
                 </div>
                 <div className="mx-auto w-32 h-32 relative -mt-16 border-4 border-white rounded-full overflow-hidden">
                     <img className="object-cover h-32 w-32" src={profile.profile_picture} alt='Student Profile' />

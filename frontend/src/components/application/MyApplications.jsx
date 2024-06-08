@@ -9,6 +9,8 @@ import AdminHeader from "../admin/AdminHeader";
 import StudentHeader from "../student/StudentHeader";
 import AdminNavbar from "../admin/AdminNavbar";
 import AsideBar from "../student/AsideBar";
+import image from "../../assets/home.svg";
+
 axios.defaults.withCredentials = true;
 const PORT = import.meta.env.VITE_DOMAIN;
 
@@ -106,7 +108,7 @@ export default function MyApplications() {
                                 !applications || applications.length <= 0 ? (
                                     <div className="flex flex-wrap justify-center mx-4">
                                         <div className="md:w-1/3 mt-20 ">
-                                            <img src="https://storage.googleapis.com/devitary-image-host.appspot.com/15848031292911696601-undraw_designer_life_w96d.svg" alt="Internship" className="w-full h-auto" />
+                                            <img src={image} alt="Internship" className="w-full h-auto" />
                                             <div className="flex flex-wrap justify-center mt-10 text-xl font-extrabold">NO Applications Found</div>
                                         </div>
                                     </div>
@@ -147,7 +149,7 @@ export default function MyApplications() {
                                 !applications || applications.length <= 0 ? (
                                     <div className="flex flex-wrap justify-center mx-4">
                                         <div className="md:w-1/3 mt-20 ">
-                                            <img src="https://storage.googleapis.com/devitary-image-host.appspot.com/15848031292911696601-undraw_designer_life_w96d.svg" alt="Internship" className="w-full h-auto" />
+                                            <img src={image} alt="Internship" className="w-full h-auto" />
                                             <div className="flex flex-wrap justify-center mt-10 text-xl font-extrabold">NO Applications Found</div>
                                         </div>
                                     </div>

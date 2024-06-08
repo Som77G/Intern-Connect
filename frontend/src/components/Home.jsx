@@ -3,6 +3,8 @@ import { BsFillInfoCircleFill } from "react-icons/bs";
 import { useState } from "react";
 import { BiSolidLogInCircle, BiMenu } from 'react-icons/bi';
 import { NavLink } from "react-router-dom";
+import image from "../assets/home.svg";
+
 
 
 export default function Home() {
@@ -73,7 +75,7 @@ export default function Home() {
 
                     {/* Image Section */}
                     <div className="md:w-1/2 mt-10 md:mt-0">
-                        <img src="https://storage.googleapis.com/devitary-image-host.appspot.com/15848031292911696601-undraw_designer_life_w96d.svg" alt="Internship" className="w-full h-auto" />
+                        <img src={image} alt="Internship" className="w-full h-auto" />
                     </div>
                 </div>
             </div>

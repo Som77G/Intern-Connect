@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { FaLinkedin, FaGithub } from "react-icons/fa";
+import image from "../../assets/studentCover.jpeg";
 
 
 export default function ProfileCard({ profile }) {
@@ -10,7 +11,7 @@ export default function ProfileCard({ profile }) {
             <div
                 className="mb-10 w-3/5 sm:mx-auto md:mx-auto lg:mx-auto xl:mx-auto mt-16 bg-zinc-900 shadow-xl rounded-lg text-gray-900">
                 <div className="rounded-t-lg h-32 overflow-hidden">
-                    <img className=" bg-cover bg-center w-full " src='https://cdn.hackernoon.com/images/77fdrPu4ybMLx0OjzBBTzNBhT1f2-4qc3e1d.jpeg' alt='FAANG' />
+                    <img className=" bg-cover bg-center w-full " src={image} alt='FAANG' />
                 </div>
                 <div className="mx-auto w-32 h-32 relative -mt-16 border-4 border-white rounded-full overflow-hidden">
                     <img className="object-cover h-32 w-32" src={profile.profile_picture} alt='Student Profile' />
