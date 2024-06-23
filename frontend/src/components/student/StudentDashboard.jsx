@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { useAdminContext } from "../../hooks/useAdminContext";
 import {useProfileContext} from "../../hooks/useProfileContext"
 import AsideBar from "./AsideBar";
+import image from "../../assets/home.svg";
+
 
 const PORT = import.meta.env.VITE_DOMAIN;
 
@@ -26,9 +28,9 @@ export default function StudentDashboard() {
       demoLink: profile.project1_demo_link
     }
     project2 = {
-      githubLink: profile.project1_github_link,
-      projectLink: profile.project1_project_link,
-      demoLink: profile.project1_demo_link
+      githubLink: profile.project2_github_link,
+      projectLink: profile.project2_project_link,
+      demoLink: profile.project2_demo_link
     }
   }
   
@@ -43,7 +45,7 @@ export default function StudentDashboard() {
             (<>
                 <div className="flex flex-wrap justify-center m-4 w-full h-screen">
                 <div className="md:w-1/3 mt-36 ">
-                        <img src="https://storage.googleapis.com/devitary-image-host.appspot.com/15848031292911696601-undraw_designer_life_w96d.svg" alt="Internship" className="w-full h-auto" />
+                        <img src={image} alt="Internship" className="w-full h-auto" />
                         <div className="flex flex-wrap justify-center mt-10 text-xl font-extrabold">Complete your profile Now...</div> 
                 </div>
                 </div>
@@ -65,8 +67,8 @@ export default function StudentDashboard() {
           <div className="border-l my-4 border-stone-500"></div>
           <div className="w-2/5 mt-8 ">
             
-            <div className="w-full"><ShowProjects project={project1} /></div>
-            <div className="w-full"><ShowProjects project={project2} /></div>
+            <div className="w-full"><ShowProjects project={project1} number = {1} /></div>
+            <div className="w-full"><ShowProjects project={project2} number = {2} /></div>
             <div className="mx-4 mt-8 flex justify-center items-center h-96">
               <iframe className="w-full h-full border-none" src={profile.resume}></iframe>
             </div>

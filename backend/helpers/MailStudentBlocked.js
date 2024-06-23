@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const nodemailer = require('nodemailer');
 
-const MailDeductInCredits = async({email, first_name, last_name, message}) => {
+const MailStudentBlocked = async({email, first_name, last_name, message}) => {
     try {
         const myEmail = process.env.MY_EMAIL;
         const myPassword = process.env.MY_PASSWORD;
@@ -19,8 +19,8 @@ const MailDeductInCredits = async({email, first_name, last_name, message}) => {
         const mailOptions = {
             from: myEmail, 
             to: email,
-            subject: 'Deduction in SIP credits',
-            html: `<p>Dear ${first_name} ${last_name}, your SIP credits have been dedicted because of the following reason : ${message}</p> `
+            subject: 'Not Applicable to Apply More through SIP Portal',
+            html: `<p>Dear ${first_name} ${last_name}, your SIP Portal has been blocked and you are no longer applicable to apply for more jobs due to following reason: ${message}</p> `
         };
 
         // Send email
@@ -37,4 +37,4 @@ const MailDeductInCredits = async({email, first_name, last_name, message}) => {
     }
 }
 
-module.exports = {MailDeductInCredits};
+module.exports = {MailStudentBlocked};

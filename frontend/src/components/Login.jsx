@@ -6,6 +6,7 @@ import UseSocketSetup from "../hooks/UseSocketSetup";
 import StudentDashboard from "./student/StudentDashboard";
 import { toast } from 'react-toastify';
 import { useNewMessageContext } from "../hooks/useNewMessageContext";
+import image from "../assets/home.svg";
 
 axios.defaults.withCredentials = true;
 
@@ -60,7 +61,7 @@ export default function Login() {
             //     }
             // }
             console.log("User of login: ", type);
-            const loginUser = { userid: message.userid, username: message.username, userType: type, profileCreated : message.profilecreated }
+            const loginUser = { userid: message.userid, username: message.username, userType: type, profileCreated : message.profilecreated, profileBlocked : message.profileblocked }
             
             if (message.resetpassword != 0) {
                 toast.success("Login Successful")
@@ -205,9 +206,9 @@ export default function Login() {
                             <div
                                 className="hidden md:block md:w-1/2 rounded-r-lg"
                                 style={{
-                                    background: "url('https://storage.googleapis.com/devitary-image-host.appspot.com/15848031292911696601-undraw_designer_life_w96d.svg')",
+                                    background: `url(${image})`,
                                     backgroundSize: 'cover',
-                                    backgroundPosition: 'center center'
+                                    backgroundPosition: 'center'
                                 }}
                             ></div>
                         </div>

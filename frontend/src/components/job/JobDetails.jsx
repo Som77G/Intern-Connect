@@ -47,10 +47,11 @@ export default function JobDetails() {
         <section className="flex flex-col md:flex-row lg:flex-row py-1 bg-blueGray-50">
         {user.userType == 'admin' ? <AdminNavbar/> : <AsideBar/>}
         {user && job && (
-              <section className="py-8 bg-black min-h-screen">
-              <div className="container mx-auto px-4">
-                  <h3 className="text-2xl font-bold mb-6 text-white">Job Details</h3>
-                  <div className="p-6 bg-gray-800 rounded-lg shadow-md">
+              <section className="py-8  min-h-screen">
+              <div className="container mx-auto px-8">
+                  <h3 className="text-center text-3xl font-bold mb-6 text-white">Job Detail</h3>
+                  <hr/>
+                  <div className="p-6 bg-zinc-900 rounded-lg shadow-md">
                       <p className="mb-4 text-white">
                           <span className="font-semibold">Title:</span> <span>{job.title}</span>
                       </p>
@@ -82,7 +83,7 @@ export default function JobDetails() {
                               </span>
                           )}
                       </p>
-                      {user && user.userType !== "admin" && (
+                      {user && user.userType !== "admin" && user.profileBlocked !== 1 && (
                           <NavLink
                               to={`/user/application/${job.id}`} 
                               className="inline-block mt-6 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700 transition duration-200"
@@ -94,7 +95,7 @@ export default function JobDetails() {
               </div>
           </section>
         )}
-        {(!user || !job) && <h3 className="text-center text-3xl font-extrabold text-white">Processing...</h3>}
+        {(!user || !job) && <h3 className="mx-auto my-auto text-center text-3xl font-extrabold text-white">Fetching Detail...</h3>}
         </section>
         </>
     );

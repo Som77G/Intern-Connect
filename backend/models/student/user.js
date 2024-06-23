@@ -11,6 +11,7 @@ const createStudentUserTable = async(dbconnection) => {
                 resetpassword BOOLEAN DEFAULT FALSE,
                 profilecreated BOOLEAN DEFAULT FALSE,
                 userid VARCHAR(100) PRIMARY KEY,
+                profileblocked BOOLEAN DEFAULT FALSE,
                 verifytoken VARCHAR(100)
             )
         `);
