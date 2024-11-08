@@ -3,6 +3,7 @@
 Intern-Connect is an innovative platform designed to bridge the gap between students and internship opportunities. Whether you're a student looking to gain experience or an administrator managing internship programs, Intern-Connect provides a comprehensive solution.
 
 Our website is hosted on [Intern-Connect](https://internconnect-somesh-guptas-projects.vercel.app/)
+[Demo of our website](https://youtu.be/HIGJttxL22E?si=IXS770o-Ha-2kazV)
 
 ## Features
 
